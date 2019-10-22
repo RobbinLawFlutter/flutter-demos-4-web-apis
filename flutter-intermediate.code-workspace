@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "ac_location"
+		},
+		{
+			"path": "ae-state-life-cycle--demo"
 		}
 	],
 	"settings": {}
