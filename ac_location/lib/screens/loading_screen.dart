@@ -18,8 +18,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void getLocation() async {
     Location location = Location();
     await location.getCurrentLocation();
-    print('longitude is ${location.longitude}');
     print('latitude is ${location.latitude}');
+    print('longitude is ${location.longitude}');
   }
 
   @override
