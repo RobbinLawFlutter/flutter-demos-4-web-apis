@@ -23,6 +23,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
     await location.getCurrentLocation();
     lat = location.latitude;
     lon = location.longitude;
+    lat = 53.55;
+    lon = -113.469;
     print('latitude is $lat');
     print('longitude is $lon');
     getData();
