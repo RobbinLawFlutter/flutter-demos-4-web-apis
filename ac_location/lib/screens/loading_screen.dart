@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:clima/services/location.dart';
 import 'package:clima/services/networking.dart';
+import 'package:clima/screens/location_screen.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -39,7 +40,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
     print(temperature);
     var cityName = weatherData['name'];
     print(cityName);
-
+    Navigator.push(context, MaterialPageRoute(builder: (context){
+      return LocationScreen();
+    }));
   }
 
   @override
