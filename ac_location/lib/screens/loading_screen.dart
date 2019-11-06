@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clima/services/location.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:clima/services/networking.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -13,12 +12,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
-    getLocation();
+    getLocationData();
   }
 
   var lat;
   var lon;
-  void getLocation() async {
+  void getLocationData() async {
     Location location = Location();
     await location.getCurrentLocation();
     lat = location.latitude;
@@ -27,28 +26,20 @@ class _LoadingScreenState extends State<LoadingScreen> {
     lon = -113.469;
     print('latitude is $lat');
     print('longitude is $lon');
-    getData();
-  }
-
-  void getData() async {
-    http.Response response = await http.get(
-        'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$apiKey');
-    if (response.statusCode == 200) {
-      String data = response.body;
-      var decodedData = jsonDecode(data);
-      var latitude = decodedData['coord']['lat'];
+    String url = 'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$apiKey';
+    NetworkHelper networkHelper = new NetworkHelper(url);
+    var weatherData = await networkHelper.getData();
+var latitude = weatherData['coord']['lat'];
       print(latitude);
-      var longitude = decodedData['coord']['lon'];
+      var longitude = weatherData['coord']['lon'];
       print(longitude);
-      var weatherDescription = decodedData['weather'][0]['description'];
+      var weatherDescription = weatherData['weather'][0]['description'];
       print(weatherDescription);
-      var temperature = decodedData['main']['temp'];
+      var temperature = weatherData['main']['temp'];
       print(temperature);
-      var cityName = decodedData['name'];
+      var cityName = weatherData['name'];
       print(cityName);
-    } else {
-      print(response.statusCode);
-    }
+
   }
 
   @override
