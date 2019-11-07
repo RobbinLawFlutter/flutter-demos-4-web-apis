@@ -28,7 +28,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     lon = -113.469;
     print('latitude is $lat');
     print('longitude is $lon');
-    String url = 'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$apiKey';
+    String url = 'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&units=metric&appid=$apiKey';
     NetworkHelper networkHelper = new NetworkHelper(url);
     var weatherData = await networkHelper.getData();
     var latitude = weatherData['coord']['lat'];
