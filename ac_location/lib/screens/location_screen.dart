@@ -11,7 +11,7 @@ class LocationScreen extends StatefulWidget {
 class _LocationScreenState extends State<LocationScreen> {
   String weatherDescription;
   int temperature;
-  //int condition;
+  int condition;
   String cityName;
 
   @override
@@ -27,6 +27,8 @@ class _LocationScreenState extends State<LocationScreen> {
     double temp = weatherData['main']['temp'];
     temperature = temp.toInt();
     print(temperature);
+    condition = weatherData['weather'][0]['id'];
+    print(condition);
     cityName = weatherData['name'];
     print(cityName);
   }
