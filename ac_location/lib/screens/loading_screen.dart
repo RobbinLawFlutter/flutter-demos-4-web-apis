@@ -42,7 +42,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     var cityName = weatherData['name'];
     print(cityName);
     Navigator.push(context, MaterialPageRoute(builder: (context){
-      return LocationScreen();
+      return LocationScreen(weatherData);
     }));
   }
 
