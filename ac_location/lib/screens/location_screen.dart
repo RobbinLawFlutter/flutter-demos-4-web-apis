@@ -13,6 +13,7 @@ class _LocationScreenState extends State<LocationScreen> {
   WeatherModel weatherModel = new WeatherModel();
   String weatherDescription;
   int temperature;
+  //double temperature;
   String weatherIcon;
   String cityName;
   String weatherMessage;
@@ -29,6 +30,7 @@ class _LocationScreenState extends State<LocationScreen> {
       weatherDescription = weatherData['weather'][0]['description'];
     print(weatherDescription);
     double temp = weatherData['main']['temp'];
+    //temperature = temp;
     temperature = temp.toInt();
     print(temperature);
     int condition = weatherData['weather'][0]['id'];
