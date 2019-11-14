@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:clima/services/location.dart';
-import 'package:clima/services/networking.dart';
+import 'package:clima/services/weather.dart';
 import 'package:clima/screens/location_screen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -10,7 +9,6 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  static const apiKey = 'eada4f9ea302c58abd6d02fb791a812a';
   @override
   void initState() {
     super.initState();
@@ -20,17 +18,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   var lat;
   var lon;
   void getLocationData() async {
-    Location location = Location();
-    await location.getCurrentLocation();
-    lat = location.latitude;
-    lon = location.longitude;
-    lat = 53.55;
-    lon = -113.469;
-    print('latitude is $lat');
-    print('longitude is $lon');
-    String url = 'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&units=metric&appid=$apiKey';
-    NetworkHelper networkHelper = new NetworkHelper(url);
-    var weatherData = await networkHelper.getData();
+    WeatherModel weatherModel = WeatherModel();
+    var weatherData = await weatherModel.getLocationWether();
     var latitude = weatherData['coord']['lat'];
     print(latitude);
     var longitude = weatherData['coord']['lon'];
@@ -41,13 +30,20 @@ class _LoadingScreenState extends State<LoadingScreen> {
     print(temperature);
     var cityName = weatherData['name'];
     print(cityName);
-    Navigator.push(context, MaterialPageRoute(builder: (context){
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
       return LocationScreen(weatherData);
     }));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: SpinKitDoubleBounce(color: Colors.white, size: 100,),),);
+    return Scaffold(
+      body: Center(
+        child: SpinKitDoubleBounce(
+          color: Colors.white,
+          size: 100,
+        ),
+      ),
+    );
   }
 }
