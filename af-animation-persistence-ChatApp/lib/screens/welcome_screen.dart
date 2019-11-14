@@ -12,6 +12,8 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
+  Animation animation1;
+  Animation animation2;
   @override
   void initState() {
     // TODO: implement initState
@@ -19,19 +21,37 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     controller = AnimationController(
       duration: Duration(seconds: 2),
       vsync: this, // the ticker
-      upperBound: 100.0,
     );
+    animation1 = CurvedAnimation(parent: controller, curve: Curves.decelerate);
+    animation2 = ColorTween(begin: Colors.purple, end: Colors.lightGreen)
+        .animate(controller);
     controller.forward();
+    animation1.addStatusListener((status) {
+      print(status);
+      if (status == AnimationStatus.completed) {
+        controller.reverse(from: 1.0);
+      } else if (status == AnimationStatus.dismissed) {
+        controller.forward();
+      }
+    });
     controller.addListener(() {
       setState(() {});
-      print(controller.value);
+      print(animation1.value);
+      print(animation2.value);
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red.withOpacity(controller.value / 100),
+      backgroundColor: Colors.red.withOpacity(controller.value),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -44,11 +64,11 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   tag: 'logo',
                   child: Container(
                     child: Image.asset('images/logo.png'),
-                    height: 60.0,
+                    height: animation1.value * 100,
                   ),
                 ),
                 Text(
-                  '${controller.value.toInt()}%',
+                  '${(animation1.value * 100).toInt()}%',
                   style: TextStyle(
                     fontSize: 45.0,
                     fontWeight: FontWeight.w900,
@@ -63,7 +83,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Material(
                 elevation: 5.0,
-                color: Colors.lightBlueAccent,
+                color: animation2.value,
                 borderRadius: BorderRadius.circular(30.0),
                 child: MaterialButton(
                   onPressed: () {
