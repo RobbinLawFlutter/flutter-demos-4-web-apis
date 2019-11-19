@@ -4,21 +4,25 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 void main() async {
-  final database = openDatabase(
-    // Set the path to the database. Note: Using the `join` function from the
-    // `path` package is best practice to ensure the path is correctly
-    // constructed for each platform.
-    join(await getDatabasesPath(), 'doggie_database.db'),
-    // When the database is first created, create a table to store dogs.
-    onCreate: (db, version) {
-      return db.execute(
-        "CREATE TABLE dogs(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)",
-      );
-    },
-    // Set the version. This executes the onCreate function and provides a
-    // path to perform database upgrades and downgrades.
-    version: 1,
-  );
+  Database database;
+  var databasesPath = await getDatabasesPath();
+  String path = join(databasesPath, 'demo.db');
+  print(path);
+  //final database = openDatabase(
+  // Set the path to the database. Note: Using the `join` function from the
+  // `path` package is best practice to ensure the path is correctly
+  // constructed for each platform.
+  //join(await getDatabasesPath(), 'doggie_database.db'),
+  // When the database is first created, create a table to store dogs.
+  //onCreate: (db, version) {
+  //return db.execute(
+  //"CREATE TABLE dogs(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)",
+  //);
+  //},
+  // Set the version. This executes the onCreate function and provides a
+  // path to perform database upgrades and downgrades.
+  //version: 1,
+  //);
 
   Future<void> insertDog(Dog dog) async {
     // Get a reference to the database.
