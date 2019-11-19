@@ -30,6 +30,7 @@ dependencies:
   #cloud_firestore: ^0.12.10
   #cloud_firestore: ^0.9.13+1
   firebase_storage: ^3.0.8
+  cloud_firestore:
 
 dev_dependencies:
   flutter_test:

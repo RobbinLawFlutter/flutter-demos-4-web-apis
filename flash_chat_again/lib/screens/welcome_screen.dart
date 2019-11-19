@@ -30,11 +30,13 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     controller.forward();
     animation1.addStatusListener((status) {
       print(status);
+      /*
       if (status == AnimationStatus.completed) {
         controller.reverse(from: 1.0);
       } else if (status == AnimationStatus.dismissed) {
         controller.forward();
       }
+      */
     });
     controller.addListener(() {
       setState(() {});
@@ -53,7 +55,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red.withOpacity(controller.value),
+      backgroundColor: Colors.white.withOpacity(0.5),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
