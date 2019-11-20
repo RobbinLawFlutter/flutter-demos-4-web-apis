@@ -113,7 +113,6 @@ class DatabaseHelper {
   Future<List<Dog>> dogs() async {
     // Query the table for all The Dogs.
     final List<Map<String, dynamic>> maps = await db.query('dogs');
-
     // Convert the List<Map<String, dynamic> into a List<Dog>.
     return List.generate(maps.length, (i) {
       return Dog(
@@ -124,17 +123,7 @@ class DatabaseHelper {
     });
   }
 
-// Implement toString to make it easier to see information about
-  // each dog when using the print statement.
-  //@override
-  //String toString() {
-  //return 'Dog{id: $id, name: $name, age: $age}';
-  //}
-
   Future<void> updateDog(Dog dog) async {
-    // Get a reference to the database.
-    //final Database db = await database;
-
     // Update the given Dog.
     await db.update(
       'dogs',
@@ -147,9 +136,6 @@ class DatabaseHelper {
   }
 
   Future<void> deleteDog(int id) async {
-    // Get a reference to the database.
-    //final Database db = await database;
-
     // Remove the Dog from the database.
     await db.delete(
       'dogs',
