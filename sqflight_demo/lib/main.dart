@@ -1,107 +1,57 @@
+import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-void main() async {
-  final database = openDatabase(
-    join(await getDatabasesPath(), 'doggie_database.db'),
-    onCreate: (db, version) {
-      return db.execute(
-        "CREATE TABLE dogs(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)",
-      );
-    },
-    version: 1,
-  );
+void main() => runApp(MyDataApp());
 
-  Future<void> insertDog(Dog dog) async {
-    // Get a reference to the database.
-    final Database db = await database;
+class MyDataApp extends StatefulWidget {
+  @override
+  _MyDataAppState createState() => _MyDataAppState();
+}
 
-    // Insert the Dog into the correct table. Also specify the
-    // `conflictAlgorithm`. In this case, if the same dog is inserted
-    // multiple times, it replaces the previous data.
-    await db.insert(
-      'dogs',
-      dog.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+class _MyDataAppState extends State<MyDataApp> {
+  DatabaseHelper databaseHelper = DatabaseHelper();
+
+  @override
+  void initState() {
+    super.initState();
+    runTheCode();
+  }
+
+  void runTheCode() async {
+    await databaseHelper.getOrCreateDatabaseHandle();
+
+    var fido = Dog(
+      id: 0,
+      name: 'Fido',
+      age: 35,
     );
-  }
 
-  Future<List<Dog>> dogs() async {
-    // Get a reference to the database.
-    final Database db = await database;
+    await databaseHelper.insertDog(fido);
 
-    // Query the table for all The Dogs.
-    final List<Map<String, dynamic>> maps = await db.query('dogs');
+    databaseHelper.printDogs();
 
-    // Convert the List<Map<String, dynamic> into a List<Dog>.
-    return List.generate(maps.length, (i) {
-      return Dog(
-        id: maps[i]['id'],
-        name: maps[i]['name'],
-        age: maps[i]['age'],
-      );
-    });
-  }
-
-  Future<void> updateDog(Dog dog) async {
-    // Get a reference to the database.
-    final db = await database;
-
-    // Update the given Dog.
-    await db.update(
-      'dogs',
-      dog.toMap(),
-      // Ensure that the Dog has a matching id.
-      where: "id = ?",
-      // Pass the Dog's id as a whereArg to prevent SQL injection.
-      whereArgs: [dog.id],
+    fido = Dog(
+      id: fido.id,
+      name: fido.name,
+      age: fido.age + 7,
     );
+
+    await databaseHelper.updateDog(fido);
+
+    databaseHelper.printDogs();
+
+    await databaseHelper.deleteDog(fido.id);
+
+    databaseHelper.printDogs();
   }
 
-  Future<void> deleteDog(int id) async {
-    // Get a reference to the database.
-    final db = await database;
-
-    // Remove the Dog from the database.
-    await db.delete(
-      'dogs',
-      // Use a `where` clause to delete a specific dog.
-      where: "id = ?",
-      // Pass the Dog's id as a whereArg to prevent SQL injection.
-      whereArgs: [id],
-    );
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
-
-  var fido = Dog(
-    id: 0,
-    name: 'Fido',
-    age: 35,
-  );
-
-  // Insert a dog into the database.
-  await insertDog(fido);
-
-  // Print the list of dogs (only Fido for now).
-  print(await dogs());
-
-  // Update Fido's age and save it to the database.
-  fido = Dog(
-    id: fido.id,
-    name: fido.name,
-    age: fido.age + 7,
-  );
-  await updateDog(fido);
-
-  // Print Fido's updated information.
-  print(await dogs());
-
-  // Delete Fido from the database.
-  await deleteDog(fido.id);
-
-  // Print the list of dogs (empty).
-  print(await dogs());
 }
 
 class Dog {
@@ -118,11 +68,95 @@ class Dog {
       'age': age,
     };
   }
+}
 
-  // Implement toString to make it easier to see information about
+class DatabaseHelper {
+  Database db;
+
+  Future<void> getOrCreateDatabaseHandle() async {
+    var databasesPath = await getDatabasesPath();
+    var path = join(databasesPath, 'doggie_database.db');
+    print('$path');
+    db = await openDatabase(
+      path,
+      onCreate: (Database db1, int version) async {
+        await db1.execute(
+          "CREATE TABLE dogs(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)",
+        );
+      },
+      version: 1,
+    );
+  }
+
+  Future<void> insertDog(Dog dog) async {
+    // Insert the Dog into the correct table. Also specify the
+    // `conflictAlgorithm`. In this case, if the same dog is inserted
+    // multiple times, it replaces the previous data.
+    await db.insert(
+      'dogs',
+      dog.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<void> printDogs() async {
+    List<Dog> listOfDogs = await this.dogs();
+    if (listOfDogs.length == 0) {
+      print('No Dogs in the list');
+    } else {
+      listOfDogs.forEach((dog) {
+        print('Dog{id: ${dog.id}, name: ${dog.name}, age: ${dog.age}');
+      });
+    }
+  }
+
+  Future<List<Dog>> dogs() async {
+    // Query the table for all The Dogs.
+    final List<Map<String, dynamic>> maps = await db.query('dogs');
+
+    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    return List.generate(maps.length, (i) {
+      return Dog(
+        id: maps[i]['id'],
+        name: maps[i]['name'],
+        age: maps[i]['age'],
+      );
+    });
+  }
+
+// Implement toString to make it easier to see information about
   // each dog when using the print statement.
-  @override
-  String toString() {
-    return 'Dog{id: $id, name: $name, age: $age}';
+  //@override
+  //String toString() {
+  //return 'Dog{id: $id, name: $name, age: $age}';
+  //}
+
+  Future<void> updateDog(Dog dog) async {
+    // Get a reference to the database.
+    //final Database db = await database;
+
+    // Update the given Dog.
+    await db.update(
+      'dogs',
+      dog.toMap(),
+      // Ensure that the Dog has a matching id.
+      where: "id = ?",
+      // Pass the Dog's id as a whereArg to prevent SQL injection.
+      whereArgs: [dog.id],
+    );
+  }
+
+  Future<void> deleteDog(int id) async {
+    // Get a reference to the database.
+    //final Database db = await database;
+
+    // Remove the Dog from the database.
+    await db.delete(
+      'dogs',
+      // Use a `where` clause to delete a specific dog.
+      where: "id = ?",
+      // Pass the Dog's id as a whereArg to prevent SQL injection.
+      whereArgs: [id],
+    );
   }
 }
