@@ -1,18 +1,36 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'dog_list.dart';
+import 'dog.dart';
 
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart' as pathPackage;
+import 'package:sqflite/sqflite.dart' as sqflitePackage;
 
-void main() => runApp(MyDataApp());
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData.dark(),
+      home: MyDataApp(),
+    );
+  }
+}
 
 class MyDataApp extends StatefulWidget {
+  MyDataApp({
+    Key key,
+  }) : super(key: key);
+
   @override
   _MyDataAppState createState() => _MyDataAppState();
 }
 
 class _MyDataAppState extends State<MyDataApp> {
   DatabaseHelper databaseHelper = DatabaseHelper();
+  var _dogList = List<Dog>();
+  String _dogName = "";
 
   @override
   void initState() {
@@ -22,64 +40,77 @@ class _MyDataAppState extends State<MyDataApp> {
 
   void runTheCode() async {
     await databaseHelper.getOrCreateDatabaseHandle();
+  }
 
-    var fido = Dog(
-      id: 0,
-      name: 'Fido',
-      age: 35,
-    );
-
-    await databaseHelper.insertDog(fido);
-
-    databaseHelper.printDogs();
-
-    fido = Dog(
-      id: fido.id,
-      name: fido.name,
-      age: fido.age + 7,
-    );
-
-    await databaseHelper.updateDog(fido);
-
-    databaseHelper.printDogs();
-
-    await databaseHelper.deleteDog(fido.id);
-
-    databaseHelper.printDogs();
+  Future<Null> _inputDog() async {
+    await showDialog<String>(
+        context: context,
+        builder: (BuildContext context) {
+          return new AlertDialog(
+            title: const Text('Input Dogs Name'),
+            contentPadding: EdgeInsets.all(5.0),
+            content: new TextField(
+              decoration: new InputDecoration(hintText: "Dogs Name"),
+              onChanged: (String value) {
+                _dogName = value;
+              },
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("Ok"),
+                onPressed: () async {
+                  if (_dogName.isNotEmpty) {
+                    await databaseHelper.insertDog(
+                        Dog(id: _dogList.length, name: _dogName, age: 5));
+                    databaseHelper.printDogs();
+                    setState(() {
+                      _dogList
+                          .add(new Dog(id: _dogList.length, name: _dogName));
+                    });
+                  }
+                  _dogName = "";
+                  Navigator.pop(context);
+                },
+              ),
+              new FlatButton(
+                child: new Text("Cancel"),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          );
+        });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class Dog {
-  final int id;
-  final String name;
-  final int age;
-
-  Dog({this.id, this.name, this.age});
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'age': age,
-    };
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('db Demo'),
+      ),
+      body: new Container(
+        child: new Center(
+          child: new DogList(dogs: _dogList),
+        ),
+      ),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: () => _inputDog(),
+        tooltip: 'Add',
+        child: new Icon(Icons.add),
+      ),
+    );
   }
 }
 
 class DatabaseHelper {
-  Database db;
+  sqflitePackage.Database db;
 
   Future<void> getOrCreateDatabaseHandle() async {
-    var databasesPath = await getDatabasesPath();
-    var path = join(databasesPath, 'doggie_database.db');
+    var databasesPath = await sqflitePackage.getDatabasesPath();
+    var path = pathPackage.join(databasesPath, 'doggie_database.db');
     print('$path');
-    db = await openDatabase(
+    db = await sqflitePackage.openDatabase(
       path,
-      onCreate: (Database db1, int version) async {
+      onCreate: (sqflitePackage.Database db1, int version) async {
         await db1.execute(
           "CREATE TABLE dogs(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)",
         );
@@ -95,7 +126,7 @@ class DatabaseHelper {
     await db.insert(
       'dogs',
       dog.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+      conflictAlgorithm: sqflitePackage.ConflictAlgorithm.replace,
     );
   }
 
