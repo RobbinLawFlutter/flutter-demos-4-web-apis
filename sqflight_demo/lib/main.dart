@@ -65,7 +65,7 @@ class _MyDataAppState extends State<MyDataApp> {
                     databaseHelper.printDogs();
                     setState(() {
                       _dogList
-                          .add(new Dog(id: _dogList.length, name: _dogName));
+                          .add(new Dog(id: _dogList.length, name: _dogName, age: 5));
                     });
                   }
                   _dogName = "";
