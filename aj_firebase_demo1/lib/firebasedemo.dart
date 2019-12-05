@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
             trailing: Text(record.votes.toString()),
             onTap: () {
               print(record);
-              record.reference.updateData({'votes': record.votes + 1});
+              record.reference.updateData({'votes': FieldValue.increment(1)});
             }),
       ),
     );
