@@ -47,10 +47,12 @@ class _MyHomePageState extends State<MyHomePage> {
           borderRadius: BorderRadius.circular(5.0),
         ),
         child: ListTile(
-          title: Text(record.name),
-          trailing: Text(record.votes.toString()),
-          onTap: () => print(record),
-        ),
+            title: Text(record.name),
+            trailing: Text(record.votes.toString()),
+            onTap: () {
+              print(record);
+              record.reference.updateData({'votes': record.votes + 1});
+            }),
       ),
     );
   }
