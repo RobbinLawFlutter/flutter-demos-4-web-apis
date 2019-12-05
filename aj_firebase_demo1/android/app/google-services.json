@@ -1,92 +1,34 @@
 {
   "project_info": {
-    "project_number": "181690686160",
-    "firebase_url": "https://flash-chat-4ac3b.firebaseio.com",
-    "project_id": "flash-chat-4ac3b",
-    "storage_bucket": "flash-chat-4ac3b.appspot.com"
+    "project_number": "442511002985",
+    "firebase_url": "https://firestoredemo-16c50.firebaseio.com",
+    "project_id": "firestoredemo-16c50",
+    "storage_bucket": "firestoredemo-16c50.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:181690686160:android:1c0040d481492974111cd5",
+        "mobilesdk_app_id": "1:442511002985:android:706ebbcf87df8fb2d241f8",
         "android_client_info": {
           "package_name": "com.example.aj_firebase_demo1"
         }
       },
       "oauth_client": [
         {
-          "client_id": "181690686160-cuisefibjik7bhgplcme4e249i0993g5.apps.googleusercontent.com",
+          "client_id": "442511002985-7hvejumf6oeou086je7umeeloptnhhh3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC2yRzWYn75Fx3C2FGVMfVLHoY1qOuiipI"
+          "current_key": "AIzaSyDGTP4AH02qGgVClzFX2KpGYSY5jVND584"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "181690686160-cuisefibjik7bhgplcme4e249i0993g5.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:181690686160:android:698fd763b691d4cb111cd5",
-        "android_client_info": {
-          "package_name": "com.example.flash_chat_again"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "181690686160-cuisefibjik7bhgplcme4e249i0993g5.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC2yRzWYn75Fx3C2FGVMfVLHoY1qOuiipI"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "181690686160-cuisefibjik7bhgplcme4e249i0993g5.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:181690686160:android:454eb39b7b1c578d111cd5",
-        "android_client_info": {
-          "package_name": "com.robbinlaw.flash_chat"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "181690686160-cuisefibjik7bhgplcme4e249i0993g5.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC2yRzWYn75Fx3C2FGVMfVLHoY1qOuiipI"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "181690686160-cuisefibjik7bhgplcme4e249i0993g5.apps.googleusercontent.com",
+              "client_id": "442511002985-7hvejumf6oeou086je7umeeloptnhhh3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
