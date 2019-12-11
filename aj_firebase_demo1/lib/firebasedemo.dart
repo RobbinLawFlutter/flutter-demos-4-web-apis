@@ -67,7 +67,9 @@ class Record {
       : assert(map['name'] != null),
         assert(map['votes'] != null),
         name = map['name'],
-        votes = map['votes'];
+        votes = map['votes'] {
+    print(this.reference.runtimeType);
+  }
 
   Record.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);
