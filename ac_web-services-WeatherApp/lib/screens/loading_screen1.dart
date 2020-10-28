@@ -1,12 +1,23 @@
-import 'package:flutter/material.dart';
-import 'package:clima/services/weather.dart';
-import 'package:clima/screens/location_screen.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+//Geolocator package from pub.dev
+//https://pub.dev/packages/geolocator
 
 //In android/app/src/main/AndroidManifest.xml
 //we must copy the following directly under the
 //<manifest> tag
 //<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+//<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
+//In ios/Runner/Info.plist
+//<key>NSLocationWhenInUseUsageDescription</key>
+//<string>This app needs access to location when open.</string>
+//<key>NSLocationAlwaysUsageDescription</key>
+//<string>This app needs access to location when in the background.</string>
+
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:clima/services/weather.dart';
+import 'package:clima/screens/location_screen.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoadingScreen1 extends StatefulWidget {
   @override
@@ -14,39 +25,21 @@ class LoadingScreen1 extends StatefulWidget {
 }
 
 class _LoadingScreen1State extends State<LoadingScreen1> {
-  @override
-  void initState() {
-    super.initState();
-    getLocationData();
-  }
-
-  var lat;
-  var lon;
-  void getLocationData() async {
-    WeatherModel weatherModel = WeatherModel();
-    var weatherData = await weatherModel.getLocationWether();
-    var latitude = weatherData['coord']['lat'];
-    print(latitude);
-    var longitude = weatherData['coord']['lon'];
-    print(longitude);
-    var weatherDescription = weatherData['weather'][0]['description'];
-    print(weatherDescription);
-    var temperature = weatherData['main']['temp'];
-    print(temperature);
-    var cityName = weatherData['name'];
-    print(cityName);
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return LocationScreen(weatherData);
-    }));
+  Future<void> getLocation() async {
+    Position position = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+    print(position);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SpinKitDoubleBounce(
-          color: Colors.white,
-          size: 100,
+        child: RaisedButton(
+          onPressed: () {
+            getLocation();
+          },
+          child: Text('Get Location'),
         ),
       ),
     );

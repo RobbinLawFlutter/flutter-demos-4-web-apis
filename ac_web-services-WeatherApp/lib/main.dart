@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData.dark(),
       home: LoadingScreen1(),
+      //home: LoadingScreen2(),
     );
   }
 }
