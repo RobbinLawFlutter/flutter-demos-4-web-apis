@@ -3,6 +3,11 @@ import 'package:clima/services/weather.dart';
 import 'package:clima/screens/location_screen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+//In android/app/src/main/AndroidManifest.xml
+//we must copy the following directly under the
+//<manifest> tag
+//<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
 class LoadingScreen1 extends StatefulWidget {
   @override
   _LoadingScreen1State createState() => _LoadingScreen1State();
