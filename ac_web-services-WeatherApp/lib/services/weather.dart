@@ -17,6 +17,7 @@ class WeatherModel {
     await location.getCurrentLocation();
     double lat = location.latitude;
     double lon = location.longitude;
+    //Edmonton, Alberta Data
     //lat = 53.55;
     //lon = -113.469;
     print('latitude is $lat');
