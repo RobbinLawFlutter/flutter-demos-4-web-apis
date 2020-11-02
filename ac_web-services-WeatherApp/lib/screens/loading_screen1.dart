@@ -38,14 +38,18 @@ class _LoadingScreen1State extends State<LoadingScreen1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: RaisedButton(
+      body: Column(children: [
+        RaisedButton(
           onPressed: () {
             getLocation();
           },
           child: Text('Get Location'),
         ),
-      ),
+        SpinKitDoubleBounce(
+          color: Colors.white,
+          size: 100,
+        ),
+      ]),
     );
   }
 }
