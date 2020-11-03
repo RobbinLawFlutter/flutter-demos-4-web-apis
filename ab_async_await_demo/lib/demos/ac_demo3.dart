@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class Demo3 extends StatelessWidget {
   Demo1({this.title});
 
@@ -9,23 +8,20 @@ class Demo3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-        ),
-        body: MyDemo(),
+      appBar: AppBar(
+        title: Text(title),
       ),
+      body: MyDemo(),
+    );
   }
 }
 
 class MyDemo extends StatefulWidget {
-  
   @override
   _MyDemoState createState() => _MyDemoState();
 }
 
 class _MyDemoState extends State<MyDemo> {
   @override
-  Widget build(BuildContext context) {
-    
-  }
+  Widget build(BuildContext context) {}
 }
