@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 
 class Demo3 extends StatelessWidget {
-  MyDemo1({this.title});
+  Demo1({this.title});
 
   final String title;
 
