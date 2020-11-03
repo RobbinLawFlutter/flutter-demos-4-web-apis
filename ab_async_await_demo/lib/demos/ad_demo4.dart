@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Demo4 extends StatelessWidget {
-  Demo1({this.title});
+  Demo4({this.title});
 
   final String title;
 
