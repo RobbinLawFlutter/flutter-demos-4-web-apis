@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:async_await/demos/aa_demo1.dart';
-import 'package:async_await/demos/ab_demo2.dart';
-import 'package:async_await/demos/ac_demo3.dart';
-import 'package:async_await/demos/ad_demo4.dart';
+import 'demos/aa_demo1.dart';
+import 'demos/ab_demo2.dart';
+import 'demos/ac_demo3.dart';
+import 'demos/ad_demo4.dart';
 
 void main() => runApp(
       MyDemos(),
