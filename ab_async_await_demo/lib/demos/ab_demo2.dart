@@ -23,5 +23,7 @@ class MyDemo extends StatefulWidget {
 
 class _MyDemoState extends State<MyDemo> {
   @override
-  Widget build(BuildContext context) {}
+  Widget build(BuildContext context) {
+    return Center();
+  }
 }
