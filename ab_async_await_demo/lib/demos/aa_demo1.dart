@@ -38,12 +38,12 @@ class _MyDemoState extends State<MyDemo> {
 
 void performTasks() {
   task1();
-  task2();
+  //task2();
   //task2a();
   //task2b();
-  //String task2Result = task2c();
-  task3();
-  //task3a(task2Result);
+  String task2Result = task2c();
+  //task3();
+  task3a(task2Result);
 }
 
 void task1() {
@@ -58,6 +58,7 @@ void task2() {
   print('Task 2 complete');
 }
 
+//In this method the sleep method runs synchronously.
 void task2a() {
   print('Task 2 start');
   Duration myThreeSeconds = Duration(seconds: 3);
@@ -68,13 +69,14 @@ void task2a() {
   print('Task 2 complete');
 }
 
+//In this method the Future.delayed method runs asynchronously.
 void task2b() {
   print('Task 2 start');
-  Duration myThreeSeconds = Duration(seconds: 3);
+  Duration myFiveSeconds = Duration(seconds: 5);
   //async method that will delay for 3 seconds,
   //and then run the callback method, which is
   //the second parm.
-  Future.delayed(myThreeSeconds, () {
+  Future.delayed(myFiveSeconds, () {
     String result = 'task 2 data';
     print('Task 2 complete');
   });
@@ -83,11 +85,11 @@ void task2b() {
 String task2c() {
   print('Task 2 start');
   String result;
-  Duration myThreeSeconds = Duration(seconds: 3);
-  //async method that will delay for 3 seconds,
+  Duration myFiveSeconds = Duration(seconds: 5);
+  //async method that will delay for 5 seconds,
   //and then run the callback method, which is
   //the second parm.
-  Future.delayed(myThreeSeconds, () {
+  Future.delayed(myFiveSeconds, () {
     result = 'task 2 data';
     print('Task 2 complete');
   });

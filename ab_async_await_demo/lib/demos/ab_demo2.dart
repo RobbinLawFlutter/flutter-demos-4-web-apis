@@ -54,6 +54,7 @@ Future<String> task2c() async {
   //async method that will delay for 3 seconds,
   //and then run the callback method, which is
   //the second parm.
+  //Using await will cause this to now act synchronously.
   await Future.delayed(myThreeSeconds, () {
     result = 'task 2 data';
     print('Task 2 complete');
