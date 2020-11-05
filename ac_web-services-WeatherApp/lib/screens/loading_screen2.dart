@@ -12,14 +12,14 @@ class _LoadingScreen2State extends State<LoadingScreen2> {
   @override
   void initState() {
     super.initState();
-    getLocationData();
+    getPhoneLocationWeatherData();
   }
 
   var lat;
   var lon;
-  void getLocationData() async {
+  void getPhoneLocationWeatherData() async {
     WeatherModel weatherModel = WeatherModel();
-    var weatherData = await weatherModel.getLocationWether();
+    var weatherData = await weatherModel.getLocationWeatherData();
     var latitude = weatherData['coord']['lat'];
     print(latitude);
     var longitude = weatherData['coord']['lon'];
