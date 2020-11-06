@@ -15,21 +15,9 @@ class _LoadingScreen2State extends State<LoadingScreen2> {
     getPhoneLocationWeatherData();
   }
 
-  var lat;
-  var lon;
   void getPhoneLocationWeatherData() async {
-    WeatherModel weatherModel = WeatherModel();
-    var weatherData = await weatherModel.getLocationWeatherData();
-    var latitude = weatherData['coord']['lat'];
-    print(latitude);
-    var longitude = weatherData['coord']['lon'];
-    print(longitude);
-    var weatherDescription = weatherData['weather'][0]['description'];
-    print(weatherDescription);
-    var temperature = weatherData['main']['temp'];
-    print(temperature);
-    var cityName = weatherData['name'];
-    print(cityName);
+    WeatherService weatherService = WeatherService();
+    var weatherData = await weatherService.getLocationWeatherData();
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return LocationScreen(weatherData);
     }));
