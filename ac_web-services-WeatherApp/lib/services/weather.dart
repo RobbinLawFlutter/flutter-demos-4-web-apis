@@ -1,3 +1,7 @@
+//Edmonton, Alberta Data
+//lon = -113.469
+//lat = 53.55
+
 import 'package:clima/services/location.dart';
 import 'package:clima/services/networking.dart';
 
@@ -6,15 +10,12 @@ const openWeatherMapURL = 'https://api.openweathermap.org/data/2.5/weather';
 
 class WeatherService {
   Future<dynamic> getLocationWeatherData() async {
-    Location location = Location();
-    await location.getCurrentLocation();
-    //Edmonton, Alberta Data
-    //lat = 53.55;
-    //lon = -113.469;
+    LocationService locationService = LocationService();
+    await locationService.getCurrentLocation();
     String url =
-        '$openWeatherMapURL?lat=${location.lat}&lon=${location.lon}&units=metric&appid=$apiKey';
-    NetworkHelper networkHelper = new NetworkHelper(url);
-    var weatherData = await networkHelper.getData();
+        '$openWeatherMapURL?lat=${locationService.lat}&lon=${locationService.lon}&units=metric&appid=$apiKey';
+    NetworkService networkService = NetworkService(url);
+    var weatherData = await networkService.getData();
     return weatherData;
   }
 
@@ -52,8 +53,8 @@ class WeatherService {
 
   Future<dynamic> getCityWeatherData(String cityName) async {
     var url = '$openWeatherMapURL?q=$cityName&appid=$apiKey&units=metric';
-    NetworkHelper networkHelper = NetworkHelper(url);
-    var weatherData = await networkHelper.getData();
+    NetworkService networkService = NetworkService(url);
+    var weatherData = await networkService.getData();
     return weatherData;
   }
 }

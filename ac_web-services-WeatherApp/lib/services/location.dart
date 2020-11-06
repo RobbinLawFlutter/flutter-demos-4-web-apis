@@ -1,6 +1,6 @@
 import 'package:geolocator/geolocator.dart';
 
-class Location {
+class LocationService {
   double lat;
   double lon;
 
@@ -10,12 +10,9 @@ class Location {
           .getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
       lat = position.latitude;
       lon = position.longitude;
-      print('geolocation of phone retrieved: YES');
-      print('geolocation latitude is $lat');
-      print('geolocation longitude is $lon');
+      print('phone location retrieved: YES  lon: $lon  lat: $lat');
     } catch (e) {
-      print('geolocation of phone retrieved: NO');
-      print(e);
+      print('phone location retrieved: NO  ERROR: $e');
     }
   }
 }
