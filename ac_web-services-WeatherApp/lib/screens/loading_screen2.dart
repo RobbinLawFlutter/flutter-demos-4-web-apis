@@ -11,13 +11,16 @@ class LoadingScreen2 extends StatefulWidget {
 class _LoadingScreen2State extends State<LoadingScreen2> {
   @override
   void initState() {
+    print('initState started');
     super.initState();
     getPhoneLocationWeatherData();
   }
 
   void getPhoneLocationWeatherData() async {
     WeatherService weatherService = WeatherService();
+    print('just before call to get weather data');
     var weatherData = await weatherService.getLocationWeatherData();
+    print('just after call to get weather data');
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return LocationScreen(weatherData);
     }));
@@ -25,6 +28,7 @@ class _LoadingScreen2State extends State<LoadingScreen2> {
 
   @override
   Widget build(BuildContext context) {
+    print('build started');
     return Scaffold(
       body: Center(
         child: SpinKitDoubleBounce(
