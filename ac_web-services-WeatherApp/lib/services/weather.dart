@@ -3,7 +3,7 @@
 //lat = 53.55
 
 import 'package:clima/services/location.dart';
-import 'package:clima/services/networking.dart';
+import 'package:clima/services/network.dart';
 
 const apiKey = 'eada4f9ea302c58abd6d02fb791a812a';
 const openWeatherMapURL = 'https://api.openweathermap.org/data/2.5/weather';
