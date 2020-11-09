@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+//dart:convert allows us to use jsonDecode
 import 'dart:convert';
 
 class NetworkService {
