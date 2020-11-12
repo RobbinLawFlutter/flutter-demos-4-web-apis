@@ -1,3 +1,6 @@
+//ListTile Widget of the Week
+//https://www.youtube.com/watch?v=l8dj0yPBvgQ
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +34,8 @@ class MyApp extends StatelessWidget {
           // Let the ListView.builder know how many items it needs to build.
           itemCount: items.length,
           // Provide an itemBuilder function. This is where the magic happens.
-          // Convert each item into a widget based on the type of item it is.
+          // Convert each item in the list
+          //into a widget based on the type of item it is.
           itemBuilder: (context, index) {
             final item = items[index];
 
