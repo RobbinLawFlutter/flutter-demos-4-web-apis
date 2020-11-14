@@ -1,28 +1,63 @@
+//https://flutter.dev/docs/cookbook/persistence/sqlite
+
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'dog_list.dart';
-import 'dog.dart';
 
 import 'package:path/path.dart' as pathPackage;
 import 'package:sqflite/sqflite.dart' as sqflitePackage;
 
+import 'dog.dart';
+import 'dog_list.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  final Color themeColor = Color(0xFF808366);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark(),
+      theme: ThemeData.light().copyWith(
+        brightness: Brightness.light,
+        accentColor: Colors.black,
+        primaryColor: themeColor,
+        primaryTextTheme: TextTheme(),
+        scaffoldBackgroundColor: themeColor,
+        dialogTheme: DialogTheme(
+          backgroundColor: Colors.orange[50],
+          titleTextStyle: TextStyle(
+            color: Colors.orange,
+          ),
+          contentTextStyle: TextStyle(
+            color: Colors.yellow,
+          ),
+        ),
+        indicatorColor: Colors.black,
+        textTheme: TextTheme(
+          //subtitle1 is for ListTile text color.
+          subtitle1: TextStyle(color: Colors.black),
+          bodyText1: TextStyle(
+            //color: Colors.white,
+            fontSize: 36,
+          ),
+        ),
+        buttonTheme: ButtonThemeData(
+          buttonColor: Colors.white,
+          textTheme: ButtonTextTheme.primary,
+        ),
+        iconTheme: IconThemeData(
+          //color: Colors.white,
+          size: 200,
+        ),
+        primaryIconTheme: IconThemeData(
+            //color: Colors.white,
+            ),
+      ),
       home: MyDataApp(),
     );
   }
 }
 
 class MyDataApp extends StatefulWidget {
-  MyDataApp({
-    Key key,
-  }) : super(key: key);
-
   @override
   _MyDataAppState createState() => _MyDataAppState();
 }
@@ -35,68 +70,121 @@ class _MyDataAppState extends State<MyDataApp> {
   @override
   void initState() {
     super.initState();
-    runTheCode();
+    getOrCreateDbAndDisplayAllDogsInDb();
   }
 
-  void runTheCode() async {
+  void getOrCreateDbAndDisplayAllDogsInDb() async {
     await databaseHelper.getOrCreateDatabaseHandle();
-  }
-
-  Future<Null> _inputDog() async {
-    await showDialog<String>(
-        context: context,
-        builder: (BuildContext context) {
-          return new AlertDialog(
-            title: const Text('Input Dogs Name'),
-            contentPadding: EdgeInsets.all(5.0),
-            content: new TextField(
-              decoration: new InputDecoration(hintText: "Dogs Name"),
-              onChanged: (String value) {
-                _dogName = value;
-              },
-            ),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text("Ok"),
-                onPressed: () async {
-                  if (_dogName.isNotEmpty) {
-                    await databaseHelper.insertDog(
-                        Dog(id: _dogList.length, name: _dogName, age: 5));
-                    databaseHelper.printDogs();
-                    setState(() {
-                      _dogList
-                          .add(new Dog(id: _dogList.length, name: _dogName, age: 5));
-                    });
-                  }
-                  _dogName = "";
-                  Navigator.pop(context);
-                },
-              ),
-              new FlatButton(
-                child: new Text("Cancel"),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ],
-          );
-        });
+    await databaseHelper.printAllDogsInDb();
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('db Demo'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('db Demo'),
       ),
-      body: new Container(
-        child: new Center(
-          child: new DogList(dogs: _dogList),
-        ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          RaisedButton(
+            child: Text(
+              'Show All Records in Database',
+            ),
+            onPressed: () async {
+              _dogList = await databaseHelper.getAllDogsFromDb();
+              await databaseHelper.printAllDogsInDb();
+              setState(() {});
+            },
+          ),
+          RaisedButton(
+            child: Text(
+              'Delete All Records in Database',
+            ),
+            onPressed: () async {
+              _dogList.forEach(
+                (dog) async {
+                  await databaseHelper.deleteDog(dog);
+                },
+              );
+              _dogList = await databaseHelper.getAllDogsFromDb();
+              await databaseHelper.printAllDogsInDb();
+              setState(() {});
+            },
+          ),
+          RaisedButton(
+            child: Text(
+              'Add/Delete Dog Record to Database',
+            ),
+            onPressed: () {
+              _addOrDeleteDog();
+            },
+          ),
+          //We must use an Expanded widget to get
+          //the dynamic ListView to play nice
+          //with the RaisedButtons.
+          Expanded(child: DogList(dogs: _dogList)),
+        ],
       ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: () => _inputDog(),
-        tooltip: 'Add',
-        child: new Icon(Icons.add),
-      ),
+    );
+  }
+
+  Future<Null> _addOrDeleteDog() async {
+    await showDialog<String>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Input Dogs Name'),
+          contentPadding: EdgeInsets.all(5.0),
+          content: TextField(
+            decoration: InputDecoration(hintText: "Dogs Name"),
+            onChanged: (String value) {
+              _dogName = value;
+            },
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("AddDog"),
+              onPressed: () async {
+                if (_dogName.isNotEmpty) {
+                  await databaseHelper.insertDog(
+                      Dog(id: _dogList.length, name: _dogName, age: 5));
+                  _dogList = await databaseHelper.getAllDogsFromDb();
+                  databaseHelper.printAllDogsInDb();
+                  setState(() {
+                    //_dogList = await databaseHelper.getAllDogsFromDb();
+                    // _dogList
+                    //     .add(Dog(id: _dogList.length, name: _dogName, age: 5));
+                  });
+                }
+                _dogName = "";
+                Navigator.pop(context);
+              },
+            ),
+            FlatButton(
+              child: Text("DeleteDog"),
+              onPressed: () async {
+                if (_dogName.isNotEmpty) {
+                  await databaseHelper.deleteDog(
+                      Dog(id: _dogList.length, name: _dogName, age: 5));
+                  _dogList = await databaseHelper.getAllDogsFromDb();
+                  databaseHelper.printAllDogsInDb();
+                  setState(() {
+                    // _dogList
+                    //     .add(Dog(id: _dogList.length, name: _dogName, age: 5));
+                  });
+                }
+                _dogName = "";
+                Navigator.pop(context);
+              },
+            ),
+            FlatButton(
+              child: Text("Cancel"),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -106,6 +194,7 @@ class DatabaseHelper {
 
   Future<void> getOrCreateDatabaseHandle() async {
     var databasesPath = await sqflitePackage.getDatabasesPath();
+    print('$databasesPath');
     var path = pathPackage.join(databasesPath, 'doggie_database.db');
     print('$path');
     db = await sqflitePackage.openDatabase(
@@ -117,6 +206,7 @@ class DatabaseHelper {
       },
       version: 1,
     );
+    print('$db');
   }
 
   Future<void> insertDog(Dog dog) async {
@@ -130,8 +220,8 @@ class DatabaseHelper {
     );
   }
 
-  Future<void> printDogs() async {
-    List<Dog> listOfDogs = await this.dogs();
+  Future<void> printAllDogsInDb() async {
+    List<Dog> listOfDogs = await this.getAllDogsFromDb();
     if (listOfDogs.length == 0) {
       print('No Dogs in the list');
     } else {
@@ -141,15 +231,16 @@ class DatabaseHelper {
     }
   }
 
-  Future<List<Dog>> dogs() async {
+  Future<List<Dog>> getAllDogsFromDb() async {
     // Query the table for all The Dogs.
-    final List<Map<String, dynamic>> maps = await db.query('dogs');
+    //The .query will return a list with each item being a map.
+    final List<Map<String, dynamic>> dogMap = await db.query('dogs');
     // Convert the List<Map<String, dynamic> into a List<Dog>.
-    return List.generate(maps.length, (i) {
+    return List.generate(dogMap.length, (i) {
       return Dog(
-        id: maps[i]['id'],
-        name: maps[i]['name'],
-        age: maps[i]['age'],
+        id: dogMap[i]['id'],
+        name: dogMap[i]['name'],
+        age: dogMap[i]['age'],
       );
     });
   }
@@ -166,14 +257,14 @@ class DatabaseHelper {
     );
   }
 
-  Future<void> deleteDog(int id) async {
+  Future<void> deleteDog(Dog dog) async {
     // Remove the Dog from the database.
     await db.delete(
       'dogs',
       // Use a `where` clause to delete a specific dog.
       where: "id = ?",
       // Pass the Dog's id as a whereArg to prevent SQL injection.
-      whereArgs: [id],
+      whereArgs: [dog.id],
     );
   }
 }

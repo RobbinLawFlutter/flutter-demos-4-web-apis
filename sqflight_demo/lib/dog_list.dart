@@ -3,13 +3,13 @@ import 'package:flutter/widgets.dart';
 import 'dog.dart';
 
 class DogList extends StatefulWidget {
-  DogList({Key key, this.dogs}) : super(key: key);
+  DogList({this.dogs});
 
   final List<Dog> dogs;
 
   @override
   State<StatefulWidget> createState() {
-    return new _DogListState();
+    return _DogListState();
   }
 }
 
@@ -20,7 +20,7 @@ class _DogListState extends State<DogList> {
   }
 
   ListView _buildDogList(context, List<Dog> dogs) {
-    return new ListView.builder(
+    return ListView.builder(
       itemCount: dogs.length,
       itemBuilder: (context, index) {
         return ListTile(
