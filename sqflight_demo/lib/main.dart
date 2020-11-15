@@ -75,7 +75,9 @@ class _MyDataAppState extends State<MyDataApp> {
 
   void getOrCreateDbAndDisplayAllDogsInDb() async {
     await databaseHelper.getOrCreateDatabaseHandle();
+    _dogList = await databaseHelper.getAllDogsFromDb();
     await databaseHelper.printAllDogsInDb();
+    setState(() {});
   }
 
   @override
@@ -87,16 +89,6 @@ class _MyDataAppState extends State<MyDataApp> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          RaisedButton(
-            child: Text(
-              'Show All Records in Database',
-            ),
-            onPressed: () async {
-              _dogList = await databaseHelper.getAllDogsFromDb();
-              await databaseHelper.printAllDogsInDb();
-              setState(() {});
-            },
-          ),
           RaisedButton(
             child: Text(
               'Delete All Records in Database',
@@ -114,10 +106,10 @@ class _MyDataAppState extends State<MyDataApp> {
           ),
           RaisedButton(
             child: Text(
-              'Add/Delete Dog Record to Database',
+              'Add Dog Record to Database',
             ),
             onPressed: () {
-              _addOrDeleteDog();
+              _addDogToDb();
             },
           ),
           //We must use an Expanded widget to get
@@ -129,7 +121,7 @@ class _MyDataAppState extends State<MyDataApp> {
     );
   }
 
-  Future<Null> _addOrDeleteDog() async {
+  Future<Null> _addDogToDb() async {
     await showDialog<String>(
       context: context,
       builder: (BuildContext context) {
@@ -153,23 +145,6 @@ class _MyDataAppState extends State<MyDataApp> {
                   databaseHelper.printAllDogsInDb();
                   setState(() {
                     //_dogList = await databaseHelper.getAllDogsFromDb();
-                    // _dogList
-                    //     .add(Dog(id: _dogList.length, name: _dogName, age: 5));
-                  });
-                }
-                _dogName = "";
-                Navigator.pop(context);
-              },
-            ),
-            FlatButton(
-              child: Text("DeleteDog"),
-              onPressed: () async {
-                if (_dogName.isNotEmpty) {
-                  await databaseHelper.deleteDog(
-                      Dog(id: _dogList.length, name: _dogName, age: 5));
-                  _dogList = await databaseHelper.getAllDogsFromDb();
-                  databaseHelper.printAllDogsInDb();
-                  setState(() {
                     // _dogList
                     //     .add(Dog(id: _dogList.length, name: _dogName, age: 5));
                   });
