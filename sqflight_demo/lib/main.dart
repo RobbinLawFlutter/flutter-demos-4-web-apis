@@ -47,34 +47,23 @@ class MyApp extends StatelessWidget {
         ),
         indicatorColor: Colors.black,
         textTheme: TextTheme(
-          button: TextStyle(
-            color: themeColor,
-          ),
           //subtitle1 is for ListTile text color,
           //and the TextField edited text color.
-          subtitle1: TextStyle(color: Colors.white),
-          bodyText1: TextStyle(
-            //color: Colors.white,
-            fontSize: 36,
+          subtitle1: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
           ),
         ),
         textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.white),
-            foregroundColor: MaterialStateProperty.all(themeColor),
-          ),
+              backgroundColor: MaterialStateProperty.all(Colors.white),
+              foregroundColor: MaterialStateProperty.all(themeColor),
+              textStyle: MaterialStateProperty.all(
+                TextStyle(
+                  fontSize: 20,
+                ),
+              )),
         ),
-        buttonTheme: ButtonThemeData(
-          buttonColor: Colors.white,
-          //textTheme: ButtonTextTheme.normal,
-        ),
-        iconTheme: IconThemeData(
-          //color: Colors.white,
-          size: 200,
-        ),
-        primaryIconTheme: IconThemeData(
-            //color: Colors.white,
-            ),
       ),
       home: MyDataApp(),
     );
@@ -169,11 +158,7 @@ class _MyDataAppState extends State<MyDataApp> {
                       Dog(id: _dogList.length, name: _dogName, age: 5));
                   _dogList = await databaseHelper.getAllDogsFromDb();
                   databaseHelper.printAllDogsInDb();
-                  setState(() {
-                    //_dogList = await databaseHelper.getAllDogsFromDb();
-                    // _dogList
-                    //     .add(Dog(id: _dogList.length, name: _dogName, age: 5));
-                  });
+                  setState(() {});
                 }
                 _dogName = "";
                 Navigator.pop(context);
