@@ -58,6 +58,12 @@ class MyApp extends StatelessWidget {
             fontSize: 36,
           ),
         ),
+        textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.white),
+            foregroundColor: MaterialStateProperty.all(themeColor),
+          ),
+        ),
         buttonTheme: ButtonThemeData(
           buttonColor: Colors.white,
           //textTheme: ButtonTextTheme.normal,
@@ -107,7 +113,7 @@ class _MyDataAppState extends State<MyDataApp> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          RaisedButton(
+          TextButton(
             child: Text(
               'Delete All Records in Database',
             ),
@@ -122,7 +128,7 @@ class _MyDataAppState extends State<MyDataApp> {
               setState(() {});
             },
           ),
-          RaisedButton(
+          TextButton(
             child: Text(
               'Add Dog Record to Database',
             ),
@@ -155,7 +161,7 @@ class _MyDataAppState extends State<MyDataApp> {
             },
           ),
           actions: <Widget>[
-            RaisedButton(
+            TextButton(
               child: Text("AddDog"),
               onPressed: () async {
                 if (_dogName.isNotEmpty) {
@@ -173,7 +179,7 @@ class _MyDataAppState extends State<MyDataApp> {
                 Navigator.pop(context);
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text("Cancel"),
               onPressed: () => Navigator.pop(context),
             ),
