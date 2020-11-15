@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:sqflight_demo/services/db-service.dart';
+import 'package:sqflight_demo/models/dog.dart';
+import 'package:sqflight_demo/models/dog_list.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
