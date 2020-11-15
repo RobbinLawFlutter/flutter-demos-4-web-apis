@@ -22,19 +22,37 @@ class MyApp extends StatelessWidget {
         primaryColor: themeColor,
         primaryTextTheme: TextTheme(),
         scaffoldBackgroundColor: themeColor,
+        cursorColor: Colors.black,
         dialogTheme: DialogTheme(
-          backgroundColor: Colors.orange[50],
+          backgroundColor: Colors.white,
           titleTextStyle: TextStyle(
-            color: Colors.orange,
+            color: themeColor,
+            fontSize: 25,
           ),
-          contentTextStyle: TextStyle(
-            color: Colors.yellow,
+        ),
+        //inputDecorationTheme applies to TextField Widget.
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: themeColor,
+          hintStyle: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black,
+            ),
+            borderRadius: BorderRadius.circular(20.0),
           ),
         ),
         indicatorColor: Colors.black,
         textTheme: TextTheme(
-          //subtitle1 is for ListTile text color.
-          subtitle1: TextStyle(color: Colors.black),
+          button: TextStyle(
+            color: themeColor,
+          ),
+          //subtitle1 is for ListTile text color,
+          //and the TextField edited text color.
+          subtitle1: TextStyle(color: Colors.white),
           bodyText1: TextStyle(
             //color: Colors.white,
             fontSize: 36,
@@ -42,7 +60,7 @@ class MyApp extends StatelessWidget {
         ),
         buttonTheme: ButtonThemeData(
           buttonColor: Colors.white,
-          textTheme: ButtonTextTheme.primary,
+          //textTheme: ButtonTextTheme.normal,
         ),
         iconTheme: IconThemeData(
           //color: Colors.white,
@@ -129,13 +147,15 @@ class _MyDataAppState extends State<MyDataApp> {
           title: Text('Input Dogs Name'),
           contentPadding: EdgeInsets.all(5.0),
           content: TextField(
-            decoration: InputDecoration(hintText: "Dogs Name"),
+            decoration: InputDecoration(
+              hintText: "Dogs Name",
+            ),
             onChanged: (String value) {
               _dogName = value;
             },
           ),
           actions: <Widget>[
-            FlatButton(
+            RaisedButton(
               child: Text("AddDog"),
               onPressed: () async {
                 if (_dogName.isNotEmpty) {
