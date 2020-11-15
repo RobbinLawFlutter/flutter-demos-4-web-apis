@@ -24,9 +24,10 @@ class _DogListState extends State<DogList> {
       itemCount: dogs.length,
       itemBuilder: (context, index) {
         return ListTile(
-            title: Text('name: ${dogs[index].name ?? "name not found"}'),
-            trailing: Text('age: ${dogs[index].age ?? "age not found"}'),
-            subtitle: Text('id: ${dogs[index].id ?? "id not found"}'));
+          title: Text('name: ${dogs[index].name ?? "name not found"}'),
+          subtitle: Text('id: ${dogs[index].id ?? "id not found"}'),
+          trailing: Text('age: ${dogs[index].age ?? "age not found"}'),
+        );
       },
     );
   }
