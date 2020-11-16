@@ -1,3 +1,6 @@
+//This class needs a toMap method to
+//convert a list to a map.
+
 class Dog {
   Dog({this.id, this.name, this.age});
 
