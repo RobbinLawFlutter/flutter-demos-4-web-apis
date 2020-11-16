@@ -1,5 +1,7 @@
-//This class needs a toMap method to
-//convert a list to a map.
+//This class needs a method to
+//create a Map type from class fields.
+//This is needed because sqflight stores
+//items in the database as Maps.
 
 class Dog {
   Dog({this.id, this.name, this.age});
