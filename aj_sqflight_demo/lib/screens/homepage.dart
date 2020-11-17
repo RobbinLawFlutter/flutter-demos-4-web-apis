@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           TextButton(
             child: Text(
-              'Add Dog Record to Database',
+              'Add Dog',
             ),
             onPressed: () {
               _addDogToDb();
