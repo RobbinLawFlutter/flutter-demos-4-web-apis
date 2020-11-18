@@ -47,7 +47,7 @@ class DatabaseHelper {
 
   Future<List<Dog>> getAllDogsFromDb() async {
     // Query the table for all The Dogs.
-    //The .query will return a list with each item being a map.
+    //The .query will return a list with each item in the list being a map.
     final List<Map<String, dynamic>> dogMap = await db.query('dogs');
     // Convert the List<Map<String, dynamic> into a List<Dog>.
     return List.generate(dogMap.length, (i) {
