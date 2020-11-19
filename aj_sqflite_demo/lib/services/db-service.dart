@@ -1,4 +1,8 @@
 //https://flutter.dev/docs/cookbook/persistence/sqlite
+
+//sqflite package of the week.
+//https://www.youtube.com/watch?v=HefHf5B1YM0&vl=en
+
 import 'package:path/path.dart' as pathPackage;
 import 'package:sqflite/sqflite.dart' as sqflitePackage;
 
