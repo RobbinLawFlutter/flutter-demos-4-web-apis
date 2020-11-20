@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -18,24 +18,24 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('baby').snapshots(),
+    return StreamBuilder<firestore.QuerySnapshot>(
+      stream: firestore.Firestore.instance.collection('baby').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
-
         return _buildList(context, snapshot.data.documents);
       },
     );
   }
 
-  Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
+  Widget _buildList(
+      BuildContext context, List<firestore.DocumentSnapshot> snapshot) {
     return ListView(
       padding: const EdgeInsets.only(top: 20.0),
       children: snapshot.map((data) => _buildListItem(context, data)).toList(),
     );
   }
 
-  Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
+  Widget _buildListItem(BuildContext context, firestore.DocumentSnapshot data) {
     final record = Record.fromSnapshot(data);
 
     return Padding(
@@ -51,7 +51,8 @@ class _MyHomePageState extends State<MyHomePage> {
             trailing: Text(record.votes.toString()),
             onTap: () {
               print(record);
-              record.reference.updateData({'votes': FieldValue.increment(1)});
+              record.reference
+                  .updateData({'votes': firestore.FieldValue.increment(1)});
             }),
       ),
     );
@@ -61,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
 class Record {
   final String name;
   final int votes;
-  final DocumentReference reference;
+  final firestore.DocumentReference reference;
 
   Record.fromMap(Map<String, dynamic> map, {this.reference})
       : assert(map['name'] != null),
@@ -71,7 +72,7 @@ class Record {
     print(this.reference.runtimeType);
   }
 
-  Record.fromSnapshot(DocumentSnapshot snapshot)
+  Record.fromSnapshot(firestore.DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);
 
   @override
