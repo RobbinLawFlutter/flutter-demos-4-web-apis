@@ -1,3 +1,9 @@
+//This demo is from the following codelab.
+//https://codelabs.developers.google.com/codelabs/flutter-firebase#1
+
+//What is a nosql database... 12 videos about FireStore
+//https://www.youtube.com/watch?v=v_hR4K4auoQ&list=PLl-K7zZEsYLluG5MCVEzXAQ7ACZBCuZgZ
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 
@@ -64,16 +70,22 @@ class Record {
   final int votes;
   final firestore.DocumentReference reference;
 
+  //Redirecting Contstuctors and optional parameters
+  //https://bezkoder.com/dart-flutter-constructors/#Redirecting_Constructor
+  Record.fromSnapshot(firestore.DocumentSnapshot snapshot)
+      : this.fromMap(snapshot.data, reference: snapshot.reference);
+
+  //Using an initializer list
+  //https://dart.dev/guides/language/language-tour#using-constructors
+  //this.reference is a named optional parameter.
   Record.fromMap(Map<String, dynamic> map, {this.reference})
       : assert(map['name'] != null),
         assert(map['votes'] != null),
         name = map['name'],
         votes = map['votes'] {
+    //Get an objects type with .runtimeType
     print(this.reference.runtimeType);
   }
-
-  Record.fromSnapshot(firestore.DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
 
   @override
   String toString() => "Record<$name:$votes>";

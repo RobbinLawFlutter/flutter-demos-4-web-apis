@@ -1,3 +1,6 @@
+//This demo is from the following codelab.
+//https://codelabs.developers.google.com/codelabs/flutter-firebase#1
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +29,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    // TODO: get actual snapshot from Cloud Firestore
     return _buildList(context, dummySnapshot);
   }
 
@@ -63,14 +65,19 @@ class Record {
   final int votes;
   final DocumentReference reference;
 
+  //Redirecting Contstuctors and optional parameters
+  //https://bezkoder.com/dart-flutter-constructors/#Redirecting_Constructor
+  Record.fromSnapshot(DocumentSnapshot snapshot)
+      : this.fromMap(snapshot.data, reference: snapshot.reference);
+
+  //Using an initializer list
+  //https://dart.dev/guides/language/language-tour#using-constructors
+  //this.reference is a named optional parameter.
   Record.fromMap(Map<String, dynamic> map, {this.reference})
       : assert(map['name'] != null),
         assert(map['votes'] != null),
         name = map['name'],
         votes = map['votes'];
-
-  Record.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
 
   @override
   String toString() => "Record<$name:$votes>";
