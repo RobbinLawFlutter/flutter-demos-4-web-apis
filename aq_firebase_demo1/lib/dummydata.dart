@@ -72,6 +72,10 @@ class Record {
 
   //Using an initializer list
   //https://dart.dev/guides/language/language-tour#using-constructors
+
+  //How assert works
+  //https://medium.com/run-dart/dart-dartlang-introduction-advanced-dart-features-524de79456b9
+
   //this.reference is a named optional parameter.
   Record.fromMap(Map<String, dynamic> map, {this.reference})
       : assert(map['name'] != null),
