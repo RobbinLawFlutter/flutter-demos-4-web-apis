@@ -9,7 +9,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Baby Names',
-      home: firebasedemo.MyHomePage(),
+      home: dummydata.MyHomePage(),
+      //home: firebasedemo.MyHomePage(),
     );
   }
 }
