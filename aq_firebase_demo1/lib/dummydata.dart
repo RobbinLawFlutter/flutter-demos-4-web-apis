@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 final dummySnapshot = [
+  //{"name": "Jimmy", "votes": null},
   {"name": "Filip", "votes": 15},
   {"name": "Abraham", "votes": 14},
   {"name": "Richard", "votes": 11},
