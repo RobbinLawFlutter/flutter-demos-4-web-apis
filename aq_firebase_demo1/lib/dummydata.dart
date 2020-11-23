@@ -1,8 +1,8 @@
 //This demo is from the following codelab.
 //https://codelabs.developers.google.com/codelabs/flutter-firebase#1
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 final dummySnapshot = [
   //{"name": "Jimmy", "votes": null},
@@ -70,13 +70,14 @@ class Record {
 
   //Redirecting Constuctors and optional parameters
   //https://bezkoder.com/dart-flutter-constructors/#Redirecting_Constructor
+  //For this dummydata.dart portion we do not use .fromSnapshot.
   Record.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);
 
   //Using an initializer list
   //https://dart.dev/guides/language/language-tour#using-constructors
 
-  //How assert works
+  //How assert works from the medium community.
   //https://medium.com/run-dart/dart-dartlang-introduction-advanced-dart-features-524de79456b9
 
   //this.reference is a named optional parameter
