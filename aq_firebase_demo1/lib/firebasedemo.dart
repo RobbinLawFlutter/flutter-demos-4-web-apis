@@ -27,6 +27,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildBody(BuildContext context) {
+    //streams from Google Flutter in Focus series.
+    //https://www.youtube.com/watch?v=nQBpOIHE4eE&list=PLjxrf2q8roU2HdJQDjJzOeO6J3FoFLWr2&index=16
+
     return StreamBuilder<firestore.QuerySnapshot>(
       stream: firestore.Firestore.instance.collection('baby').snapshots(),
       builder: (context, snapshot) {

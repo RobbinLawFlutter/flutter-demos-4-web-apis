@@ -63,6 +63,8 @@ class _MyHomePageState extends State<MyHomePage> {
 class Record {
   final String name;
   final int votes;
+  //reference is NOT used in dummydata.dart
+  //but used in firebasedemo.dart.
   final DocumentReference reference;
 
   //Redirecting Constuctors and optional parameters
@@ -76,7 +78,8 @@ class Record {
   //How assert works
   //https://medium.com/run-dart/dart-dartlang-introduction-advanced-dart-features-524de79456b9
 
-  //this.reference is a named optional parameter.
+  //this.reference is a named optional parameter
+  //and is NOT used here.
   Record.fromMap(Map<String, dynamic> map, {this.reference})
       : assert(map['name'] != null),
         assert(map['votes'] != null),
