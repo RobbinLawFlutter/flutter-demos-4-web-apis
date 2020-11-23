@@ -65,7 +65,7 @@ class Record {
   final int votes;
   final DocumentReference reference;
 
-  //Redirecting Contstuctors and optional parameters
+  //Redirecting Constuctors and optional parameters
   //https://bezkoder.com/dart-flutter-constructors/#Redirecting_Constructor
   Record.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);

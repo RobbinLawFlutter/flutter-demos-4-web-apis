@@ -1,6 +1,9 @@
 //This demo is from the following codelab.
 //https://codelabs.developers.google.com/codelabs/flutter-firebase#1
 
+//Intro to FireStore from Google Futter in Focus series
+//https://www.youtube.com/watch?v=DqJ_KjFzL9I&t=7s
+
 //What is a nosql database... 12 videos about FireStore
 //https://www.youtube.com/watch?v=v_hR4K4auoQ&list=PLl-K7zZEsYLluG5MCVEzXAQ7ACZBCuZgZ
 
