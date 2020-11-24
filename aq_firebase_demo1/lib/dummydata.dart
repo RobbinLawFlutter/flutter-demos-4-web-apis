@@ -71,8 +71,8 @@ class Record {
   //Redirecting Constuctors and optional parameters
   //https://bezkoder.com/dart-flutter-constructors/#Redirecting_Constructor
   //For this dummydata.dart portion we do not use .fromSnapshot.
-  Record.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
+  // Record.fromSnapshot(DocumentSnapshot snapshot)
+  //     : this.fromMap(snapshot.data, reference: snapshot.reference);
 
   //Using an initializer list
   //https://dart.dev/guides/language/language-tour#using-constructors

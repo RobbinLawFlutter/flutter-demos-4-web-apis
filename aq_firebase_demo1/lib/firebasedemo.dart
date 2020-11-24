@@ -8,6 +8,7 @@
 //https://www.youtube.com/watch?v=v_hR4K4auoQ&list=PLl-K7zZEsYLluG5MCVEzXAQ7ACZBCuZgZ
 
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 
 class MyHomePage extends StatefulWidget {
@@ -31,24 +32,28 @@ class _MyHomePageState extends State<MyHomePage> {
     //https://www.youtube.com/watch?v=nQBpOIHE4eE&list=PLjxrf2q8roU2HdJQDjJzOeO6J3FoFLWr2&index=16
 
     return StreamBuilder<firestore.QuerySnapshot>(
-      stream: firestore.Firestore.instance.collection('baby').snapshots(),
+      stream:
+          firestore.FirebaseFirestore.instance.collection('baby').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
-        return _buildList(context, snapshot.data.documents);
+        return _buildList(context, snapshot.data.docs);
       },
     );
   }
 
   Widget _buildList(
-      BuildContext context, List<firestore.DocumentSnapshot> snapshot) {
+      BuildContext context, List<firestore.DocumentSnapshot> snapshots) {
     return ListView(
       padding: const EdgeInsets.only(top: 20.0),
-      children: snapshot.map((data) => _buildListItem(context, data)).toList(),
+      children: snapshots
+          .map((snapshot) => _buildListItem(context, snapshot))
+          .toList(),
     );
   }
 
-  Widget _buildListItem(BuildContext context, firestore.DocumentSnapshot data) {
-    final record = Record.fromSnapshot(data);
+  Widget _buildListItem(
+      BuildContext context, firestore.DocumentSnapshot snapshot) {
+    final record = Record.fromSnapshot(snapshot);
 
     return Padding(
       key: ValueKey(record.name),
@@ -64,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: () {
               print(record);
               record.reference
-                  .updateData({'votes': firestore.FieldValue.increment(1)});
+                  .update({'votes': firestore.FieldValue.increment(1)});
             }),
       ),
     );
@@ -79,7 +84,7 @@ class Record {
   //Redirecting Contstuctors and optional parameters
   //https://bezkoder.com/dart-flutter-constructors/#Redirecting_Constructor
   Record.fromSnapshot(firestore.DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
+      : this.fromMap(snapshot.data(), reference: snapshot.reference);
 
   //Using an initializer list
   //https://dart.dev/guides/language/language-tour#using-constructors
