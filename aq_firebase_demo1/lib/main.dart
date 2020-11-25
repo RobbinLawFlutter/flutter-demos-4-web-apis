@@ -7,37 +7,39 @@ import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:aj_firebase_demo1/dummydata.dart' as dummydata;
 import 'package:aj_firebase_demo1/firebasedemo.dart' as firebasedemo;
 
-void main() {
-  runApp(App());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await firebase.Firebase.initializeApp();
+  runApp(MyApp());
 }
 
-class App extends StatelessWidget {
-  // Create the initialization Future outside of `build`:
-  final Future<firebase.FirebaseApp> _initialization =
-      firebase.Firebase.initializeApp();
+// class App extends StatelessWidget {
+//   // Create the initialization Future outside of `build`:
+//   final Future<firebase.FirebaseApp> _initialization =
+//       firebase.Firebase.initializeApp();
 
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      // Initialize FlutterFire:
-      future: _initialization,
-      builder: (context, snapshot) {
-        // Check for errors
-        if (snapshot.hasError) {
-          return SomethingWentWrong();
-        }
+//   @override
+//   Widget build(BuildContext context) {
+//     return FutureBuilder(
+//       // Initialize FlutterFire:
+//       future: _initialization,
+//       builder: (context, snapshot) {
+//         // Check for errors
+//         if (snapshot.hasError) {
+//           return SomethingWentWrong();
+//         }
 
-        // Once complete, show your application
-        if (snapshot.connectionState == ConnectionState.done) {
-          return MyApp();
-        }
+//         // Once complete, show your application
+//         if (snapshot.connectionState == ConnectionState.done) {
+//           return MyApp();
+//         }
 
-        // Otherwise, show something whilst waiting for initialization to complete
-        return Loading();
-      },
-    );
-  }
-}
+//         // Otherwise, show something whilst waiting for initialization to complete
+//         return Loading();
+//       },
+//     );
+//   }
+// }
 
 class MyApp extends StatelessWidget {
   @override

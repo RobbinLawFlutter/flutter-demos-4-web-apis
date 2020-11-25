@@ -13,41 +13,41 @@ void main() async {
   runApp(MyApp());
 }
 
-// class App extends StatelessWidget {
-//   // Create the initialization Future outside of `build`:
-//   final Future<firebase.FirebaseApp> _initialization =
-//       firebase.Firebase.initializeApp();
+class App extends StatelessWidget {
+  // Create the initialization Future outside of `build`:
+  final Future<firebase.FirebaseApp> _initialization =
+      firebase.Firebase.initializeApp();
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return FutureBuilder(
-//       // Initialize FlutterFire:
-//       future: _initialization,
-//       builder: (context, snapshot) {
-//         // Check for errors
-//         if (snapshot.hasError) {
-//           return SomethingWentWrong();
-//         }
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      // Initialize FlutterFire:
+      future: _initialization,
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          return SomethingWentWrong();
+        }
 
-//         // Once complete, show your application
-//         if (snapshot.connectionState == ConnectionState.done) {
-//           return MyApp();
-//         }
+        // Once complete, show your application
+        if (snapshot.connectionState == ConnectionState.done) {
+          return MyApp();
+        }
 
-//         // Otherwise, show something whilst waiting for initialization to complete
-//         return Loading();
-//       },
-//     );
-//   }
-// }
+        // Otherwise, show something whilst waiting for initialization to complete
+        return Loading();
+      },
+    );
+  }
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Baby Names',
-      home: dummydata.MyHomePage(),
-      //home: firebasedemo.MyHomePage(),
+      //home: dummydata.MyHomePage(),
+      home: firebasedemo.MyHomePage(),
     );
   }
 }
