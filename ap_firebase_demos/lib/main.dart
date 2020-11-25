@@ -4,8 +4,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase;
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
-import 'package:aj_firebase_demo1/dummydata.dart' as dummydata;
-import 'package:aj_firebase_demo1/firebasedemo.dart' as firebasedemo;
+import 'package:ap_firebase_demos/dummydata.dart' as dummydata;
+import 'package:ap_firebase_demos/firebasedemo.dart' as firebasedemo;
 
 void main() {
   runApp(App());
@@ -44,8 +44,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Baby Names',
-      //home: dummydata.MyHomePage(),
-      home: firebasedemo.MyHomePage(),
+      home: dummydata.MyHomePage(),
+      //home: firebasedemo.MyHomePage(),
     );
   }
 }
