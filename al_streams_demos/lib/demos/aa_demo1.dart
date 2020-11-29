@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class Demo1 extends StatelessWidget {
   Demo1({this.title});
@@ -36,6 +37,24 @@ class _MyDemoState extends State<MyDemo> {
 }
 
 void performTasks() {
+  final controller = StreamController();
+  controller.sink.add(100.0);
+  controller.sink.add([10, 20, 30, 'hey there']);
+  controller.sink.add({'name': 'robbin', 'age': 35});
+  controller.sink.add([
+    {'name': 'joe', 'age': 20},
+    {'name': 'sam', 'age': 30}
+  ]);
+  controller.sink.add(null);
+  controller.sink.addError(StateError('Hey man this is an error'));
+
+  controller.stream.listen((event) {
+    print(event);
+  }, onError: (error) {
+    print(error);
+  }, onDone: () {
+    print('Hey Man this stream is done');
+  });
   task1();
   //task2();
   //task3();
