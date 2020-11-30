@@ -52,6 +52,7 @@ void performTasks() {
   controller.sink.addError(StateError('Hey man this is an error'));
   controller.sink.add(5);
   controller.close();
+  //controller.sink.add(10);
 
   controller.stream.listen((event) {
     print(event);

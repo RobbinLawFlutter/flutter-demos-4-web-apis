@@ -34,9 +34,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return StreamBuilder<firestore.QuerySnapshot>(
       stream:
           firestore.FirebaseFirestore.instance.collection('baby').snapshots(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) return LinearProgressIndicator();
-        return _buildList(context, snapshot.data.docs);
+      builder: (context, snapshots) {
+        if (!snapshots.hasData) return LinearProgressIndicator();
+        return _buildList(context, snapshots.data.docs);
       },
     );
   }
@@ -56,13 +56,14 @@ class _MyHomePageState extends State<MyHomePage> {
     final record = Record.fromSnapshot(snapshot);
 
     return Padding(
-      key: ValueKey(record.name),
+      //key: ValueKey(record.name),
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
           borderRadius: BorderRadius.circular(5.0),
         ),
+        //ListTile can act as a button with onTap property.
         child: ListTile(
             title: Text(record.name),
             trailing: Text(record.votes.toString()),
