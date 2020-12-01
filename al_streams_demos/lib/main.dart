@@ -65,13 +65,13 @@ class MyDemos extends StatelessWidget {
         ),
       ),
 
-      home: Demo1(
-        title: 'Demo 1',
-      ),
-
-      // home: Demo2(
-      //   title: 'Demo 2',
+      // home: Demo1(
+      //   title: 'Demo 1',
       // ),
+
+      home: Demo2(
+        title: 'Demo 2',
+      ),
 
       // home: Demo3(
       //   title: 'Demo 3',
