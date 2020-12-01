@@ -28,7 +28,6 @@ class _MyDemoState extends State<MyDemo> {
     yield 1;
     await Future<void>.delayed(Duration(seconds: 1));
   })();
-
 // Flutter code sample for StreamBuilder
 // This sample shows a [StreamBuilder] that listens to a Stream that emits bids
 // for an auction. Every time the StreamBuilder receives a bid from the Stream,
@@ -36,7 +35,6 @@ class _MyDemoState extends State<MyDemo> {
 // error, the error is displayed below an error icon. When the Stream finishes
 // emitting bids, the final price is displayed.
 // This is the stateful widget that the main application instantiates.
-
   Widget build(BuildContext context) {
     return DefaultTextStyle(
       style: Theme.of(context).textTheme.headline2,
