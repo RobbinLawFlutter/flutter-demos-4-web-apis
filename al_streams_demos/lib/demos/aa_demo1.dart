@@ -5,15 +5,11 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 class Demo1 extends StatelessWidget {
-  Demo1({this.title});
-
-  final String title;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text('Demo 1'),
       ),
       body: MyDemo(),
     );
@@ -41,18 +37,18 @@ class _MyDemoState extends State<MyDemo> {
 
 void performTasks() {
   final controller = StreamController();
-  controller.sink.add(100.0);
-  controller.sink.add([10, 20, 30, 'hey there']);
-  controller.sink.add({'name': 'robbin', 'age': 35});
-  controller.sink.add([
+  controller.add(100.0);
+  controller.add([10, 20, 30, 'hey there']);
+  controller.add({'name': 'robbin', 'age': 35});
+  controller.add([
     {'name': 'joe', 'age': 20},
     {'name': 'sam', 'age': 30}
   ]);
-  controller.sink.add(null);
-  controller.sink.addError(StateError('Hey man this is an error'));
-  controller.sink.add(5);
+  controller.add(null);
+  controller.addError(StateError('Hey man this is an error'));
+  controller.add(5);
   controller.close();
-  //controller.sink.add(10);
+  //controller.add(10);
 
   controller.stream.listen((event) {
     print(event);
@@ -61,10 +57,4 @@ void performTasks() {
   }, onDone: () {
     print('Hey Man this stream is done');
   });
-  task1();
-  //task2();
-  //task3();
-  //task4();
 }
-
-void task1() {}

@@ -2,15 +2,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class Demo2 extends StatelessWidget {
-  Demo2({this.title});
-
-  final String title;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text('Demo 2'),
       ),
       body: MyDemo(),
     );
@@ -23,104 +19,83 @@ class MyDemo extends StatefulWidget {
 }
 
 class _MyDemoState extends State<MyDemo> {
-  Stream<int> _bids = (() async* {
-    await Future<void>.delayed(Duration(seconds: 1));
-    yield 1;
-    await Future<void>.delayed(Duration(seconds: 1));
-  })();
-// Flutter code sample for StreamBuilder
-// This sample shows a [StreamBuilder] that listens to a Stream that emits bids
-// for an auction. Every time the StreamBuilder receives a bid from the Stream,
-// it will display the price of the bid below an icon. If the Stream emits an
-// error, the error is displayed below an error icon. When the Stream finishes
-// emitting bids, the final price is displayed.
-// This is the stateful widget that the main application instantiates.
+  Stream<int> timedCounter(Duration interval, [int maxCount]) {
+    StreamController<int> controller;
+    Timer timer;
+    int counter = 0;
+
+    void tick(_) {
+      counter++;
+      if (counter == (maxCount ~/ 2)) {
+        controller.addError('error event');
+      } else {
+        controller.add(counter); // Ask stream to send counter values as event.
+      }
+      if (counter == maxCount) {
+        timer.cancel();
+        controller.close(); // Ask stream to shut down and tell listeners.
+      }
+    }
+
+    void startTimer() {
+      timer = Timer.periodic(interval, tick);
+    }
+
+    void stopTimer() {
+      if (timer != null) {
+        timer.cancel();
+        timer = null;
+      }
+    }
+
+    controller = StreamController<int>(
+      onListen: () {
+        startTimer();
+        print('onListen, Start Timer');
+      },
+      onPause: () {
+        stopTimer();
+        print('onPause, Stop Timer');
+      },
+      onResume: () {
+        startTimer();
+        print('onResume, Start Timer');
+      },
+      onCancel: () {
+        stopTimer();
+        print('onCancel, Stop Timer');
+      },
+    );
+    //return the stream that this controller created
+    //and controls, but leave the controller behind.
+    return controller.stream;
+  }
+
+  void listenWithPause() {
+    Stream<int> counterStream = timedCounter(const Duration(seconds: 1), 10);
+    StreamSubscription<int> subscription;
+    //subscribe to listen to the stream.
+    subscription = counterStream.listen((event) {
+      print(event);
+      if (event == 3) {
+        // After 3 ticks, pause for five seconds, then resume.
+        subscription.pause(Future.delayed(const Duration(seconds: 5)));
+      }
+    }, onError: (error) {
+      print(error);
+    }, onDone: () {
+      print('Hey Man this stream is done');
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return DefaultTextStyle(
-      style: Theme.of(context).textTheme.headline2,
-      textAlign: TextAlign.center,
-      child: Container(
-        alignment: FractionalOffset.center,
-        color: Colors.white,
-        child: StreamBuilder<int>(
-          stream: _bids,
-          builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-            List<Widget> children;
-            if (snapshot.hasError) {
-              children = <Widget>[
-                Icon(
-                  Icons.error_outline,
-                  color: Colors.red,
-                  size: 60,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: Text('Error: ${snapshot.error}'),
-                )
-              ];
-            } else {
-              switch (snapshot.connectionState) {
-                case ConnectionState.none:
-                  children = <Widget>[
-                    Icon(
-                      Icons.info,
-                      color: Colors.blue,
-                      size: 60,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 16),
-                      child: Text('Select a lot'),
-                    )
-                  ];
-                  break;
-                case ConnectionState.waiting:
-                  children = <Widget>[
-                    SizedBox(
-                      child: const CircularProgressIndicator(),
-                      width: 60,
-                      height: 60,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 16),
-                      child: Text('Awaiting bids...'),
-                    )
-                  ];
-                  break;
-                case ConnectionState.active:
-                  children = <Widget>[
-                    Icon(
-                      Icons.check_circle_outline,
-                      color: Colors.green,
-                      size: 60,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16),
-                      child: Text('\$${snapshot.data}'),
-                    )
-                  ];
-                  break;
-                case ConnectionState.done:
-                  children = <Widget>[
-                    Icon(
-                      Icons.info,
-                      color: Colors.blue,
-                      size: 60,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16),
-                      child: Text('\$${snapshot.data} (closed)'),
-                    )
-                  ];
-                  break;
-              }
-            }
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: children,
-            );
-          },
-        ),
+    return Center(
+      child: TextButton(
+        child: Text('Press'),
+        onPressed: () {
+          listenWithPause();
+        },
       ),
     );
   }
