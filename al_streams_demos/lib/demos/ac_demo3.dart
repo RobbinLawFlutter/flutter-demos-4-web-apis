@@ -19,44 +19,6 @@ class MyDemo extends StatefulWidget {
 }
 
 class _MyDemoState extends State<MyDemo> {
-  Stream<int> timedCounter(Duration interval, [int maxCount]) {
-    StreamController<int> controller;
-    Timer timer;
-    int counter = 0;
-
-    void tick(_) {
-      counter++;
-      if (counter == (maxCount ~/ 2)) {
-        controller.addError('error event');
-      } else {
-        controller.add(counter); // Ask stream to send counter values as event.
-      }
-      if (counter == maxCount) {
-        timer.cancel();
-        controller.close(); // Ask stream to shut down and tell listeners.
-      }
-    }
-
-    void startTimer() {
-      timer = Timer.periodic(interval, tick);
-    }
-
-    void stopTimer() {
-      if (timer != null) {
-        timer.cancel();
-        timer = null;
-      }
-    }
-
-    controller = StreamController<int>(
-        onListen: startTimer,
-        onPause: stopTimer,
-        onResume: startTimer,
-        onCancel: stopTimer);
-
-    return controller.stream;
-  }
-
   Widget build(BuildContext context) {
     return DefaultTextStyle(
       style: Theme.of(context).textTheme.headline2,
@@ -65,7 +27,7 @@ class _MyDemoState extends State<MyDemo> {
         alignment: FractionalOffset.center,
         //color: Colors.white,
         child: StreamBuilder<int>(
-          stream: timedCounter(const Duration(seconds: 1), 10),
+          stream: timedCounterStream(const Duration(seconds: 1), 10),
           builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
             List<Widget> children;
             if (snapshot.hasError) {
@@ -145,5 +107,43 @@ class _MyDemoState extends State<MyDemo> {
         ),
       ),
     );
+  }
+
+  Stream<int> timedCounterStream(Duration interval, [int maxCount]) {
+    StreamController<int> controller;
+    Timer timer;
+    int counter = 0;
+
+    void tick(_) {
+      counter++;
+      if (counter == (maxCount ~/ 2)) {
+        controller.addError('error event');
+      } else {
+        controller.add(counter); // Ask stream to send counter values as event.
+      }
+      if (counter == maxCount) {
+        timer.cancel();
+        controller.close(); // Ask stream to shut down and tell listeners.
+      }
+    }
+
+    void startTimer() {
+      timer = Timer.periodic(interval, tick);
+    }
+
+    void stopTimer() {
+      if (timer != null) {
+        timer.cancel();
+        timer = null;
+      }
+    }
+
+    controller = StreamController<int>(
+        onListen: startTimer,
+        onPause: stopTimer,
+        onResume: startTimer,
+        onCancel: stopTimer);
+
+    return controller.stream;
   }
 }

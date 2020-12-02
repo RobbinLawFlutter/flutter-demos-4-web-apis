@@ -102,7 +102,7 @@ class _MyDemoState extends State<MyDemo> {
         print('onResume, Start Timer');
       },
       onCancel: () {
-        stopTimer();
+        //stopTimer();
         print('onCancel, Stop Timer');
       },
     );
