@@ -34,9 +34,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return StreamBuilder<firestore.QuerySnapshot>(
       stream:
           firestore.FirebaseFirestore.instance.collection('baby').snapshots(),
-      builder: (context, snapshots) {
-        if (!snapshots.hasData) return LinearProgressIndicator();
-        return _buildList(context, snapshots.data.docs);
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return LinearProgressIndicator();
+        return _buildList(context, snapshot.data.docs);
       },
     );
   }
