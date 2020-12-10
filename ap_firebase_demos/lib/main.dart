@@ -3,10 +3,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase;
-import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:ap_firebase_demos/dummydata.dart' as dummydata;
-import 'package:ap_firebase_demos/firebasedemo.dart' as firebasedemo;
-import 'package:ap_firebase_demos/firestore_demo2.dart' as firestoredemo;
+import 'package:ap_firebase_demos/firebase_auth_demo1.dart'
+    as firebaseauthdemo1;
+import 'package:ap_firebase_demos/firebase_auth_demo2.dart'
+    as firebaseauthdemo2;
+import 'package:ap_firebase_demos/firestore_demo1.dart' as firestoredemo1;
+import 'package:ap_firebase_demos/firestore_demo2.dart' as firestoredemo2;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,8 +23,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Firebase Demos',
       //home: dummydata.MyHomePage(),
-      //home: firebasedemo.MyHomePage(),
-      home: firestoredemo.MyHomePage(),
+      //home: firebaseauthdemo1.MyHomePage(),
+      home: firebaseauthdemo2.MyHomePage(),
+      //home: firestoredemo1.MyHomePage(),
+      //home: firestoredemo2.MyHomePage(),
     );
   }
 }
