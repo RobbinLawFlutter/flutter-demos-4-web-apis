@@ -13,7 +13,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Flutter Firebase"),
+        title: Text("Flutter Firestore Demo 2"),
       ),
       body: Center(
         child: Column(
@@ -46,6 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
         'firstName': 'test',
         'lastName': 'user',
       });
+      print('successful create');
     } catch (e) {
       print(e);
     }
@@ -56,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       documentSnapshot =
           await firestore.collection('users').doc('testUser').get();
-      print(documentSnapshot.data);
+      print(documentSnapshot.data());
     } catch (e) {
       print(e);
     }
@@ -64,9 +65,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _update() async {
     try {
-      firestore.collection('users').doc('testUser').update({
+      await firestore.collection('users').doc('testUser').update({
         'firstName': 'testUpdated',
       });
+      print('successful update');
     } catch (e) {
       print(e);
     }
@@ -74,7 +76,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _delete() async {
     try {
-      firestore.collection('users').doc('testUser').delete();
+      await firestore.collection('users').doc('testUser').delete();
+      print('successful delete');
     } catch (e) {
       print(e);
     }
