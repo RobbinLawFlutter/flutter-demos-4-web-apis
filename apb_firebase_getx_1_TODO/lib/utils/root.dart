@@ -14,6 +14,7 @@ class Root extends GetWidget<AuthController> {
       },
       builder: (_) {
         if (Get.find<AuthController>().user?.uid != null) {
+          print('going to Home');
           return Home();
         } else {
           return Login();

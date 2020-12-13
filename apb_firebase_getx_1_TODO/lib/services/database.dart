@@ -3,11 +3,11 @@ import 'package:reference/models/todo.dart';
 import 'package:reference/models/user.dart';
 
 class Database {
-  final Firestore _firestore = Firestore.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<bool> createNewUser(UserModel user) async {
     try {
-      await _firestore.collection("users").document(user.id).setData({
+      await _firestore.collection("users").doc(user.id).set({
         "name": user.name,
         "email": user.email,
       });
@@ -20,11 +20,15 @@ class Database {
 
   Future<UserModel> getUser(String uid) async {
     try {
+      print('The user uid is $uid');
       DocumentSnapshot _doc =
-          await _firestore.collection("users").document(uid).get();
-
+          await _firestore.collection("users").doc(uid).get();
+      print(_doc.id);
+      print(_doc.data());
+      //return null;
       return UserModel.fromDocumentSnapshot(documentSnapshot: _doc);
     } catch (e) {
+      print('robbin we got an exception in getUser');
       print(e);
       rethrow;
     }
@@ -32,11 +36,7 @@ class Database {
 
   Future<void> addTodo(String content, String uid) async {
     try {
-      await _firestore
-          .collection("users")
-          .document(uid)
-          .collection("todos")
-          .add({
+      await _firestore.collection("users").doc(uid).collection("todos").add({
         'dateCreated': Timestamp.now(),
         'content': content,
         'done': false,
@@ -50,13 +50,13 @@ class Database {
   Stream<List<TodoModel>> todoStream(String uid) {
     return _firestore
         .collection("users")
-        .document(uid)
+        .doc(uid)
         .collection("todos")
         .orderBy("dateCreated", descending: true)
         .snapshots()
         .map((QuerySnapshot query) {
       List<TodoModel> retVal = List();
-      query.documents.forEach((element) {
+      query.docs.forEach((element) {
         retVal.add(TodoModel.fromDocumentSnapshot(element));
       });
       return retVal;
@@ -67,10 +67,10 @@ class Database {
     try {
       _firestore
           .collection("users")
-          .document(uid)
+          .doc(uid)
           .collection("todos")
-          .document(todoId)
-          .updateData({"done": newValue});
+          .doc(todoId)
+          .update({"done": newValue});
     } catch (e) {
       print(e);
       rethrow;

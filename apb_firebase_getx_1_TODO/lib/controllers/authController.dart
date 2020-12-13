@@ -6,13 +6,13 @@ import 'package:reference/services/database.dart';
 
 class AuthController extends GetxController {
   FirebaseAuth _auth = FirebaseAuth.instance;
-  Rx<FirebaseUser> _firebaseUser = Rx<FirebaseUser>();
+  Rx<User> _firebaseUser = Rx<User>();
 
-  FirebaseUser get user => _firebaseUser.value;
+  User get user => _firebaseUser.value;
 
   @override
   onInit() {
-    _firebaseUser.bindStream(_auth.onAuthStateChanged);
+    _firebaseUser.bindStream(_auth.authStateChanges());
   }
 
   void createUser(String name, String email, String password) async {

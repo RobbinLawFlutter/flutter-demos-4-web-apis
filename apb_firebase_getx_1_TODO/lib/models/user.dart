@@ -8,7 +8,7 @@ class UserModel {
   UserModel({this.id, this.name, this.email});
 
   UserModel.fromDocumentSnapshot({DocumentSnapshot documentSnapshot}) {
-    id = documentSnapshot.documentID;
+    id = documentSnapshot.id;
     name = documentSnapshot["name"];
     email = documentSnapshot["email"];
   }
