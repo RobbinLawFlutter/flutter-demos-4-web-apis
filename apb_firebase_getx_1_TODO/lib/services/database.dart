@@ -76,4 +76,18 @@ class Database {
       rethrow;
     }
   }
+
+  Future<void> deleteTodo(String uid, String todoId) async {
+    try {
+      _firestore
+          .collection("users")
+          .doc(uid)
+          .collection("todos")
+          .doc(todoId)
+          .delete();
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
 }

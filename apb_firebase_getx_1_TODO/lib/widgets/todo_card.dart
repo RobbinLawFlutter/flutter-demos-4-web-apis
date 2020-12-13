@@ -10,28 +10,34 @@ class TodoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Row(
-          children: [
-            Expanded(
-              child: Text(
-                todo.content,
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
+    return Dismissible(
+      key: Key('todo-${todo.todoId}'),
+      background: Container(color: Colors.red),
+      direction: DismissDirection.endToStart,
+      onDismissed: (direction) => Database().deleteTodo(uid, todo.todoId),
+      child: Card(
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  todo.content,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            Checkbox(
-              value: todo.done,
-              onChanged: (newValue) {
-                Database().updateTodo(newValue, uid, todo.todoId);
-              },
-            ),
-          ],
+              Checkbox(
+                value: todo.done,
+                onChanged: (newValue) {
+                  Database().updateTodo(newValue, uid, todo.todoId);
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
