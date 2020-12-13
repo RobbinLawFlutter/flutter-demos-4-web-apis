@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reference/controllers/authController.dart';
-import 'package:reference/controllers/userController.dart';
-import 'package:reference/screens/home.dart';
-import 'package:reference/screens/login.dart';
+import 'package:robbinlaw/controllers/authController.dart';
+import 'package:robbinlaw/controllers/userController.dart';
+import 'package:robbinlaw/screens/home.dart';
+import 'package:robbinlaw/screens/login.dart';
 
 class Root extends GetWidget<AuthController> {
   @override

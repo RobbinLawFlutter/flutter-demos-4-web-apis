@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reference/screens/fourth.dart';
-import 'package:reference/screens/home.dart';
-import 'package:reference/screens/second.dart';
-import 'package:reference/screens/third.dart';
+import 'package:robbinlaw/screens/fourth.dart';
+import 'package:robbinlaw/screens/home.dart';
+import 'package:robbinlaw/screens/second.dart';
+import 'package:robbinlaw/screens/third.dart';
 
 void main() {
   runApp(MyApp());

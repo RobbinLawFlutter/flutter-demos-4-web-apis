@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:reference/screens/third.dart';
+import 'package:robbinlaw/screens/third.dart';
 
 import 'fourth.dart';
 

@@ -3,13 +3,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase;
-import 'package:ap_firebase_demos/dummydata.dart' as dummydata;
-import 'package:ap_firebase_demos/firebase_auth_demo1.dart'
-    as firebaseauthdemo1;
-import 'package:ap_firebase_demos/firebase_auth_demo2.dart'
-    as firebaseauthdemo2;
-import 'package:ap_firebase_demos/firestore_demo1.dart' as firestoredemo1;
-import 'package:ap_firebase_demos/firestore_demo2.dart' as firestoredemo2;
+import 'package:robbinlaw/dummydata.dart' as dummydata;
+import 'package:robbinlaw/firebase_auth_demo1.dart' as firebaseauthdemo1;
+import 'package:robbinlaw/firebase_auth_demo2.dart' as firebaseauthdemo2;
+import 'package:robbinlaw/firestore_demo1.dart' as firestoredemo1;
+import 'package:robbinlaw/firestore_demo2.dart' as firestoredemo2;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

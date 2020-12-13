@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase;
-import 'package:reference/controllers/bindings/authBinding.dart';
-import 'package:reference/utils/root.dart';
+import 'package:robbinlaw/controllers/bindings/authBinding.dart';
+import 'package:robbinlaw/utils/root.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

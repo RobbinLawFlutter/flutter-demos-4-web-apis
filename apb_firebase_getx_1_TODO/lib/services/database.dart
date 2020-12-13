@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:reference/models/todo.dart';
-import 'package:reference/models/user.dart';
+import 'package:robbinlaw/models/todo.dart';
+import 'package:robbinlaw/models/user.dart';
 
 class Database {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

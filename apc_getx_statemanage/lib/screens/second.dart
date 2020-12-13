@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reference/controllers/sumController.dart';
+import 'package:robbinlaw/controllers/sumController.dart';
 
 class Second extends StatelessWidget {
   final SumController sumController = Get.put(SumController());

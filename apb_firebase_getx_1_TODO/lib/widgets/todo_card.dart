@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:reference/models/todo.dart';
-import 'package:reference/services/database.dart';
+import 'package:robbinlaw/models/todo.dart';
+import 'package:robbinlaw/services/database.dart';
 
 class TodoCard extends StatelessWidget {
   final String uid;

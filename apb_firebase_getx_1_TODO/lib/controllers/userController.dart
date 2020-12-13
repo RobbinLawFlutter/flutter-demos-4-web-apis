@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:reference/models/user.dart';
+import 'package:robbinlaw/models/user.dart';
 
 class UserController extends GetxController {
   Rx<UserModel> _userModel = UserModel().obs;

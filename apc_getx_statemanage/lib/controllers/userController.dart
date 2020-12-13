@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:reference/models/user.dart';
+import 'package:robbinlaw/models/user.dart';
 
 class UserController extends GetxController {
   final user = User().obs;
@@ -8,12 +8,12 @@ class UserController extends GetxController {
     //Which is better??
 
     //Option #1
-    user().name = "Tadas";
+    user().name = "Robbin";
     user().count = count;
 
     //Option #2
     user.update((value) {
-      value.name = 'Tadas';
+      value.name = 'Robbin';
       value.count = count;
     });
   }

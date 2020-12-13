@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
-import 'package:reference/controllers/authController.dart';
-import 'package:reference/controllers/todoController.dart';
-import 'package:reference/controllers/userController.dart';
-import 'package:reference/services/database.dart';
-import 'package:reference/widgets/todo_card.dart';
+import 'package:robbinlaw/controllers/authController.dart';
+import 'package:robbinlaw/controllers/todoController.dart';
+import 'package:robbinlaw/controllers/userController.dart';
+import 'package:robbinlaw/services/database.dart';
+import 'package:robbinlaw/widgets/todo_card.dart';
 
 class Home extends GetWidget<AuthController> {
   final TextEditingController _todoController = TextEditingController();

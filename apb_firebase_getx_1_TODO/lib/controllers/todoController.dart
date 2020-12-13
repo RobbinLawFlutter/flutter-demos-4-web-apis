@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
-import 'package:reference/controllers/authController.dart';
-import 'package:reference/controllers/bindings/authBinding.dart';
-import 'package:reference/models/todo.dart';
-import 'package:reference/services/database.dart';
+import 'package:robbinlaw/controllers/authController.dart';
+import 'package:robbinlaw/models/todo.dart';
+import 'package:robbinlaw/services/database.dart';
 
 class TodoController extends GetxController {
   Rx<List<TodoModel>> todoList = Rx<List<TodoModel>>();

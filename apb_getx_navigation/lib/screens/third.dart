@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:reference/screens/home.dart';
+import 'package:robbinlaw/screens/home.dart';
 
 class Third extends StatelessWidget {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reference/controllers/authController.dart';
-import 'package:reference/screens/signup.dart';
+import 'package:robbinlaw/controllers/authController.dart';
+import 'package:robbinlaw/screens/signup.dart';
 
 class Login extends GetWidget<AuthController> {
   final TextEditingController emailController = TextEditingController();
