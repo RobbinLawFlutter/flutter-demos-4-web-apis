@@ -1,91 +1,115 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reference/screens/second.dart';
+import 'package:get/state_manager.dart';
+import 'package:reference/controllers/authController.dart';
+import 'package:reference/controllers/todoController.dart';
+import 'package:reference/controllers/userController.dart';
+import 'package:reference/services/database.dart';
+import 'package:reference/widgets/todo_card.dart';
 
-class Home extends StatelessWidget {
-  goToNext() {
-    //Navigator.push(context, MaterialPageRoute(builder: (context)=>Second()));
-    navigator.push(MaterialPageRoute(builder: (context) => Second()));
-    //Get.to(Second());
-  }
-
-  _showSnackBar() {
-    Get.snackbar(
-      "Hey There",
-      "Snackbar is easy",
-      snackPosition: SnackPosition.BOTTOM,
-    );
-  }
-
-  _showDialog() {
-    Get.defaultDialog(
-      title: "Simple Dialog",
-      content: Text("Too Easy"),
-    );
-  }
-
-  _showBottomSheet() {
-    Get.bottomSheet(
-      Container(
-        child: Wrap(
-          children: <Widget>[
-            ListTile(
-                leading: Icon(Icons.music_note),
-                title: Text('Music'),
-                onTap: () => {}),
-            ListTile(
-              leading: Icon(Icons.videocam),
-              title: Text('Video'),
-              onTap: () => {},
-            ),
-            SizedBox(
-              height: 100,
-            ),
-          ],
-        ),
-      ),
-      backgroundColor: Colors.white,
-    );
-  }
-
+class Home extends GetWidget<AuthController> {
+  final TextEditingController _todoController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Get Package | Home"),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            RaisedButton(
-              child: Text("Go To Second"),
-              onPressed: () => goToNext(),
-            ),
-            RaisedButton(
-              child: Text("Snackbar"),
-              onPressed: _showSnackBar,
-            ),
-            RaisedButton(
-              child: Text("Dialog"),
-              onPressed: _showDialog,
-            ),
-            RaisedButton(
-              child: Text("Bottom Sheet"),
-              onPressed: _showBottomSheet,
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            RaisedButton(
-              child: Text("Name Route: /second"),
-              onPressed: () {
-                Get.toNamed("/second");
-              },
-            )
-          ],
+        title: GetX<UserController>(
+          initState: (_) async {
+            Get.find<UserController>().user =
+                await Database().getUser(Get.find<AuthController>().user.uid);
+          },
+          builder: (_) {
+            if (_.user.name != null) {
+              return Text("Welcome " + _.user.name);
+            } else {
+              return Text("loading...");
+            }
+          },
         ),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () {
+              controller.signOut();
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () {
+              if (Get.isDarkMode) {
+                Get.changeTheme(ThemeData.light());
+              } else {
+                Get.changeTheme(ThemeData.dark());
+              }
+            },
+          )
+        ],
+      ),
+      body: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            "Add Todo Here:",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Card(
+            margin: EdgeInsets.all(20),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: _todoController,
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () {
+                      if (_todoController.text != "") {
+                        Database()
+                            .addTodo(_todoController.text, controller.user.uid);
+                        _todoController.clear();
+                      }
+                    },
+                  )
+                ],
+              ),
+            ),
+          ),
+          Text(
+            "Your Todos",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          GetX<TodoController>(
+            init: Get.put<TodoController>(TodoController()),
+            builder: (TodoController todoController) {
+              if (todoController != null && todoController.todos != null) {
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: todoController.todos.length,
+                    itemBuilder: (_, index) {
+                      return TodoCard(
+                          uid: controller.user.uid,
+                          todo: todoController.todos[index]);
+                    },
+                  ),
+                );
+              } else {
+                return Text("loading...");
+              }
+            },
+          )
+        ],
       ),
     );
   }

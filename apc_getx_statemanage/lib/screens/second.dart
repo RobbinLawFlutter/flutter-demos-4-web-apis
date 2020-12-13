@@ -1,55 +1,64 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
-import 'package:reference/screens/third.dart';
+import 'package:get/get.dart';
+import 'package:reference/controllers/sumController.dart';
 
-import 'fourth.dart';
-
-class Second extends StatefulWidget {
-  @override
-  _SecondState createState() => _SecondState();
-}
-
-class _SecondState extends State<Second> {
-  String dataFromFourth = "0";
+class Second extends StatelessWidget {
+  final SumController sumController = Get.put(SumController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text("Second Screen"),
+        title: Text('Second Page'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            RaisedButton(
-              child: Text("Go to Third and remove this screen from stack"),
-              onPressed: () => Get.off(Third()),
-            ),
-            RaisedButton(
-              child: Text("Go To Third and remove everything from stack"),
-              onPressed: () => Get.offAll(Third()),
-            ),
-            SizedBox(
-              height: 100,
-            ),
-            Text("Data From Fourth Screen: " + dataFromFourth),
-            RaisedButton(
-              child: Text("Return Data from Fourth Screen"),
-              onPressed: () async {
-                dataFromFourth = await Get.to(Fourth());
-                setState(() {});
+          children: [
+            GetX<SumController>(
+              //You can use bindings instead of init. Bindings are when this widget gets
+              //rendered, you can create your Controller
+              builder: (_) {
+                print("count1 rebuild");
+                return Text(
+                  'Counter #1:    ${_.count1.value}',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                );
               },
             ),
+            Text("                        +"),
+            GetX<SumController>(
+              builder: (_) {
+                print("count2 rebuild");
+                return Text(
+                  'Counter #2:    ${_.count2.value}',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                );
+              },
+            ),
+            Text("                        ="),
+            GetX<SumController>(builder: (_) {
+              print("sum rebuild");
+              return Text(
+                'Sum:                 ${_.sum}',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              );
+            }),
             SizedBox(
               height: 40,
             ),
             RaisedButton(
-                child: Text("Go to Named /fourth with parameter"),
-                onPressed: () {
-                  Get.toNamed("/fourth", arguments: "Passed From Second");
-                }),
+              child: Text("Increment Counter #1"),
+              onPressed: () {
+                sumController.increment();
+              },
+            ),
+            RaisedButton(
+              child: Text("Increment Counter #2"),
+              onPressed: () {
+                sumController.increment2();
+              },
+            ),
           ],
         ),
       ),
