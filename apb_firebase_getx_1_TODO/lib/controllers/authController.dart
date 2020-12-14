@@ -12,6 +12,7 @@ class AuthController extends GetxController {
 
   @override
   onInit() {
+    super.onInit();
     _firebaseUser.bindStream(_auth.authStateChanges());
   }
 

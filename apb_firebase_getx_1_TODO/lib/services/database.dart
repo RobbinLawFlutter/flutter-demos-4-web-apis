@@ -28,7 +28,6 @@ class Database {
       //return null;
       return UserModel.fromDocumentSnapshot(documentSnapshot: _doc);
     } catch (e) {
-      print('robbin we got an exception in getUser');
       print(e);
       rethrow;
     }
