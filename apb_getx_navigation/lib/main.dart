@@ -19,14 +19,23 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.purple,
       ),
       getPages: [
-        GetPage(name: '/', page: () => Home()),
-        GetPage(name: '/second', page: () => Second()),
+        GetPage(
+          name: '/',
+          page: () => Home(),
+        ),
+        GetPage(
+          name: '/second',
+          page: () => Second(),
+        ),
         GetPage(
           name: '/third',
           page: () => Third(),
           transition: Transition.zoom,
         ),
-        GetPage(name: "/fourth", page: () => Fourth()),
+        GetPage(
+          name: "/fourth",
+          page: () => Fourth(),
+        ),
       ],
     );
   }
