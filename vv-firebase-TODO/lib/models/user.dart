@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
@@ -7,9 +6,9 @@ class UserModel {
   String email;
 
   UserModel({
-    @required this.id,
-    @required this.name,
-    @required this.email,
+    this.id,
+    this.name,
+    this.email,
   });
 
   UserModel.fromDocumentSnapshot({DocumentSnapshot documentSnapshot}) {
