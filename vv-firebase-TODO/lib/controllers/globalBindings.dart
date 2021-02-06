@@ -3,9 +3,10 @@ import 'package:robbinlaw/controllers/authController.dart';
 import 'package:robbinlaw/controllers/userController.dart';
 import 'package:robbinlaw/controllers/appController.dart';
 
-//This GlobalBindings class that implements Bindings from the Getx library
+//This GlobalBindings class that inherits (extends) from Bindings from the Getx library
 //will instanciate all controllers (allocating permanent memory) and making
 //them available anywhere in the app via Get.find until the app is terminated.
+//This is commonly called dependency injection.
 class GlobalBindings extends Bindings {
   @override
   void dependencies() {

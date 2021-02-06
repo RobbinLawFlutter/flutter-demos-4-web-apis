@@ -11,6 +11,7 @@ class Home extends GetWidget<AuthController> {
   final TextEditingController _textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    print('Home build:');
     Get.find<AppController>().upDate();
     return Scaffold(
       appBar: AppBar(
@@ -27,7 +28,9 @@ class Home extends GetWidget<AuthController> {
           builder: (_) {
             print('Home GetX<UserController> builder: try');
             try {
-              if (_.user.name != null) {
+              //The ? allows us to call on name when it is null, null safety,
+              //and therefore the try will not fail if name is null.
+              if (_.user?.name != null) {
                 return Text("User: " + _.user.name);
               } else {
                 return Text("loading...");
@@ -104,19 +107,24 @@ class Home extends GetWidget<AuthController> {
           ),
           GetX<AppController>(
             builder: (AppController appController) {
-              print("Home Getx<AppController> builder:");
-              if (appController != null && appController.appList != null) {
-                return Expanded(
-                  child: ListView.builder(
-                    itemCount: appController.appList.length,
-                    itemBuilder: (_, index) {
-                      return MyCard(
-                          uid: controller.firebaseUser.uid,
-                          app: appController.appList[index]);
-                    },
-                  ),
-                );
-              } else {
+              try {
+                print("Home Getx<AppController> builder: try");
+                if (appController != null && appController.appList != null) {
+                  return Expanded(
+                    child: ListView.builder(
+                      itemCount: appController.appList.length,
+                      itemBuilder: (_, index) {
+                        return MyCard(
+                            uid: controller.firebaseUser.uid,
+                            app: appController.appList[index]);
+                      },
+                    ),
+                  );
+                } else {
+                  return Text("loading...");
+                }
+              } catch (e) {
+                print('Home GetX<AppController> builder: catch $e');
                 return Text("loading...");
               }
             },

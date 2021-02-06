@@ -6,6 +6,7 @@ class Database {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<bool> createNewUserTodo(UserModel user) async {
+    print('Database createNewUserTodo: try');
     try {
       await _firestore.collection("users").doc(user.id).set({
         "name": user.name,
@@ -19,6 +20,7 @@ class Database {
   }
 
   Future<UserModel> getUserTodo(String uid) async {
+    print('Database getUserTodo: try');
     try {
       DocumentSnapshot _doc =
           await _firestore.collection("users").doc(uid).get();
@@ -30,17 +32,44 @@ class Database {
   }
 
   Future<List<AppModel>> getTodos(String uid) async {
+    print('Database getTodos: try');
     try {
       QuerySnapshot _doc = await _firestore
           .collection("users")
           .doc(uid)
           .collection("todos")
           .get();
-      List<AppModel> _retVal = List();
+      List<AppModel> listOfAppModel = List();
       _doc.docs.forEach((element) {
-        _retVal.add(AppModel.fromDocumentSnapshot(documentSnapshot: element));
+        listOfAppModel
+            .add(AppModel.fromDocumentSnapshot(documentSnapshot: element));
       });
-      return _retVal;
+      return listOfAppModel;
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  Stream<List<AppModel>> streamTodos(String uid) {
+    print('Database streamTodos: try');
+    try {
+      return _firestore
+          .collection("users")
+          .doc(uid)
+          .collection("todos")
+          .orderBy("dateCreated", descending: true)
+          .snapshots()
+          .map((QuerySnapshot query) {
+        print('Database streamTodos: try .map');
+        List<AppModel> listOfAppModel = List();
+        query.docs.forEach((element) {
+          print('Database streamTodos: try .map query.docs.forEach');
+          listOfAppModel
+              .add(AppModel.fromDocumentSnapshot(documentSnapshot: element));
+        });
+        return listOfAppModel;
+      });
     } catch (e) {
       print(e);
       rethrow;
@@ -48,6 +77,7 @@ class Database {
   }
 
   Future<void> addTodo(String content, String uid) async {
+    print('Database addTodo: try');
     try {
       await _firestore.collection("users").doc(uid).collection("todos").add({
         'dateCreated': Timestamp.now(),
@@ -60,23 +90,8 @@ class Database {
     }
   }
 
-  Stream<List<AppModel>> streamTodo(String uid) {
-    return _firestore
-        .collection("users")
-        .doc(uid)
-        .collection("todos")
-        .orderBy("dateCreated", descending: true)
-        .snapshots()
-        .map((QuerySnapshot query) {
-      List<AppModel> retVal = List();
-      query.docs.forEach((element) {
-        retVal.add(AppModel.fromDocumentSnapshot(documentSnapshot: element));
-      });
-      return retVal;
-    });
-  }
-
   Future<void> updateTodo(bool newValue, String uid, String todoId) async {
+    print('Database updateTodo: try');
     try {
       _firestore
           .collection("users")
@@ -91,6 +106,7 @@ class Database {
   }
 
   Future<void> deleteTodo(String uid, String todoId) async {
+    print('Database deleteTodo: try');
     try {
       _firestore
           .collection("users")

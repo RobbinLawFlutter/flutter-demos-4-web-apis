@@ -13,7 +13,9 @@ class Root extends GetWidget<AuthController> {
       },
       builder: (_) {
         print("Root Getx builder:");
-        if (Get.find<AuthController>().firebaseUser?.uid != null) {
+        String presentUid = Get.find<AuthController>().firebaseUser?.uid;
+        print('Present User = $presentUid');
+        if (presentUid != null) {
           return Home();
         } else {
           return Login();
