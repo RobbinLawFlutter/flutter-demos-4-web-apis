@@ -22,7 +22,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     super.initState();
     controller = AnimationController(
       duration: Duration(seconds: 2),
-      vsync: this, // the ticker
+      //vsync: this, // the ticker
     );
     animation1 = CurvedAnimation(parent: controller, curve: Curves.decelerate);
     animation2 = ColorTween(begin: Colors.purple, end: Colors.lightGreen)
