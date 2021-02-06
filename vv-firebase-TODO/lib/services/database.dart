@@ -18,34 +18,10 @@ class Database {
     }
   }
 
-  Future<bool> createNewUserStocks(UserModel user) async {
-    try {
-      await _firestore.collection("stockusers").doc(user.id).set({
-        "name": user.name,
-        "email": user.email,
-      });
-      return true;
-    } catch (e) {
-      print(e);
-      return false;
-    }
-  }
-
   Future<UserModel> getUserTodo(String uid) async {
     try {
       DocumentSnapshot _doc =
           await _firestore.collection("users").doc(uid).get();
-      return UserModel.fromDocumentSnapshot(documentSnapshot: _doc);
-    } catch (e) {
-      print(e);
-      rethrow;
-    }
-  }
-
-  Future<UserModel> getUserStocks(String uid) async {
-    try {
-      DocumentSnapshot _doc =
-          await _firestore.collection("stockusers").doc(uid).get();
       return UserModel.fromDocumentSnapshot(documentSnapshot: _doc);
     } catch (e) {
       print(e);
