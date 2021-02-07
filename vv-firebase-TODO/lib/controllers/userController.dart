@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:robbinlaw/models/user.dart';
 
 class UserController extends GetxController {
+  //create a stream of type UserModel.
   Rx<UserModel> _userModelStream = Rx<UserModel>();
 
   UserModel get user => _userModelStream.value;
