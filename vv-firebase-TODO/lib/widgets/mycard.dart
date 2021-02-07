@@ -33,6 +33,7 @@ class MyCard extends StatelessWidget {
               Checkbox(
                 value: app.done,
                 onChanged: (newValue) {
+                  print('MyCard build: Checkbox onChanged:');
                   Database().updateTodo(newValue, uid, app.id);
                 },
               ),
