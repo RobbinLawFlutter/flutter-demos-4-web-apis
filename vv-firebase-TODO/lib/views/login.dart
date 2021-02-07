@@ -9,6 +9,7 @@ class Login extends GetWidget<AuthController> {
 
   @override
   Widget build(BuildContext context) {
+    print('Login build:');
     return Scaffold(
       appBar: AppBar(
         title: Text("Login"),

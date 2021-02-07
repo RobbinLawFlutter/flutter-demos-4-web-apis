@@ -107,17 +107,20 @@ class Home extends GetWidget<AuthController> {
             ),
           ),
           GetX<AppController>(
-            builder: (AppController appController) {
+            initState: (_) async {
+              print("Home Getx<AppController> initState: try");
+            },
+            builder: (_) {
               try {
                 print("Home Getx<AppController> builder: try");
-                if (appController != null && appController.appList != null) {
+                if (_ != null && _.appList != null) {
                   return Expanded(
                     child: ListView.builder(
-                      itemCount: appController.appList.length,
-                      itemBuilder: (_, index) {
+                      itemCount: _.appList.length,
+                      itemBuilder: (__, index) {
                         return MyCard(
                             uid: controller.firebaseUser.uid,
-                            app: appController.appList[index]);
+                            app: _.appList[index]);
                       },
                     ),
                   );

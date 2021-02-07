@@ -12,13 +12,20 @@ class Root extends GetWidget<AuthController> {
         print("Root Getx initState:");
       },
       builder: (_) {
-        print("Root Getx builder:");
-        String presentUid = Get.find<AuthController>().firebaseUser?.uid;
-        print('Present User = $presentUid');
-        if (presentUid != null) {
-          return Home();
-        } else {
-          return Login();
+        print("Root build: Getx builder: try");
+        try {
+          //The ? allows us to call on .uid when the firebaseUser is null, null safety,
+          //and therefore the try will not fail if the firebaseUser is null.
+          String presentUid = Get.find<AuthController>().firebaseUser?.uid;
+          print('Present User = $presentUid');
+          if (presentUid != null) {
+            return Home();
+          } else {
+            return Login();
+          }
+        } catch (e) {
+          print('Root build: Getx builder: catch $e');
+          return Center(child: Text("fatal error"));
         }
       },
     );
