@@ -7,16 +7,17 @@ import 'package:robbinlaw/views/login.dart';
 class Root extends GetWidget<AuthController> {
   @override
   Widget build(BuildContext context) {
-    return GetX(
+    return GetX<AuthController>(
       initState: (_) async {
-        print("Root Getx initState:");
+        print("Root Getx<AuthController> initState: try");
       },
       builder: (_) {
-        print("Root build: Getx builder: try");
+        print("Root Getx<AuthController> builder: try");
         try {
           //The ? allows us to call on .uid when the firebaseUser is null, null safety,
           //and therefore the try will not fail if the firebaseUser is null.
-          String presentUid = Get.find<AuthController>().firebaseUser?.uid;
+          //String presentUid = Get.find<AuthController>().firebaseUser?.uid;
+          String presentUid = _.firebaseUser?.uid;
           print('Present User = $presentUid');
           if (presentUid != null) {
             return Home();
@@ -24,7 +25,7 @@ class Root extends GetWidget<AuthController> {
             return Login();
           }
         } catch (e) {
-          print('Root build: Getx builder: catch $e');
+          print('Root Getx<AuthController> builder: catch $e');
           return Center(child: Text("fatal error"));
         }
       },
