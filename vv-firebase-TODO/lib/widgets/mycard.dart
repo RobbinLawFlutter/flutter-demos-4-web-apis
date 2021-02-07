@@ -14,7 +14,10 @@ class MyCard extends StatelessWidget {
       key: Key('app-${app.id}'),
       background: Container(color: Colors.red),
       direction: DismissDirection.endToStart,
-      onDismissed: (direction) => Database().deleteTodo(uid, app.id),
+      onDismissed: (direction) {
+        print('MyCard build: Dismissible onDismissed:');
+        Database().deleteTodo(uid, app.id);
+      },
       child: Card(
         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         child: Padding(

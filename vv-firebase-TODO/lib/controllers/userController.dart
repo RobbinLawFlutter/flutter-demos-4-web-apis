@@ -16,6 +16,6 @@ class UserController extends GetxController {
 
   void clear() {
     _userModelStream.value = UserModel();
-    print('userController clear:');
+    print('UserController clear:');
   }
 }

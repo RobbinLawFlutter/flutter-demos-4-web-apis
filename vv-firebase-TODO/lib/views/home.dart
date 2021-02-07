@@ -28,8 +28,8 @@ class Home extends GetWidget<AuthController> {
           builder: (_) {
             print('Home GetX<UserController> builder: try');
             try {
-              //The ? allows us to call on name when it is null, null safety,
-              //and therefore the try will not fail if name is null.
+              //The ? allows us to call on name when the user is null, null safety,
+              //and therefore the try will not fail if the user is null.
               if (_.user?.name != null) {
                 return Text("User: " + _.user.name);
               } else {
@@ -87,6 +87,7 @@ class Home extends GetWidget<AuthController> {
                   IconButton(
                     icon: Icon(Icons.add),
                     onPressed: () {
+                      print('Home +Icon onPressed:');
                       if (_textEditingController.text != "") {
                         Database().addTodo(_textEditingController.text,
                             controller.firebaseUser.uid);
