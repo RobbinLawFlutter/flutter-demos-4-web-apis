@@ -6,7 +6,7 @@ import 'package:robbinlaw/services/database.dart';
 
 class AuthController extends GetxController {
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  //Rx<User> is a stream of type User.
+  //create a stream of data events of type User.
   //User is a type defined in firebase.
   Rx<User> _firebaseUserStream = Rx<User>();
 

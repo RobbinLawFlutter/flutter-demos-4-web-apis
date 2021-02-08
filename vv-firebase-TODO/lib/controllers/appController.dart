@@ -4,12 +4,12 @@ import 'package:robbinlaw/models/app.dart';
 import 'package:robbinlaw/services/database.dart';
 
 class AppController extends GetxController {
-  //Create a stream of Lists of type AppModel.
-  RxList<AppModel> _appList = RxList<AppModel>();
+  //Create a Stream of data events of type List<AppModel>.
+  Rx<List<AppModel>> _appStreamOfList = Rx<List<AppModel>>();
 
-  List<AppModel> get appList => _appList;
+  List<AppModel> get appList => _appStreamOfList.value;
 
-  set todos(List<AppModel> value) => this._appList = value;
+  set todos(List<AppModel> value) => this._appStreamOfList.value = value;
 
   @override
   void onInit() {
@@ -20,10 +20,12 @@ class AppController extends GetxController {
   void upDate() {
     print('AppController upDate: try');
     try {
+      //The ? allows us to call on uid when the firebaseUser is null, null safety,
+      //and therefore the try will not fail if the firebaseUser is null.
       String uid = Get.find<AuthController>().firebaseUser?.uid;
       print('AppController upDate: uid= $uid');
-      //Bind to our controller stream the FireStore stream.
-      _appList.bindStream(Database().streamTodos(uid));
+      //Bind to our controller appstream the FireStore stream.
+      _appStreamOfList.bindStream(Database().streamTodos(uid));
     } catch (e) {
       print('AppController upDate: catch $e');
     }
