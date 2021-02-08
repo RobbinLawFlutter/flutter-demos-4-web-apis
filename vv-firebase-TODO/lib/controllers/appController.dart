@@ -5,11 +5,13 @@ import 'package:robbinlaw/services/database.dart';
 
 class AppController extends GetxController {
   //Create a Stream of data events of type List<AppModel>.
+  //this is a private field.
   Rx<List<AppModel>> _appStreamOfList = Rx<List<AppModel>>();
-
+  //when the getter is called take the list out of the stream and update this property.
   List<AppModel> get appList => _appStreamOfList.value;
-
-  set todos(List<AppModel> value) => this._appStreamOfList.value = value;
+  //when the setter is called inject into the stream the new list.
+  //This setter is never used.
+  set appList(List<AppModel> value) => this._appStreamOfList.value = value;
 
   @override
   void onInit() {
@@ -17,6 +19,9 @@ class AppController extends GetxController {
     print('AppController onInit:');
   }
 
+  //This upDate method is called every time the Home() class is
+  //instanciated and its build is run, so as to bind the proper
+  //stream as per the logged in user.
   void upDate() {
     print('AppController upDate: try');
     try {

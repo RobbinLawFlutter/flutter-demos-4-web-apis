@@ -6,6 +6,7 @@ class AppModel {
   Timestamp dateCreated;
   bool done;
 
+  //default constructor.
   AppModel({
     this.id,
     this.content,
@@ -13,8 +14,11 @@ class AppModel {
     this.done,
   });
 
+  //named constructor that converts the DocumentSnapshot data from firestore that
+  //comes as a map, into our model object.
   AppModel.fromDocumentSnapshot({DocumentSnapshot documentSnapshot}) {
     id = documentSnapshot.id;
+    //get the value of the key-value pair by specifying the key.
     content = documentSnapshot.data()["content"];
     print('AppModel.fromDocumentSnapshot: content= $content');
     dateCreated = documentSnapshot.data()["dateCreated"];
