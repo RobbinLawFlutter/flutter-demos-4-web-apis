@@ -19,8 +19,8 @@ class Home extends GetWidget<AuthController> {
           initState: (_) async {
             print("Home Getx<UserController> initState: try");
             try {
-              Get.find<UserController>().user = await Database()
-                  .getUserTodo(Get.find<AuthController>().firebaseUser.uid);
+              Get.find<UserController>().user =
+                  await Database().getUserTodo(controller.firebaseUser.uid);
             } catch (e) {
               print('Home GetX<UserController> initState: catch $e');
             }
