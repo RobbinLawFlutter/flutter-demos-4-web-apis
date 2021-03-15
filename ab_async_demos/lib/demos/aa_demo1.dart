@@ -2,15 +2,11 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 class Demo1 extends StatelessWidget {
-  Demo1({this.title});
-
-  final String title;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text('Demo1'),
       ),
       body: MyDemo(),
     );

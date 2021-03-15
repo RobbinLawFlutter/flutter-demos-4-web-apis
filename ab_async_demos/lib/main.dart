@@ -23,7 +23,6 @@ class MyDemos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Tabbed with Scoped Model Demos',
       theme: ThemeData.light().copyWith(
         brightness: Brightness.light,
         accentColor: Colors.cyan[600],
@@ -45,21 +44,10 @@ class MyDemos extends StatelessWidget {
         ),
       ),
 
-      // home: Demo1(
-      //   title: 'Demo 1',
-      // ),
-
-      home: Demo2(
-        title: 'Demo 2',
-      ),
-
-      // home: Demo3(
-      //   title: 'Demo 3',
-      // ),
-
-      // home: Demo4(
-      //   title: 'Demo 4',
-      // ),
+      home: Demo1(),
+      //home: Demo2(),
+      //home: Demo3(),
+      //home: Demo4(),
     );
   }
 }
