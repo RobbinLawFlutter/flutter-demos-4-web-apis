@@ -22,7 +22,7 @@ class _MyDemoState extends State<MyDemo> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: RaisedButton(
+      child: ElevatedButton(
         child: Text('Press'),
         onPressed: () {
           performTasks();
@@ -33,73 +33,81 @@ class _MyDemoState extends State<MyDemo> {
 }
 
 void performTasks() {
-  task1();
-  //task2();
-  //task2a();
-  //task2b();
-  String task2Result = task2c();
-  //task3();
-  task3a(task2Result);
-}
+  //https://dart.dev/guides/language/language-tour#maps
 
-void task1() {
-  print('Task 1 start');
-  String result = 'task 1 data';
-  print('Task 1 complete');
-}
+  //Maps are generic and both the key and value can be any type.
+  Map<String, int> myAgeBook = {
+    'Rob': 60,
+    'Linda': 70,
+    'Bob': 40,
+    'James': 30,
+  };
+  //We could use var here as well
+  //var hawaiianBeaches = {};
+  Map<String, List<String>> hawaiianBeaches = {
+    'Oahu': ['Waikiki', 'Kailua', 'Waimanalo'],
+    'Big Island': ['Wailea Bay', 'Pololu Beach'],
+    'Kauai': ['Hanalei', 'Poipu']
+  };
 
-void task2() {
-  print('Task 2 start');
-  String result = 'task 2 data';
-  print('Task 2 complete');
-}
-
-//In this method the sleep method runs synchronously.
-void task2a() {
-  print('Task 2 start');
-  Duration myThreeSeconds = Duration(seconds: 3);
-  //We can access sleep() by importing dart.io.
-  sleep(myThreeSeconds);
-
-  String result = 'task 2 data';
-  print('Task 2 complete');
-}
-
-//In this method the Future.delayed method runs asynchronously.
-void task2b() {
-  print('Task 2 start');
-  Duration myFiveSeconds = Duration(seconds: 5);
-  //async method that will delay for 3 seconds,
-  //and then run the callback method, which is
-  //the second parm.
-  Future.delayed(myFiveSeconds, () {
-    String result = 'task 2 data';
-    print('Task 2 complete');
+  //Maps can be built from a constructor.
+  //Maps are parameterized types; you can specify what
+  //types the key and value should be explicitly.
+  var nobleGases = Map<int, String>();
+  //With this syntax the key is 'Bob' and the value is returned.
+  print(myAgeBook['Bob']);
+  //If key is not in the map a NULL is returned.
+  print(myAgeBook['Jim']);
+  //Adding a new key:value to the map.
+  myAgeBook['Tim'] = 20;
+  //Iterate thru the map.
+  myAgeBook.forEach((key, value) {
+    print('key is $key, value is $value');
   });
-}
+  //Common Map properties: length, keys, values, isEmpty, isNotEmpty
+  print('myAgeBook Length is: ${myAgeBook.length}');
+  print('myAgeBook Keys are: ${myAgeBook.keys}');
+  print('myAgeBook Values are: ${myAgeBook.values}');
+  print('myAgeBook isEmpty is: ${myAgeBook.isEmpty}');
+  print('myAgeBook isNotEmpty is: ${myAgeBook.isNotEmpty}');
+  //Common Map methods: remove, from, of,
+  Map map = {1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five'};
+  map.remove(2);
+  print(map);
 
-String task2c() {
-  print('Task 2 start');
-  String result;
-  Duration myFiveSeconds = Duration(seconds: 5);
-  //async method that will delay for 5 seconds,
-  //and then run the callback method, which is
-  //the second parm.
-  Future.delayed(myFiveSeconds, () {
-    result = 'task 2 data';
-    print('Task 2 complete');
+  map.removeWhere((k, v) => v.startsWith('f'));
+  print(map);
+
+  map.clear();
+  print(map);
+
+  var map2 = Map.from(myAgeBook);
+  print(map2);
+
+  var map3 = Map.of(myAgeBook);
+  print(map3);
+
+  print(hawaiianBeaches.keys);
+  print(hawaiianBeaches.values);
+  print(hawaiianBeaches['Big Island']);
+  print(hawaiianBeaches['Oahu'][1]);
+
+  //You can also allow for the key and value types to change
+  //on the fly programatically.
+  var planets = Map();
+
+  planets[1] = 'Pluto';
+  planets[4] = 'Jupiter';
+  planets['this key is a string'] = 20;
+  planets.forEach((key, value) {
+    print(planets);
   });
-  return result;
-}
 
-void task3() {
-  print('Task 3 start');
-  String result = 'task 3 data';
-  print('Task 3 complete');
-}
+  var map4 = {1: 'one', 2: 'two', 3: 'three'};
 
-void task3a(String taskTwoData) {
-  print('Task 3 start');
-  String result = 'task 3 data';
-  print('Task 3 complete with $taskTwoData');
+  var transformedMap = map4.map((k, v) {
+    return MapEntry('($k)', v.toUpperCase());
+  });
+
+  print(transformedMap);
 }
