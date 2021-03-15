@@ -70,7 +70,7 @@ void performTasks() {
   print('myAgeBook Values are: ${myAgeBook.values}');
   print('myAgeBook isEmpty is: ${myAgeBook.isEmpty}');
   print('myAgeBook isNotEmpty is: ${myAgeBook.isNotEmpty}');
-  //Common Map methods: remove, from, of,
+  //Common Map methods: remove, removeWhere, from, of,
   Map map = {1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five'};
   map.remove(2);
   print(map);

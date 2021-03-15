@@ -34,7 +34,7 @@ class Demo2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Demo2'),
+        title: Text('Demo2-MapToList and ListToMap Con'),
       ),
       body: MyDemo(),
     );
@@ -83,6 +83,7 @@ void performTasks() {
   list4.add(CustomerOne('Adam', 27));
   list4.add(CustomerOne('Katherin', 25));
   //Converting a list to a map.
+  //LEFT OFF HERE
   var map1 = Map.fromIterable(list4, key: (e) => e.name, value: (e) => e.age);
   print('map1= $map1');
   //Another way to convert a list to a map.
