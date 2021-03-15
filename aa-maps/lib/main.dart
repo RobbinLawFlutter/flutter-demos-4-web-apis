@@ -10,10 +10,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:robbinlaw/demos/aa_demo1.dart';
-import 'package:robbinlaw/demos/ab_demo2.dart';
-import 'package:robbinlaw/demos/ac_demo3.dart';
-import 'package:robbinlaw/demos/ad_demo4.dart';
+import 'package:robbinlaw/demos/aa-demo1.dart';
+import 'package:robbinlaw/demos/ab-demo2.dart';
+import 'package:robbinlaw/demos/ac-demo3.dart';
+import 'package:robbinlaw/demos/ad-demo4.dart';
 
 import 'package:robbinlaw/views/home.dart';
 
