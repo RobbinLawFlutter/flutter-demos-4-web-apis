@@ -6,7 +6,7 @@
 import 'package:path/path.dart' as pathPackage;
 import 'package:sqflite/sqflite.dart' as sqflitePackage;
 
-import 'package:sqflight_demo/models/dog.dart';
+import 'package:robbinlaw/models/dog.dart';
 
 class DatabaseHelper {
   sqflitePackage.Database db;
