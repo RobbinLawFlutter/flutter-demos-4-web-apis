@@ -29,6 +29,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
   get:
+  geolocator: ^5.1.4+1
+  http: ^0.12.0+2
+  flutter_spinkit: ^4.0.0
   
 
 dev_dependencies:
@@ -45,6 +48,15 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+  - images/
+
+  fonts:
+  - family: Spartan MB
+    fonts:
+    - asset: fonts/SpartanMB-Black.otf
+      weight: 900
 
   # To add assets to your application, add an assets section, like this:
   # assets:
