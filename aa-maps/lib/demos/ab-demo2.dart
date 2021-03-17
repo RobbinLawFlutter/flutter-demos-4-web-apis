@@ -77,24 +77,17 @@ void performTasks() {
   list3 = map.entries.map((e) => CustomerOne(e.key, e.value)).toList();
   print('list3= $list3');
 
+  //Using CustomerOne
   //Creating a list of CustomerOne objects.
   List list4 = [];
   list4.add(CustomerOne('Jack', 23));
   list4.add(CustomerOne('Adam', 27));
   list4.add(CustomerOne('Katherin', 25));
-  //Converting a list to a map.
+  //Converting a list of CustomerOne objects to a map.
   //LEFT OFF HERE
-  var map1 = Map.fromIterable(list4, key: (e) => e.name, value: (e) => e.age);
-  print('map1= $map1');
-  //Another way to convert a list to a map.
   var map2 = {};
   list4.forEach((customer) => map2[customer.name] = customer.age);
   print('map2= $map2');
-  //Creating a view from a list.
-  //Notice the data in this view is completely
-  //different from anything in the list.
-  var view1 = list4.map((e) => 'hey');
-  print('view1= $view1');
 
   //Creating a list of maps.
   List<Map<String, dynamic>> myListOfMaps = [
@@ -111,11 +104,13 @@ void performTasks() {
   });
   print('list5= $list5');
 
-  // //Creating a list of CustomerTwo objects.
+  //Using CustomerTwo
+  //Creating a list of CustomerTwo objects.
   List listOfCustomerObjects1 = [];
   listOfCustomerObjects1.add(CustomerTwo(name: 'Jack', age: 23));
   listOfCustomerObjects1.add(CustomerTwo(name: 'Adam', age: 27));
   listOfCustomerObjects1.add(CustomerTwo(name: 'Katherin', age: 25));
+
   //Convert the List<CustomerTwo> into a List<Map<String, dynamic>>
   var listOfMaps1 = List.generate(listOfCustomerObjects1.length, (i) {
     return listOfCustomerObjects1[i].toMap();
