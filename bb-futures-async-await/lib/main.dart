@@ -1,4 +1,4 @@
-//Isolates and the Event Loop from Google Flutter in Focus series
+//Isolates and the Event Loop from Google Flutter in Focus series 5min.
 //https://www.youtube.com/watch?v=vl_AaCgudcY&list=PLjxrf2q8roU2HdJQDjJzOeO6J3FoFLWr2&index=14
 
 //Futures from Google Flutter in Focus series 8min.
