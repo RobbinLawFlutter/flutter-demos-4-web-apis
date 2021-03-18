@@ -13,7 +13,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  DatabaseHelper databaseHelper = DatabaseHelper();
+  SQFliteDbService databaseHelper = SQFliteDbService();
   var _dogList = List<Dog>();
   String _dogName = "";
 
@@ -26,7 +26,7 @@ class _HomeViewState extends State<HomeView> {
   void getOrCreateDbAndDisplayAllDogsInDb() async {
     await databaseHelper.getOrCreateDatabaseHandle();
     _dogList = await databaseHelper.getAllDogsFromDb();
-    await databaseHelper.printAllDogsInDb();
+    await databaseHelper.printAllDogsInDbToConsole();
     setState(() {});
   }
 
@@ -50,7 +50,7 @@ class _HomeViewState extends State<HomeView> {
                 },
               );
               _dogList = await databaseHelper.getAllDogsFromDb();
-              await databaseHelper.printAllDogsInDb();
+              await databaseHelper.printAllDogsInDbToConsole();
               setState(() {});
             },
           ),
@@ -94,7 +94,7 @@ class _HomeViewState extends State<HomeView> {
                   await databaseHelper.insertDog(
                       Dog(id: _dogList.length, name: _dogName, age: 5));
                   _dogList = await databaseHelper.getAllDogsFromDb();
-                  databaseHelper.printAllDogsInDb();
+                  databaseHelper.printAllDogsInDbToConsole();
                   setState(() {});
                 }
                 _dogName = "";
