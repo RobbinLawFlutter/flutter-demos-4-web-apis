@@ -84,7 +84,6 @@ void performTasks() {
   list4.add(CustomerOne('Adam', 27));
   list4.add(CustomerOne('Katherin', 25));
   //Converting a list of CustomerOne objects to a map.
-  //LEFT OFF HERE
   var map2 = {};
   list4.forEach((customer) => map2[customer.name] = customer.age);
   print('map2= $map2');
