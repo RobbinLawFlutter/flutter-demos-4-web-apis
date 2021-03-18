@@ -1,34 +1,5 @@
 import 'package:flutter/material.dart';
 
-class CustomerOne {
-  CustomerOne(this.name, this.age);
-  String name;
-  int age;
-
-  @override
-  String toString() {
-    return '{ ${this.name}, ${this.age} }';
-  }
-}
-
-class CustomerTwo {
-  CustomerTwo({this.name, this.age});
-  String name;
-  int age;
-
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'age': age,
-    };
-  }
-
-  @override
-  String toString() {
-    return '{ ${this.name}, ${this.age} }';
-  }
-}
-
 class Demo2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
