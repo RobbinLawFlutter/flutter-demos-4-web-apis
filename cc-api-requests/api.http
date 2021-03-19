@@ -3,19 +3,19 @@
 # GET https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=439d4b804bc8187953eb36d2a8c26a02
 
 
-# const apiKey = 'eada4f9ea302c58abd6d02fb791a812a';
+ #const apiKey = 'eada4f9ea302c58abd6d02fb791a812a';
 
-# const openWeatherMapURL = 'https://api.openweathermap.org/data/2.5/weather';
+ #const openWeatherMapURL = 'https://api.openweathermap.org/data/2.5/weather';
 
-# lat = 53.55;
-# lon = -113.469;
-# String url =
-#         '$openWeatherMapURL?lat=$lat&lon=$lon&units=metric&appid=$apiKey';
+ #lat = 53.55;
+ #lon = -113.469;
+ #String url =
+        # '$openWeatherMapURL?lat=$lat&lon=$lon&units=metric&appid=$apiKey';
 
-#GET https://api.openweathermap.org/data/2.5/weather?lat=53.55&lon=-113.469&units=metric&appid=eada4f9ea302c58abd6d02fb791a812a
+GET https://api.openweathermap.org/data/2.5/weather?lat=53.55&lon=-113.469&units=metric&appid=eada4f9ea302c58abd6d02fb791a812a
 
 #GET https://api.openweathermap.org/data/2.5/weather?lat=37.42&lon=-122.08&units=metric&appid=eada4f9ea302c58abd6d02fb791a812a
 
 
 #const apiToken = 'Tpk_27e2aa9354b742e4aac4092f8d2b7f59';
-GET https://sandbox.iexapis.com/stable/stock/td/quote/?token=Tpk_27e2aa9354b742e4aac4092f8d2b7f59
+#GET https://sandbox.iexapis.com/stable/stock/td/quote/?token=Tpk_27e2aa9354b742e4aac4092f8d2b7f59
