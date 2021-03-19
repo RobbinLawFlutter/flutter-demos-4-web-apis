@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: Demo1(),
-      //home: Demo2(),
+      //home: Demo1(),
+      home: Demo2(),
       //home: Demo3(),
       //home: Demo4(),
       //home: HomeView(),
