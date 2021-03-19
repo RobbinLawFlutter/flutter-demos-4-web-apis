@@ -13,7 +13,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  SQFliteDbService databaseHelper = SQFliteDbService();
+  SQFliteDbService _databaseService = SQFliteDbService();
   var _dogList = List<Dog>();
   String _dogName = "";
 
@@ -24,9 +24,9 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void getOrCreateDbAndDisplayAllDogsInDb() async {
-    await databaseHelper.getOrCreateDatabaseHandle();
-    _dogList = await databaseHelper.getAllDogsFromDb();
-    await databaseHelper.printAllDogsInDbToConsole();
+    await _databaseService.getOrCreateDatabaseHandle();
+    _dogList = await _databaseService.getAllDogsFromDb();
+    await _databaseService.printAllDogsInDbToConsole();
     setState(() {});
   }
 
@@ -46,11 +46,12 @@ class _HomeViewState extends State<HomeView> {
             onPressed: () async {
               _dogList.forEach(
                 (dog) async {
-                  await databaseHelper.deleteDog(dog);
+                  await _databaseService.deleteDog(dog);
                 },
               );
-              _dogList = await databaseHelper.getAllDogsFromDb();
-              await databaseHelper.printAllDogsInDbToConsole();
+              _dogList = await _databaseService.getAllDogsFromDb();
+              await _databaseService.printAllDogsInDbToConsole();
+              await _databaseService.deleteDb();
               setState(() {});
             },
           ),
@@ -91,11 +92,16 @@ class _HomeViewState extends State<HomeView> {
               child: Text("AddDog"),
               onPressed: () async {
                 if (_dogName.isNotEmpty) {
-                  await databaseHelper.insertDog(
-                      Dog(id: _dogList.length, name: _dogName, age: 5));
-                  _dogList = await databaseHelper.getAllDogsFromDb();
-                  databaseHelper.printAllDogsInDbToConsole();
-                  setState(() {});
+                  print('User entered dogName: $_dogName');
+                  try {
+                    await _databaseService.insertDog(
+                        Dog(id: _dogList.length, name: _dogName, age: 5));
+                    _dogList = await _databaseService.getAllDogsFromDb();
+                    _databaseService.printAllDogsInDbToConsole();
+                    setState(() {});
+                  } catch (e) {
+                    print('HomeView _addDogToDb catch: $e');
+                  }
                 }
                 _dogName = "";
                 Navigator.pop(context);
