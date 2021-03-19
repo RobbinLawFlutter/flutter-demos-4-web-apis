@@ -39,7 +39,7 @@ class _HomeViewState extends State<HomeView> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          TextButton(
+          ElevatedButton(
             child: Text(
               'Delete All Records in Database',
             ),
@@ -54,7 +54,7 @@ class _HomeViewState extends State<HomeView> {
               setState(() {});
             },
           ),
-          TextButton(
+          ElevatedButton(
             child: Text(
               'Add Dog',
             ),

@@ -15,9 +15,7 @@ class SQFliteDbService {
   Future<void> getOrCreateDatabaseHandle() async {
     try {
       var databasesPath = await sqflitePackage.getDatabasesPath();
-      print('$databasesPath');
       path = pathPackage.join(databasesPath, 'doggie_database.db');
-      print('$path');
       db = await sqflitePackage.openDatabase(
         path,
         onCreate: (sqflitePackage.Database db1, int version) async {
