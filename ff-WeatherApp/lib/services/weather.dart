@@ -19,6 +19,13 @@ class WeatherService {
     return weatherData;
   }
 
+  Future<dynamic> getCityWeatherData(String cityName) async {
+    var url = '$openWeatherMapURL?q=$cityName&appid=$apiKey&units=metric';
+    NetworkService networkService = NetworkService(url);
+    var weatherData = await networkService.getData();
+    return weatherData;
+  }
+
   String getWeatherIcon(int condition) {
     if (condition < 300) {
       return '🌩';
@@ -49,12 +56,5 @@ class WeatherService {
     } else {
       return 'Bring a 🧥 just in case';
     }
-  }
-
-  Future<dynamic> getCityWeatherData(String cityName) async {
-    var url = '$openWeatherMapURL?q=$cityName&appid=$apiKey&units=metric';
-    NetworkService networkService = NetworkService(url);
-    var weatherData = await networkService.getData();
-    return weatherData;
   }
 }
