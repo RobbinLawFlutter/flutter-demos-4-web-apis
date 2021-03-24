@@ -4,14 +4,14 @@ import 'package:robbinlaw/services/weather.dart';
 import 'package:robbinlaw/views/city-view.dart';
 import 'package:robbinlaw/views/city-view.dart';
 
-class LocationScreen extends StatefulWidget {
-  LocationScreen(this.locationWeather);
+class LocationView extends StatefulWidget {
+  LocationView(this.locationWeather);
   final locationWeather;
   @override
-  _LocationScreenState createState() => _LocationScreenState();
+  _LocationViewState createState() => _LocationViewState();
 }
 
-class _LocationScreenState extends State<LocationScreen> {
+class _LocationViewState extends State<LocationView> {
   WeatherService weatherService = WeatherService();
   String weatherDescription;
   int temperature;
@@ -73,7 +73,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  FlatButton(
+                  TextButton(
                     onPressed: () async {
                       var weatherData =
                           await weatherService.getLocationWeatherData();
@@ -84,13 +84,13 @@ class _LocationScreenState extends State<LocationScreen> {
                       size: 50.0,
                     ),
                   ),
-                  FlatButton(
+                  TextButton(
                     onPressed: () async {
                       var typedCityName = await Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return CityScreen();
+                            return CityView();
                           },
                         ),
                       );

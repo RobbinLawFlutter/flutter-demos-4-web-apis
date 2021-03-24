@@ -4,12 +4,12 @@
 import 'package:flutter/material.dart';
 import 'package:robbinlaw/utilities/constants.dart';
 
-class CityScreen extends StatefulWidget {
+class CityView extends StatefulWidget {
   @override
-  _CityScreenState createState() => _CityScreenState();
+  _CityViewState createState() => _CityViewState();
 }
 
-class _CityScreenState extends State<CityScreen> {
+class _CityViewState extends State<CityView> {
   String cityName;
   @override
   Widget build(BuildContext context) {
