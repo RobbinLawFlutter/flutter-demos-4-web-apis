@@ -19,12 +19,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:robbinlaw/services/weather.dart';
 import 'package:robbinlaw/views/location-view.dart';
 
-class LoadingScreen1 extends StatefulWidget {
+class LoadingView1 extends StatefulWidget {
   @override
-  _LoadingScreen1State createState() => _LoadingScreen1State();
+  _LoadingView1State createState() => _LoadingView1State();
 }
 
-class _LoadingScreen1State extends State<LoadingScreen1> {
+class _LoadingView1State extends State<LoadingView1> {
   void getLocation() async {
     try {
       Position position = await Geolocator()
@@ -38,18 +38,22 @@ class _LoadingScreen1State extends State<LoadingScreen1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        RaisedButton(
-          onPressed: () {
-            getLocation();
-          },
-          child: Text('Get Location'),
-        ),
-        SpinKitDoubleBounce(
-          color: Colors.white,
-          size: 100,
-        ),
-      ]),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              getLocation();
+            },
+            child: Text('Get Location'),
+          ),
+          SpinKitDoubleBounce(
+            color: Colors.white,
+            size: 100,
+          ),
+        ],
+      ),
     );
   }
 }
