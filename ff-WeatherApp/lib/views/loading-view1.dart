@@ -1,6 +1,9 @@
 //Geolocator package from pub.dev
 //https://pub.dev/packages/geolocator
 
+//flutter_spinkit from pub.dev
+//https://pub.dev/packages/flutter_spinkit
+
 //In android/app/src/main/AndroidManifest.xml
 //we must copy the following directly under the
 //<manifest> tag
