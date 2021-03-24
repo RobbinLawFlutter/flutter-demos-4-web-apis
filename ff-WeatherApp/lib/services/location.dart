@@ -10,7 +10,7 @@ class LocationService {
           .getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
       lat = position.latitude;
       lon = position.longitude;
-      print('phone location retrieved: YES  lon: $lon  lat: $lat');
+      print('phone location retrieved: lon: $lon  lat: $lat');
     } catch (e) {
       print('phone location retrieved: NO  ERROR: $e');
     }

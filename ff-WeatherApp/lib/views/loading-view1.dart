@@ -14,10 +14,8 @@
 //<string>This app needs access to location when in the background.</string>
 
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:robbinlaw/services/weather.dart';
-import 'package:robbinlaw/views/location-view.dart';
+import 'package:robbinlaw/services/location.dart';
 
 class LoadingView1 extends StatefulWidget {
   @override
@@ -25,15 +23,7 @@ class LoadingView1 extends StatefulWidget {
 }
 
 class _LoadingView1State extends State<LoadingView1> {
-  void getLocation() async {
-    try {
-      Position position = await Geolocator()
-          .getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
-      print(position);
-    } catch (e) {
-      print(e);
-    }
-  }
+  LocationService locationService = LocationService();
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +33,8 @@ class _LoadingView1State extends State<LoadingView1> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ElevatedButton(
-            onPressed: () {
-              getLocation();
+            onPressed: () async {
+              await locationService.getCurrentLocation();
             },
             child: Text('Get Location'),
           ),
