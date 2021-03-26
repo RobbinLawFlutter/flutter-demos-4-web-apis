@@ -16,7 +16,7 @@ class MyCard extends StatelessWidget {
       direction: DismissDirection.endToStart,
       onDismissed: (direction) {
         print('MyCard build: Dismissible onDismissed:');
-        Database().deleteTodo(uid, app.id);
+        Database().deleteAppData(uid, app.id);
       },
       child: Card(
         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -37,7 +37,7 @@ class MyCard extends StatelessWidget {
                 value: app.done,
                 onChanged: (newValue) {
                   print('MyCard build: Checkbox onChanged:');
-                  Database().updateTodo(newValue, uid, app.id);
+                  Database().updateAppData(newValue, uid, app.id);
                 },
               ),
             ],

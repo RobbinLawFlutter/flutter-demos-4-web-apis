@@ -48,7 +48,7 @@ class AuthController extends GetxController {
         name: name,
         email: _firebaseAuthReturnUserCredential.user.email,
       );
-      if (await Database().createNewUserTodo(_userModel)) {
+      if (await Database().createNewUser(_userModel)) {
         Get.find<UserController>().user = _userModel;
         Get.back();
       }
@@ -72,8 +72,8 @@ class AuthController extends GetxController {
     try {
       UserCredential _firebaseAuthReturnUserCredential = await _firebaseAuth
           .signInWithEmailAndPassword(email: email.trim(), password: password);
-      Get.find<UserController>().user = await Database()
-          .getUserTodo(_firebaseAuthReturnUserCredential.user.uid);
+      Get.find<UserController>().user =
+          await Database().getUser(_firebaseAuthReturnUserCredential.user.uid);
       Get.snackbar(
         "login",
         "successful",

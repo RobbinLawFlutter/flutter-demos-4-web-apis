@@ -20,7 +20,7 @@ class Home extends GetWidget<AuthController> {
             print("Home Getx<UserController> initState: try");
             try {
               Get.find<UserController>().user =
-                  await Database().getUserTodo(controller.firebaseUser.uid);
+                  await Database().getUser(controller.firebaseUser.uid);
             } catch (e) {
               print('Home GetX<UserController> initState: catch $e');
             }
@@ -49,16 +49,6 @@ class Home extends GetWidget<AuthController> {
               controller.logOut();
             },
           ),
-          IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: () {
-              if (Get.isDarkMode) {
-                Get.changeTheme(ThemeData.light());
-              } else {
-                Get.changeTheme(ThemeData.dark());
-              }
-            },
-          )
         ],
       ),
       body: Column(
@@ -89,7 +79,7 @@ class Home extends GetWidget<AuthController> {
                     onPressed: () {
                       print('Home +Icon onPressed:');
                       if (_textEditingController.text != "") {
-                        Database().addTodo(_textEditingController.text,
+                        Database().addAppData(_textEditingController.text,
                             controller.firebaseUser.uid);
                         _textEditingController.clear();
                       }

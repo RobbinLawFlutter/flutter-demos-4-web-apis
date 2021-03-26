@@ -27,10 +27,10 @@ class AppController extends GetxController {
     try {
       //The ? allows us to call on uid when the firebaseUser is null, null safety,
       //and therefore the try will not fail if the firebaseUser is null.
-      String uid = Get.find<AuthController>().firebaseUser?.uid;
-      print('AppController upDate: uid= $uid');
+      String userId = Get.find<AuthController>().firebaseUser?.uid;
+      print('AppController upDate: uid= $userId');
       //Bind to our controller appstream the FireStore stream.
-      _appStreamOfList.bindStream(Database().streamTodos(uid));
+      _appStreamOfList.bindStream(Database().streamAppData(userId));
     } catch (e) {
       print('AppController upDate: catch $e');
     }

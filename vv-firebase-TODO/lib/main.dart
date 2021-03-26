@@ -14,7 +14,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase;
-import 'package:robbinlaw/controllers/globalBindings.dart';
+import 'package:robbinlaw/bindings/globalBindings.dart';
 import 'package:robbinlaw/views/root.dart';
 
 Future<void> main() async {
