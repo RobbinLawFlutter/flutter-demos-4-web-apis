@@ -92,14 +92,14 @@ class Database {
   }
 
   Future<void> updateAppData(
-      bool newValue, String userId, String todoId) async {
+      bool newValue, String userId, String appDataId) async {
     print('Database updateAppData: try');
     try {
       _firestore
           .collection("users")
           .doc(userId)
           .collection("todos")
-          .doc(todoId)
+          .doc(appDataId)
           .update({"done": newValue});
     } catch (e) {
       print(e);
@@ -107,14 +107,14 @@ class Database {
     }
   }
 
-  Future<void> deleteAppData(String userId, String todoId) async {
+  Future<void> deleteAppData(String userId, String appDataId) async {
     print('Database deleteAppData: try');
     try {
       _firestore
           .collection("users")
           .doc(userId)
           .collection("todos")
-          .doc(todoId)
+          .doc(appDataId)
           .delete();
     } catch (e) {
       print(e);
