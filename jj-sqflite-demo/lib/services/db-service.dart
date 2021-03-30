@@ -31,21 +31,6 @@ class SQFliteDbService {
     }
   }
 
-  Future<void> insertDog(Dog dog) async {
-    try {
-      // Insert the Dog into the correct table. Also specify the
-      // `conflictAlgorithm`. In this case, if the same dog is inserted
-      // multiple times, it replaces the previous data.
-      await db.insert(
-        'dogs',
-        dog.toMap(),
-        conflictAlgorithm: sqflitePackage.ConflictAlgorithm.replace,
-      );
-    } catch (e) {
-      print('SQFliteDbService insertDog: $e');
-    }
-  }
-
   Future<void> printAllDogsInDbToConsole() async {
     try {
       List<Dog> listOfDogs = await this.getAllDogsFromDb();
@@ -80,6 +65,32 @@ class SQFliteDbService {
     }
   }
 
+  Future<void> deleteDb() async {
+    try {
+      await sqflitePackage.deleteDatabase(path);
+      db = null;
+      print('Db deleted');
+      getOrCreateDatabaseHandle();
+    } catch (e) {
+      print('SQFliteDbService deleteDb: $e');
+    }
+  }
+
+  Future<void> insertDog(Dog dog) async {
+    try {
+      // Insert the Dog into the correct table. Also specify the
+      // `conflictAlgorithm`. In this case, if the same dog is inserted
+      // multiple times, it replaces the previous data.
+      await db.insert(
+        'dogs',
+        dog.toMap(),
+        //conflictAlgorithm: sqflitePackage.ConflictAlgorithm.replace,
+      );
+    } catch (e) {
+      print('SQFliteDbService insertDog: $e');
+    }
+  }
+
   Future<void> updateDog(Dog dog) async {
     try {
       // Update the given Dog.
@@ -108,17 +119,6 @@ class SQFliteDbService {
       );
     } catch (e) {
       print('SQFliteDbService deleteDog: $e');
-    }
-  }
-
-  Future<void> deleteDb() async {
-    try {
-      await sqflitePackage.deleteDatabase(path);
-      db = null;
-      print('Db deleted');
-      getOrCreateDatabaseHandle();
-    } catch (e) {
-      print('SQFliteDbService deleteDb: $e');
     }
   }
 }
