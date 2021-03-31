@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
 import 'package:robbinlaw/controllers/authController.dart';
 
 class SignUp extends StatelessWidget {
