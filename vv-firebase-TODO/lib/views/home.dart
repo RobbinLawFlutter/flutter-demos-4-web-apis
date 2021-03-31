@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
 import 'package:robbinlaw/controllers/authController.dart';
 import 'package:robbinlaw/controllers/userController.dart';
 import 'package:robbinlaw/controllers/appController.dart';
 import 'package:robbinlaw/services/database.dart';
 import 'package:robbinlaw/widgets/mycard.dart';
 
-class Home extends GetWidget<AuthController> {
+class Home extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -19,8 +18,8 @@ class Home extends GetWidget<AuthController> {
           initState: (_) async {
             print("Home Getx<UserController> initState: try");
             try {
-              Get.find<UserController>().user =
-                  await Database().getUser(controller.firebaseUser.uid);
+              Get.find<UserController>().user = await Database()
+                  .getUser(Get.find<AuthController>().firebaseUser.uid);
             } catch (e) {
               print('Home GetX<UserController> initState: catch $e');
             }
@@ -46,7 +45,7 @@ class Home extends GetWidget<AuthController> {
           IconButton(
             icon: Icon(Icons.exit_to_app),
             onPressed: () {
-              controller.logOut();
+              Get.find<AuthController>().logOut();
             },
           ),
         ],
@@ -80,7 +79,7 @@ class Home extends GetWidget<AuthController> {
                       print('Home +Icon onPressed:');
                       if (_textEditingController.text != "") {
                         Database().addAppData(_textEditingController.text,
-                            controller.firebaseUser.uid);
+                            Get.find<AuthController>().firebaseUser?.uid);
                         _textEditingController.clear();
                       }
                     },
@@ -109,8 +108,8 @@ class Home extends GetWidget<AuthController> {
                       itemCount: _.appList.length,
                       itemBuilder: (__, index) {
                         return MyCard(
-                            uid: controller.firebaseUser.uid,
-                            app: _.appList[index]);
+                            userId: Get.find<AuthController>().firebaseUser.uid,
+                            appModel: _.appList[index]);
                       },
                     ),
                   );

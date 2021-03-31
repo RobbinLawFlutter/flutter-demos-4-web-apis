@@ -3,20 +3,20 @@ import 'package:robbinlaw/models/app.dart';
 import 'package:robbinlaw/services/database.dart';
 
 class MyCard extends StatelessWidget {
-  final String uid;
-  final AppModel app;
+  final String userId;
+  final AppModel appModel;
 
-  const MyCard({Key key, this.uid, this.app}) : super(key: key);
+  const MyCard({Key key, this.userId, this.appModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: Key('app-${app.id}'),
+      key: Key('app-${appModel.id}'),
       background: Container(color: Colors.red),
       direction: DismissDirection.endToStart,
       onDismissed: (direction) {
         print('MyCard build: Dismissible onDismissed:');
-        Database().deleteAppData(uid, app.id);
+        Database().deleteAppData(userId, appModel.id);
       },
       child: Card(
         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -26,7 +26,7 @@ class MyCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  app.content,
+                  appModel.content,
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
@@ -34,10 +34,10 @@ class MyCard extends StatelessWidget {
                 ),
               ),
               Checkbox(
-                value: app.done,
+                value: appModel.done,
                 onChanged: (newValue) {
                   print('MyCard build: Checkbox onChanged:');
-                  Database().updateAppData(newValue, uid, app.id);
+                  Database().updateAppData(newValue, userId, appModel.id);
                 },
               ),
             ],

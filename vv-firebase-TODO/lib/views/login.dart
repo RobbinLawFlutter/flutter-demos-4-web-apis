@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:robbinlaw/controllers/authController.dart';
 import 'package:robbinlaw/views/signup.dart';
 
-class Login extends GetWidget<AuthController> {
+class Login extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -32,14 +32,14 @@ class Login extends GetWidget<AuthController> {
                 controller: passwordController,
                 obscureText: true,
               ),
-              RaisedButton(
+              ElevatedButton(
                 child: Text("Log In"),
                 onPressed: () {
-                  controller.login(
-                      emailController.text, passwordController.text);
+                  Get.find<AuthController>()
+                      .login(emailController.text, passwordController.text);
                 },
               ),
-              FlatButton(
+              TextButton(
                 child: Text("Sign Up"),
                 onPressed: () {
                   Get.to(SignUp());

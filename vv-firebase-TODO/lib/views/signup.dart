@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:robbinlaw/controllers/authController.dart';
 
-class SignUp extends GetWidget<AuthController> {
+class SignUp extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -38,10 +39,10 @@ class SignUp extends GetWidget<AuthController> {
                 obscureText: true,
                 controller: passwordController,
               ),
-              FlatButton(
+              TextButton(
                 child: Text("Sign Up"),
                 onPressed: () {
-                  controller.createUser(nameController.text,
+                  Get.find<AuthController>().createUser(nameController.text,
                       emailController.text, passwordController.text);
                 },
               )
