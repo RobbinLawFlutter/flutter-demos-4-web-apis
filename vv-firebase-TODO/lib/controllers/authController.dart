@@ -18,7 +18,7 @@ class AuthController extends GetxController {
     // super should be called first with onInit.
     super.onInit();
     print('AuthController onInit:');
-    //bind the stream from firebase to our _user stream.
+    //bind the stream from firebase to our _firebaseUserStream stream.
     _firebaseUserStream.bindStream(_firebaseAuth.authStateChanges());
   }
 
