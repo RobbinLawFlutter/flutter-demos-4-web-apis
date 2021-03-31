@@ -30,7 +30,7 @@ class AppController extends GetxController {
       String userId = Get.find<AuthController>().firebaseUser?.uid;
       print('AppController upDate: uid= $userId');
       //Bind to our controller appstream the FireStore stream.
-      _appStreamOfList.bindStream(Database().streamAppData(userId));
+      _appStreamOfList.bindStream(Database().streamOfAppData(userId));
     } catch (e) {
       print('AppController upDate: catch $e');
     }

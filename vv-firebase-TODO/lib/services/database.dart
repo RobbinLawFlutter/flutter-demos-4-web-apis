@@ -14,7 +14,7 @@ class Database {
       });
       return true;
     } catch (e) {
-      print(e);
+      print('Database createNewUser: catch $e');
       return false;
     }
   }
@@ -27,13 +27,13 @@ class Database {
       return UserModel.fromDocumentSnapshot(
           documentSnapshot: _documentSnapshot);
     } catch (e) {
-      print(e);
+      print('Database getUser: catch $e');
       rethrow;
     }
   }
 
-  Future<List<AppModel>> getAppData(String userId) async {
-    print('Database getAppData: try');
+  Future<List<AppModel>> futureOfAppData(String userId) async {
+    print('Database futureOfAppData: try');
     try {
       QuerySnapshot _doc = await _firestore
           .collection("users")
@@ -47,13 +47,13 @@ class Database {
       });
       return listOfAppModel;
     } catch (e) {
-      print(e);
+      print('Database futureOfAppData: catch $e');
       rethrow;
     }
   }
 
-  Stream<List<AppModel>> streamAppData(String userId) {
-    print('Database streamAppData: try');
+  Stream<List<AppModel>> streamOfAppData(String userId) {
+    print('Database streamOfAppData: try');
     try {
       return _firestore
           .collection("users")
@@ -62,17 +62,17 @@ class Database {
           .orderBy("dateCreated", descending: true)
           .snapshots()
           .map((QuerySnapshot query) {
-        print('Database streamAppData: try .map');
+        print('Database streamOfAppData: try .map');
         List<AppModel> listOfAppModel = List();
         query.docs.forEach((element) {
-          print('Database streamAppData: try .map query.docs.forEach');
+          print('Database streamOfAppData: try .map query.docs.forEach');
           listOfAppModel
               .add(AppModel.fromDocumentSnapshot(documentSnapshot: element));
         });
         return listOfAppModel;
       });
     } catch (e) {
-      print(e);
+      print('Database streamOfAppData: catch $e');
       rethrow;
     }
   }
@@ -86,13 +86,13 @@ class Database {
         'done': false,
       });
     } catch (e) {
-      print(e);
+      print('Database addAppData: catch $e');
       rethrow;
     }
   }
 
   Future<void> updateAppData(
-      bool newValue, String userId, String appDataId) async {
+      bool newDoneValue, String userId, String appDataId) async {
     print('Database updateAppData: try');
     try {
       _firestore
@@ -100,9 +100,9 @@ class Database {
           .doc(userId)
           .collection("todos")
           .doc(appDataId)
-          .update({"done": newValue});
+          .update({"done": newDoneValue});
     } catch (e) {
-      print(e);
+      print('Database updateAppData: catch $e');
       rethrow;
     }
   }
@@ -117,7 +117,7 @@ class Database {
           .doc(appDataId)
           .delete();
     } catch (e) {
-      print(e);
+      print('Database deleteAppData: catch $e');
       rethrow;
     }
   }
