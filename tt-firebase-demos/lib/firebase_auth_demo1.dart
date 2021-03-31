@@ -17,7 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Firebase Auth"),
+        title: Text("Firebase Auth Demo1"),
       ),
       body: Center(
         child: Column(
