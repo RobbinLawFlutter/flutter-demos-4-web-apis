@@ -21,7 +21,7 @@ class _MyDemoState extends State<MyDemo> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: TextButton(
+      child: ElevatedButton(
         child: Text('Press'),
         onPressed: () {
           performTasks();
@@ -38,4 +38,6 @@ void performTasks() {
   //task4();
 }
 
-void task1() {}
+void task1() {
+  print('task1');
+}

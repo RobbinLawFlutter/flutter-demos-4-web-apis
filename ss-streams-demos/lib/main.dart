@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       //theme: ThemeData.dark(),
       theme: buildTheme(),
-      //home: Demo1(),
+      home: Demo1(),
       //home: Demo2(),
-      home: Demo3(),
+      //home: Demo3(),
       //home: Demo4(),
     );
   }
