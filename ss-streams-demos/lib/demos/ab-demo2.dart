@@ -22,7 +22,7 @@ class _MyDemoState extends State<MyDemo> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: TextButton(
+      child: ElevatedButton(
         child: Text('Press'),
         onPressed: () {
           listenWithPause();
