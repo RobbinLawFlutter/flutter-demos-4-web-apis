@@ -39,7 +39,7 @@ class Login extends StatelessWidget {
                       .login(emailController.text, passwordController.text);
                 },
               ),
-              TextButton(
+              ElevatedButton(
                 child: Text("Sign Up"),
                 onPressed: () {
                   Get.to(SignUp());

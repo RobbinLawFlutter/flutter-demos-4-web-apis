@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase;
+import 'package:robbinlaw/themes/theme.dart';
 import 'package:robbinlaw/dummydata.dart' as dummydata;
 import 'package:robbinlaw/firebase_auth_demo1.dart' as firebaseauthdemo1;
 import 'package:robbinlaw/firebase_auth_demo2.dart' as firebaseauthdemo2;
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
+      //theme: ThemeData.dark(),
+      theme: buildTheme(),
       //home: dummydata.MyHomePage(),
       home: firebaseauthdemo1.MyHomePage(),
       //home: firebaseauthdemo2.MyHomePage(),
