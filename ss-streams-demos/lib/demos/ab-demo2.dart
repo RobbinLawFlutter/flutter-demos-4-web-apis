@@ -33,7 +33,7 @@ class _MyDemoState extends State<MyDemo> {
 
   void listenWithPause() {
     Stream<int> counterStream =
-        timedCounterStream(const Duration(seconds: 1), 15);
+        timedCounterStream(const Duration(seconds: 1), 10);
     StreamSubscription<int> subscription;
     //subscribe to listen to the stream.
     subscription = counterStream.listen((event) {

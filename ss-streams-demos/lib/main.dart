@@ -1,3 +1,9 @@
+//streams from flutter in focus series.
+//https://www.youtube.com/watch?v=nQBpOIHE4eE
+//streambuilder widget of the week.
+//https://www.youtube.com/watch?v=MkKEWHfy99Y
+//stream basics by medium
+//https://medium.com/flutter-community/flutter-stream-basics-for-beginners-eda23e44e32f
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:robbinlaw/themes/theme.dart';
