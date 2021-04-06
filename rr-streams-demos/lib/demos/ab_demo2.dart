@@ -47,7 +47,7 @@ class _MyDemoState extends State<MyDemo> {
     }, onError: (error) {
       print(error);
     }, onDone: () {
-      print('Hey Man this stream is done');
+      print('This stream is done');
     });
   }
 
@@ -70,6 +70,7 @@ class _MyDemoState extends State<MyDemo> {
     }
 
     void startTimer() {
+      print('Start Timer');
       //This timer starts at the interval and counts down to 0 in millisecond divs.
       //Then it runs the tick callback, and starts over,
       //so effectively the tick callback is called every interval seconds.
@@ -77,6 +78,7 @@ class _MyDemoState extends State<MyDemo> {
     }
 
     void stopTimer() {
+      print('Stop Timer');
       if (timer != null) {
         timer.cancel();
         timer = null;
@@ -85,25 +87,25 @@ class _MyDemoState extends State<MyDemo> {
 
     controller = StreamController<int>(
       onListen: () {
+        print('onListen');
         startTimer();
-        print('onListen, Start Timer');
       },
       onPause: () {
         //Here we could stop the timer so no events enter the stream
         //or keep it going and the stream buffer would store them
         //until the subscription resumes listening to the stream events.
+        print('onPause');
         stopTimer();
-        print('onPause, Stop Timer');
       },
       onResume: () {
         //If we disable the stopTimer of onPause we must
         //also disable the startTimer of onResume.
+        print('onResume');
         startTimer();
-        print('onResume, Start Timer');
       },
       onCancel: () {
-        //stopTimer();
-        print('onCancel, Stop Timer');
+        print('onCancel');
+        stopTimer();
       },
     );
     //return the stream that this controller created
