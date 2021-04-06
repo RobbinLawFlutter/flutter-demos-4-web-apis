@@ -68,10 +68,10 @@ void performTasks() {
   Stream stream = controller.stream;
 
   //here we are subscribing to listen to our stream.
-  stream.listen((event) {
+  stream.listen((eventData) {
     //this callback is fired every time a new data event
     //is put into the streams queue.
-    print('Value of the event: $event');
+    print('Value of the event: $eventData');
   }, onError: (error) {
     //this onError callback is fired when an error event
     //is added to the stream.
