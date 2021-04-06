@@ -5,7 +5,7 @@ class Demo4 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Demo4'),
+        title: Text('Demo 4'),
       ),
       body: MyDemo(),
     );
@@ -20,6 +20,22 @@ class MyDemo extends StatefulWidget {
 class _MyDemoState extends State<MyDemo> {
   @override
   Widget build(BuildContext context) {
-    return Center();
+    return Center(
+      child: TextButton(
+        child: Text('Press'),
+        onPressed: () {
+          performTasks();
+        },
+      ),
+    );
   }
 }
+
+void performTasks() {
+  task1();
+  //task2();
+  //task3();
+  //task4();
+}
+
+void task1() {}
