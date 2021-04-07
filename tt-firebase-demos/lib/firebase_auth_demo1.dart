@@ -1,3 +1,5 @@
+//https://firebase.flutter.dev/docs/auth/usage/
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +14,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   UserCredential _authResult;
   String _email, _password;
+  bool isUserLoggedIn = false;
 
   final formKey = GlobalKey<FormState>();
   TextEditingController textEditingController1 = TextEditingController();
@@ -19,6 +22,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    _auth.authStateChanges().listen((User user) {
+      if (user == null) {
+        isUserLoggedIn = false;
+        print('User is currently signed out!');
+      } else {
+        isUserLoggedIn = true;
+        print('User is signed in as: ${_auth.currentUser.email}');
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         title: Text("Firebase Auth Demo1"),
@@ -37,13 +49,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     //print(value);
                   },
                   onFieldSubmitted: (text) {
-                    print('Submitted Email Text = $text');
+                    //if (formKey.currentState.validate()) {}
+                    //print('Submitted Email Text = $text');
                   },
                   validator: (input) {
                     return input.contains('@') ? null : 'must include @';
                   },
                   onSaved: (input) {
-                    print('onSaved email = $input');
+                    //print('onSaved email = $input');
                     _email = input;
                   },
                   cursorColor: colorScheme.onPrimary,
@@ -73,15 +86,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     //print(value);
                   },
                   onFieldSubmitted: (text) {
-                    print('Submitted Password Text = $text');
-                    setState(() {});
+                    //print('Submitted Password Text = $text');
                   },
                   validator: (input) {
                     return input.length < 6 ? 'min 6 chars' : null;
                   },
                   onSaved: (input) {
                     _password = input;
-                    print('onSaved password = $input');
+                    //print('onSaved password = $input');
                   },
                   //obscureText: true,
                   cursorColor: colorScheme.onPrimary,
@@ -112,13 +124,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: () {
                         if (formKey.currentState.validate()) {
                           formKey.currentState.save();
-                          textEditingController1.clear();
-                          textEditingController2.clear();
+                          //textEditingController1.clear();
+                          //textEditingController2.clear();
                           setState(() {});
                         }
                         _signUp(_email, _password);
-                        _email = '';
-                        _password = '';
+                        //_email = '';
+                        //_password = '';
                       },
                     ),
                     ElevatedButton(
@@ -126,13 +138,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: () {
                         if (formKey.currentState.validate()) {
                           formKey.currentState.save();
-                          textEditingController1.clear();
-                          textEditingController2.clear();
+                          //textEditingController1.clear();
+                          //textEditingController2.clear();
                           setState(() {});
                         }
                         _logIn(_email, _password);
-                        _email = '';
-                        _password = '';
+                        //_email = '';
+                        //_password = '';
                       },
                     ),
                     ElevatedButton(
@@ -157,14 +169,14 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       _authResult = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      print('user credential: ${_authResult.credential}');
-      print('user id: ${_authResult.user.uid}');
-      print('user email: ${_authResult.user.email}');
-      print('email has been verified: ${_authResult.user.emailVerified}');
-      print('login is anonymous: ${_authResult.user.isAnonymous}');
+      //print('user credential: ${_authResult.credential}');
+      //print('user id: ${_authResult.user.uid}');
+      //print('user email: ${_authResult.user.email}');
+      //print('email has been verified: ${_authResult.user.emailVerified}');
+      //print('login is anonymous: ${_authResult.user.isAnonymous}');
       Get.snackbar(
-        "signup",
-        "successful",
+        "signup successful",
+        'user email: ${_authResult.user.email}',
         snackPosition: SnackPosition.BOTTOM,
         duration: Duration(seconds: 5),
       );
@@ -182,11 +194,6 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       _authResult = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      print('user credential: ${_authResult.credential}');
-      print('user id: ${_authResult.user.uid}');
-      print('user email: ${_authResult.user.email}');
-      print('email has been verified: ${_authResult.user.emailVerified}');
-      print('login is anonymous: ${_authResult.user.isAnonymous}');
       Get.snackbar(
         "login SUCCESSFUL",
         'user email: ${_authResult.user.email}',

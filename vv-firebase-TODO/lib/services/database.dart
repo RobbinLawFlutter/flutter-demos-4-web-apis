@@ -40,7 +40,7 @@ class Database {
           .doc(userId)
           .collection("todos")
           .get();
-      List<AppModel> listOfAppModel = List();
+      List<AppModel> listOfAppModel = [];
       _doc.docs.forEach((element) {
         listOfAppModel
             .add(AppModel.fromDocumentSnapshot(documentSnapshot: element));
@@ -63,7 +63,7 @@ class Database {
           .snapshots()
           .map((QuerySnapshot query) {
         print('Database streamOfAppData: try .map');
-        List<AppModel> listOfAppModel = List();
+        List<AppModel> listOfAppModel = [];
         query.docs.forEach((element) {
           print('Database streamOfAppData: try .map query.docs.forEach');
           listOfAppModel
