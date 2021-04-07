@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:robbinlaw/themes/theme.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -13,6 +13,7 @@ class _MyHomePageState extends State<MyHomePage> {
   UserCredential _authResult;
   String _email, _password;
 
+  final formKey = GlobalKey<FormState>();
   TextEditingController textEditingController1 = TextEditingController();
   TextEditingController textEditingController2 = TextEditingController();
 
@@ -22,94 +23,131 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text("Firebase Auth Demo1"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          //mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextFormField(
-              controller: textEditingController1,
-              onChanged: (value) {
-                print(value);
-              },
-              onFieldSubmitted: (text) {
-                print('Submitted Email Text = $text');
-              },
-              validator: (input) {
-                return input.contains('@') ? null : 'must include @';
-              },
-              onSaved: (input) {
-                print('onSaved email = $input');
-                _email = input;
-              },
-              cursorColor: colorScheme.onPrimary,
-              maxLength: 30,
-              decoration: InputDecoration(
-                //The border property is what makes a outlined
-                //textformfield instead of a filled one.
-                border: OutlineInputBorder(),
-                icon: Icon(Icons.email),
-                labelText: 'email',
-                helperText: 'must include @',
-                suffixIcon: Icon(
-                  Icons.check_circle,
+      body: Container(
+        child: Form(
+          key: formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              //mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                TextFormField(
+                  controller: textEditingController1,
+                  onChanged: (value) {
+                    //print(value);
+                  },
+                  onFieldSubmitted: (text) {
+                    print('Submitted Email Text = $text');
+                  },
+                  validator: (input) {
+                    return input.contains('@') ? null : 'must include @';
+                  },
+                  onSaved: (input) {
+                    print('onSaved email = $input');
+                    _email = input;
+                  },
+                  cursorColor: colorScheme.onPrimary,
+                  maxLength: 30,
+                  decoration: InputDecoration(
+                    //The border property is what makes a outlined
+                    //textformfield instead of a filled one.
+                    border: OutlineInputBorder(),
+                    icon: Icon(
+                      Icons.email,
+                      color: colorScheme.onBackground,
+                    ),
+                    labelText: 'email',
+                    helperText: 'must include @',
+                    suffixIcon: Icon(
+                      Icons.check_circle,
+                      color: colorScheme.onPrimary,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            TextFormField(
-              controller: textEditingController2,
-              onChanged: (value) {
-                print(value);
-              },
-              onFieldSubmitted: (text) {
-                print('Submitted Password Text = $text');
-                setState(() {});
-              },
-              validator: (input) {
-                return input.length < 8 ? 'min 8 chars' : null;
-              },
-              onSaved: (input) {
-                _password = input;
-                print('onSaved password = $input');
-              },
-              //obscureText: true,
-              cursorColor: colorScheme.onPrimary,
-              maxLength: 20,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                icon: Icon(Icons.emoji_emotions),
-                labelText: 'password',
-                helperText: 'min 8, max 20',
-                suffixIcon: Icon(
-                  Icons.check_circle,
+                SizedBox(
+                  height: 20,
                 ),
-              ),
+                TextFormField(
+                  controller: textEditingController2,
+                  onChanged: (value) {
+                    //print(value);
+                  },
+                  onFieldSubmitted: (text) {
+                    print('Submitted Password Text = $text');
+                    setState(() {});
+                  },
+                  validator: (input) {
+                    return input.length < 6 ? 'min 6 chars' : null;
+                  },
+                  onSaved: (input) {
+                    _password = input;
+                    print('onSaved password = $input');
+                  },
+                  //obscureText: true,
+                  cursorColor: colorScheme.onPrimary,
+                  maxLength: 20,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    icon: Icon(
+                      Icons.emoji_emotions,
+                      color: colorScheme.onBackground,
+                    ),
+                    labelText: 'password',
+                    helperText: 'min 6, max 20',
+                    suffixIcon: Icon(
+                      Icons.check_circle,
+                      color: colorScheme.onPrimary,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      child: Text("Sign Up"),
+                      onPressed: () {
+                        if (formKey.currentState.validate()) {
+                          formKey.currentState.save();
+                          textEditingController1.clear();
+                          textEditingController2.clear();
+                          setState(() {});
+                        }
+                        _signUp(_email, _password);
+                        _email = '';
+                        _password = '';
+                      },
+                    ),
+                    ElevatedButton(
+                      child: Text("Log In"),
+                      onPressed: () {
+                        if (formKey.currentState.validate()) {
+                          formKey.currentState.save();
+                          textEditingController1.clear();
+                          textEditingController2.clear();
+                          setState(() {});
+                        }
+                        _logIn(_email, _password);
+                        _email = '';
+                        _password = '';
+                      },
+                    ),
+                    ElevatedButton(
+                      child: Text("Log Out"),
+                      onPressed: () {
+                        _logOut();
+                        _email = '';
+                        _password = '';
+                      },
+                    ),
+                  ],
+                ),
+              ],
             ),
-            SizedBox(
-              height: 10,
-            ),
-            ElevatedButton(
-              child: Text("Sign Up"),
-              onPressed: () {
-                _signUp(_email, _password);
-              },
-            ),
-            ElevatedButton(
-              child: Text("Log In"),
-              onPressed: () {
-                _logIn(_email, _password);
-              },
-            ),
-            ElevatedButton(
-              child: Text("Log Out"),
-              onPressed: () {
-                _logOut();
-              },
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -168,6 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _logOut() async {
     try {
       await _auth.signOut();
+      //_authResult = null;
       Get.snackbar(
         "logOut SUCCESSFUL",
         'user email: ${_authResult.user.email}',

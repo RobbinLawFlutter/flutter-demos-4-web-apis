@@ -23,6 +23,7 @@ ThemeData buildTheme() {
     //primaryTextTheme: _buildTextTheme(base.primaryTextTheme),
     //accentTextTheme: _buildTextTheme(base.accentTextTheme),
     iconTheme: _buildIconTheme(base.iconTheme),
+    accentIconTheme: _buildIconTheme(base.iconTheme),
     appBarTheme: AppBarTheme(
       color: colorScheme.primary,
       iconTheme: IconThemeData(
@@ -118,7 +119,7 @@ ThemeData buildTheme() {
 }
 
 IconThemeData _buildIconTheme(IconThemeData original) {
-  return original.copyWith(color: brown900);
+  return original.copyWith(color: colorScheme.onPrimary);
 }
 
 TextTheme _buildTextTheme(TextTheme base) {
