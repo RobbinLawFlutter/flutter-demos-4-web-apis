@@ -27,7 +27,7 @@ class _MyDemoState extends State<MyDemo> {
         alignment: FractionalOffset.center,
         //color: Colors.white,
         child: StreamBuilder<int>(
-          stream: timedCounterStream(const Duration(seconds: 1), 10),
+          stream: timedCounterStream(const Duration(seconds: 5), 10),
           builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
             List<Widget> children;
             if (snapshot.hasError) {
@@ -139,10 +139,34 @@ class _MyDemoState extends State<MyDemo> {
     }
 
     controller = StreamController<int>(
-        onListen: startTimer,
-        onPause: stopTimer,
-        onResume: startTimer,
-        onCancel: stopTimer);
+      onListen: () {
+        print('onListen');
+        startTimer();
+      },
+      onPause: () {
+        //Here we could stop the timer so no events enter the stream
+        //or keep it going and the stream buffer would store them
+        //until the subscription resumes listening to the stream events.
+        print('onPause');
+        stopTimer();
+      },
+      onResume: () {
+        //If we disable the stopTimer of onPause we must
+        //also disable the startTimer of onResume.
+        print('onResume');
+        startTimer();
+      },
+      onCancel: () {
+        print('onCancel');
+        stopTimer();
+      },
+    );
+
+    // controller = StreamController<int>(
+    //     onListen: startTimer,
+    //     onPause: stopTimer,
+    //     onResume: startTimer,
+    //     onCancel: stopTimer);
 
     return controller.stream;
   }
