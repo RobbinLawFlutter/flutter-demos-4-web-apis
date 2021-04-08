@@ -44,9 +44,9 @@ void performTasks() {
     controller.add(100.0);
     //add a data event to the stream of type list<dynamic>.
     controller.add([10, 20, 30, 'hey there']);
-    //add a data event to the stream of type map<string, int>.
+    //add a data event to the stream of type map<string, dynamic>.
     controller.add({'name': 'robbin', 'age': 35});
-    //add a data event to the stream of type list<map<string, int>>.
+    //add a data event to the stream of type list<map<string, dynamic>>.
     controller.add([
       {'name': 'joe', 'age': 20},
       {'name': 'sam', 'age': 30}

@@ -45,7 +45,7 @@ class _MyDemoState extends State<MyDemo> {
         subscription.pause(Future.delayed(const Duration(seconds: 5)));
       }
     }, onError: (error) {
-      print(error);
+      print('There has been an error event: $error');
     }, onDone: () {
       print('This stream is done');
     });
@@ -64,7 +64,7 @@ class _MyDemoState extends State<MyDemo> {
         controller.add(counter); // Ask stream to send counter values as event.
       }
       if (counter == maxCount) {
-        timer.cancel();
+        //timer.cancel();
         controller.close(); // Ask stream to shut down and tell listeners.
       }
     }
