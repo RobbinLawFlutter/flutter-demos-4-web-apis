@@ -49,14 +49,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     //print(value);
                   },
                   onFieldSubmitted: (text) {
-                    //if (formKey.currentState.validate()) {}
-                    //print('Submitted Email Text = $text');
+                    if (formKey.currentState.validate()) {}
+                    print('Submitted Email Text = $text');
                   },
                   validator: (input) {
-                    return input.contains('@') ? null : 'must include @';
+                    return input.contains('@') ? null : 'hey it must include @';
                   },
                   onSaved: (input) {
-                    //print('onSaved email = $input');
+                    print('onSaved email = $input');
                     _email = input;
                   },
                   cursorColor: colorScheme.onPrimary,
@@ -86,6 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     //print(value);
                   },
                   onFieldSubmitted: (text) {
+                    if (formKey.currentState.validate()) {}
                     //print('Submitted Password Text = $text');
                   },
                   validator: (input) {
@@ -93,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   onSaved: (input) {
                     _password = input;
-                    //print('onSaved password = $input');
+                    print('onSaved password = $input');
                   },
                   //obscureText: true,
                   cursorColor: colorScheme.onPrimary,
