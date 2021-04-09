@@ -1,3 +1,9 @@
+//Dismissable Widget of the Week 1min.
+//https://www.youtube.com/watch?v=iEMgjrfuc58&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=29
+
+//flutter_slidable Package of the Week 2min.
+//https://www.youtube.com/watch?v=QFcFEpFmNJ8&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=96
+
 import 'package:flutter/material.dart';
 import 'package:robbinlaw/models/app.dart';
 import 'package:robbinlaw/services/database.dart';
