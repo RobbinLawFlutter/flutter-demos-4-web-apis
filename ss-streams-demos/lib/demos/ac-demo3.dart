@@ -27,7 +27,7 @@ class _MyDemoState extends State<MyDemo> {
         alignment: FractionalOffset.center,
         //color: Colors.white,
         child: StreamBuilder<int>(
-          stream: timedCounterStream(const Duration(seconds: 5), 10),
+          stream: timedCounterStream(const Duration(seconds: 1), 15),
           builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
             List<Widget> children;
             if (snapshot.hasError) {
@@ -161,13 +161,6 @@ class _MyDemoState extends State<MyDemo> {
         stopTimer();
       },
     );
-
-    // controller = StreamController<int>(
-    //     onListen: startTimer,
-    //     onPause: stopTimer,
-    //     onResume: startTimer,
-    //     onCancel: stopTimer);
-
     return controller.stream;
   }
 }
