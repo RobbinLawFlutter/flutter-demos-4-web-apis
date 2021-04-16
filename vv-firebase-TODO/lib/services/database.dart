@@ -55,13 +55,23 @@ class Database {
   Stream<List<AppModel>> streamOfAppData(String userId) {
     print('Database streamOfAppData: try');
     try {
-      return _firestore
+      Query data = _firestore
           .collection("users")
           .doc(userId)
           .collection("todos")
-          .orderBy("dateCreated", descending: true)
-          .snapshots()
-          .map((QuerySnapshot query) {
+          .orderBy("dateCreated", descending: true);
+      print('collected data');
+      Stream<QuerySnapshot> snapshots = data.snapshots();
+      print('snapshots');
+
+      // return _firestore
+      //     .collection("users")
+      //     .doc(userId)
+      //     .collection("todos")
+      //     .orderBy("dateCreated", descending: true)
+      //     .snapshots()
+
+      snapshots.map((QuerySnapshot query) {
         print('Database streamOfAppData: try .map');
         List<AppModel> listOfAppModel = [];
         query.docs.forEach((element) {
