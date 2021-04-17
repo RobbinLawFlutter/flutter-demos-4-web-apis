@@ -71,7 +71,7 @@ class Database {
       //     .orderBy("dateCreated", descending: true)
       //     .snapshots()
 
-      snapshots.map((QuerySnapshot query) {
+      return snapshots.map((QuerySnapshot query) {
         print('Database streamOfAppData: try .map');
         List<AppModel> listOfAppModel = [];
         query.docs.forEach((element) {
