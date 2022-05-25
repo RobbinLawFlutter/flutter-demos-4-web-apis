@@ -12,15 +12,27 @@ class WeatherService {
   Future<dynamic> getLocationWeatherData() async {
     LocationService locationService = LocationService();
     await locationService.getCurrentLocation();
-    String url =
-        '$openWeatherMapURL?lat=${locationService.lat}&lon=${locationService.lon}&units=metric&appid=$apiKey';
+    Uri url = Uri(
+      scheme: 'https',
+      host: 'api.openweathermap.org',
+      path: '/data/2.5/weather',
+      query: 'lat=${locationService.lat}&lon=${locationService.lon}&units=metric&appid=$apiKey'
+    );
+    print('url is: $url');
+    
     NetworkService networkService = NetworkService(url);
     var weatherData = await networkService.getData();
     return weatherData;
   }
 
   Future<dynamic> getCityWeatherData(String cityName) async {
-    var url = '$openWeatherMapURL?q=$cityName&appid=$apiKey&units=metric';
+    var urla = '$openWeatherMapURL?q=$cityName&appid=$apiKey&units=metric';
+    Uri url = Uri(
+      scheme: 'https',
+      host: 'api.openweathermap.org',
+      path: '/data/2.5/weather',
+      query: 'q=$cityName&appid=$apiKey&units=metric'
+    );
     NetworkService networkService = NetworkService(url);
     var weatherData = await networkService.getData();
     return weatherData;

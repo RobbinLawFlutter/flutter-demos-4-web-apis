@@ -2,23 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:robbinlaw/utilities/constants.dart';
 import 'package:robbinlaw/services/weather.dart';
 import 'package:robbinlaw/views/city-view.dart';
-import 'package:robbinlaw/views/city-view.dart';
 
 class LocationView extends StatefulWidget {
-  LocationView(this.locationWeather);
+  const LocationView ({Key? key, required this.locationWeather}) : super(key: key);
+  //const LocationView(this.locationWeather);
   final locationWeather;
   @override
-  _LocationViewState createState() => _LocationViewState();
+  LocationViewState createState() => LocationViewState();
 }
 
-class _LocationViewState extends State<LocationView> {
+class LocationViewState extends State<LocationView> {
+  
   WeatherService weatherService = WeatherService();
-  String weatherDescription;
-  int temperature;
+  late String weatherDescription;
+  late int temperature;
   //double temperature;
-  String weatherIcon;
-  String cityName;
-  String weatherMessage;
+  late String weatherIcon;
+  late String cityName;
+  late String weatherMessage;
 
   @override
   void initState() {
@@ -58,13 +59,13 @@ class _LocationViewState extends State<LocationView> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('images/location_background.jpg'),
+            image: const AssetImage('images/location_background.jpg'),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
                 Colors.white.withOpacity(0.8), BlendMode.dstATop),
           ),
         ),
-        constraints: BoxConstraints.expand(),
+        constraints: const BoxConstraints.expand(),
         child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -79,7 +80,7 @@ class _LocationViewState extends State<LocationView> {
                           await weatherService.getLocationWeatherData();
                       updateUI(weatherData);
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.near_me,
                       size: 50.0,
                     ),
@@ -101,7 +102,7 @@ class _LocationViewState extends State<LocationView> {
                         updateUI(weatherData);
                       }
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.location_city,
                       size: 50.0,
                     ),
@@ -109,7 +110,7 @@ class _LocationViewState extends State<LocationView> {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(left: 15.0),
+                padding: const EdgeInsets.only(left: 15.0),
                 child: Row(
                   children: <Widget>[
                     Text(
@@ -124,7 +125,7 @@ class _LocationViewState extends State<LocationView> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(right: 15.0),
+                padding: const EdgeInsets.only(right: 15.0),
                 child: Text(
                   '$weatherMessage in $cityName',
                   textAlign: TextAlign.right,

@@ -4,7 +4,7 @@ import 'dart:convert';
 
 class NetworkService {
   NetworkService(this.url);
-  final String url;
+  final Uri url;
 
   Future getData() async {
     http.Response response = await http.get(url);
@@ -12,7 +12,7 @@ class NetworkService {
       String data = response.body;
       return jsonDecode(data);
     } else {
-      print(response.statusCode);
+      print('response status code: ${response.statusCode}');
     }
   }
 }

@@ -21,11 +21,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:robbinlaw/services/location.dart';
 
 class LoadingView1 extends StatefulWidget {
+  const LoadingView1 ({Key? key}) : super(key: key);
   @override
-  _LoadingView1State createState() => _LoadingView1State();
+  LoadingView1State createState() => LoadingView1State();
 }
 
-class _LoadingView1State extends State<LoadingView1> {
+class LoadingView1State extends State<LoadingView1> {
   LocationService locationService = LocationService();
 
   @override
@@ -39,9 +40,9 @@ class _LoadingView1State extends State<LoadingView1> {
             onPressed: () async {
               await locationService.getCurrentLocation();
             },
-            child: Text('Get Location'),
+            child: const Text('Get Location'),
           ),
-          SpinKitDoubleBounce(
+          const SpinKitDoubleBounce(
             color: Colors.white,
             size: 100,
           ),

@@ -4,11 +4,12 @@ import 'package:robbinlaw/services/weather.dart';
 import 'package:robbinlaw/views/location-view.dart';
 
 class LoadingView2 extends StatefulWidget {
+  const LoadingView2 ({Key? key}) : super(key: key);
   @override
-  _LoadingView2State createState() => _LoadingView2State();
+  LoadingView2State createState() => LoadingView2State();
 }
 
-class _LoadingView2State extends State<LoadingView2> {
+class LoadingView2State extends State<LoadingView2> {
   @override
   void initState() {
     print('initState started');
@@ -18,18 +19,18 @@ class _LoadingView2State extends State<LoadingView2> {
 
   void getPhoneLocationWeatherData() async {
     WeatherService weatherService = WeatherService();
-    print('just before call to get weather data');
+    print('just before call to weatherService.getLocationWeatherData()');
     var weatherData = await weatherService.getLocationWeatherData();
-    print('just after call to get weather data');
+    print('just after call to weatherService.getLocationWeatherData()');
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return LocationView(weatherData);
+      return LocationView(locationWeather: weatherData);
     }));
   }
 
   @override
   Widget build(BuildContext context) {
     print('build started');
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: SpinKitDoubleBounce(
           color: Colors.white,
