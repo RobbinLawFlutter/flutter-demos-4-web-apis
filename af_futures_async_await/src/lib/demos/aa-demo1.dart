@@ -15,7 +15,7 @@ class Demo1 extends StatelessWidget {
 }
 
 class MyDemo extends StatefulWidget {
-  const MyDemo({Key? key}) : super(key: key);
+  const MyDemo ({Key? key}) : super(key: key);
   @override
   MyDemoState createState() => MyDemoState();
 }
@@ -27,89 +27,91 @@ class MyDemoState extends State<MyDemo> {
       child: ElevatedButton(
         child: const Text('Press'),
         onPressed: () {
-          performTasks();
+          //performTasks1();
+          //performTasks2();
+          performTasks3();
         },
       ),
     );
   }
 }
 
-void performTasks() {
-  //https://dart.dev/guides/language/language-tour#maps
+void performTasks1() {
+  task1();
+  task2();
+}
 
-  //Maps are generic and both the key and value can be any type.
-  Map<String, int> myAgeBook = {
-    'Rob': 60,
-    'Linda': 70,
-    'Bob': 40,
-    'James': 30,
-  };
-  //We could use var here as well
-  //var hawaiianBeaches = {};
-  Map<String, List<String>> hawaiianBeaches = {
-    'Oahu': ['Waikiki', 'Kailua', 'Waimanalo'],
-    'Big Island': ['Wailea Bay', 'Pololu Beach'],
-    'Kauai': ['Hanalei', 'Poipu']
-  };
+void performTasks2() {
+  String task3Result = task3();
+  task4(task3Result);
+}
 
-  //Maps can be built from a constructor.
-  //Maps are parameterized types; you can specify what
-  //types the key and value should be explicitly.
-  var nobleGases = Map<int, String>();
-  //With this syntax the key is 'Bob' and the value is returned.
-  print(myAgeBook['Bob']);
-  //If key is not in the map a NULL is returned.
-  print(myAgeBook['Jim']);
-  //Adding a new key:value to the map.
-  myAgeBook['Tim'] = 20;
-  //Iterate thru the map.
-  myAgeBook.forEach((key, value) {
-    print('key is $key, value is $value');
+void performTasks3() async {
+  String task5Result = await task5();
+  task6(task5Result);
+}
+
+//In this method the sleep method runs synchronously.
+void task1() {
+  print('Task 1 start');
+  Duration myFiveSeconds = const Duration(seconds: 5);
+  //We can access sleep() by importing dart.io.
+  sleep(myFiveSeconds);
+  print('Task 1 end');
+}
+
+//In this method the Future.delayed method runs asynchronously.
+void task2() {
+  print('Task 2 start');
+  Duration myFiveSeconds = const Duration(seconds: 5);
+  //async method that will delay for 5 seconds,
+  //and then run the callback method, which is
+  //the second parm.
+  Future.delayed(myFiveSeconds, () {
+    print('Task 2 future callback complete');
   });
-  //Common Map properties: length, keys, values, isEmpty, isNotEmpty
-  print('myAgeBook Length is: ${myAgeBook.length}');
-  print('myAgeBook Keys are: ${myAgeBook.keys}');
-  print('myAgeBook Values are: ${myAgeBook.values}');
-  print('myAgeBook isEmpty is: ${myAgeBook.isEmpty}');
-  print('myAgeBook isNotEmpty is: ${myAgeBook.isNotEmpty}');
-  //Common Map methods: remove, removeWhere, from, of,
-  Map map = {1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five'};
-  map.remove(2);
-  print(map);
+  print('Task 2 end');
+}
 
-  map.removeWhere((k, v) => v.startsWith('f'));
-  print(map);
-
-  map.clear();
-  print(map);
-
-  var map2 = Map.from(myAgeBook);
-  print(map2);
-
-  var map3 = Map.of(myAgeBook);
-  print(map3);
-
-  print(hawaiianBeaches.keys);
-  print(hawaiianBeaches.values);
-  print(hawaiianBeaches['Big Island']);
-  print(hawaiianBeaches['Oahu']![1]);
-
-  //You can also allow for the key and value types to change
-  //on the fly programmatically.
-  var planets = <dynamic, dynamic>{};
-
-  planets[1] = 'Pluto';
-  planets[4] = 'Jupiter';
-  planets['this key is a string'] = 20;
-  planets.forEach((key, value) {
-    print(planets);
+//In this method the Future.delayed method runs asynchronously.
+String task3() {
+  print('Task 3 start');
+  String result = '';
+  Duration myFiveSeconds = const Duration(seconds: 5);
+  //async method that will delay for 5 seconds,
+  //and then run the callback method, which is
+  //the second parm.
+  Future.delayed(myFiveSeconds, () {
+    result = 'task 3 data';
+    print('Task 3 future callback complete');
   });
+  print('Task 3 end');
+  return result;
+}
 
-  var map4 = {1: 'one', 2: 'two', 3: 'three'};
+void task4(String data) {
+  print('Task 4 start');
+  print('Task 4 end with $data');
+}
 
-  var transformedMap = map4.map((k, v) {
-    return MapEntry('($k)', v.toUpperCase());
+//In this method the Future.delayed method runs synchronously.
+Future<String> task5() async {
+  print('Task 5 start');
+  String result = '';
+  Duration myFiveSeconds = const Duration(seconds: 5);
+  //async method that will delay for 5 seconds,
+  //and then run the callback method, which is
+  //the second parm.
+  //Using await will cause this to now act synchronously.
+  await Future.delayed(myFiveSeconds, () {
+    result = 'task 5 data';
+    print('Task 5 future callback complete');
   });
+  print('Task 5 end');
+  return result;
+}
 
-  print(transformedMap);
+void task6(String data) {
+  print('Task 6 start');
+  print('Task 6 end with $data');
 }
