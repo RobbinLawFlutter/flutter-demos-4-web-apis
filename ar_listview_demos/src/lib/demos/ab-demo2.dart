@@ -1,135 +1,81 @@
 import 'package:flutter/material.dart';
 
-class CustomerOne {
-  CustomerOne(this.name, this.age);
-  String name;
-  int age;
-
-  @override
-  String toString() {
-    return '{ $name, $age }';
-  }
-}
-
-class CustomerTwo {
-  CustomerTwo({required this.name, required this.age});
-  String name;
-  int age;
-
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'age': age,
-    };
-  }
-
-  @override
-  String toString() {
-    return '{ $name, $age }';
-  }
-}
-
 class Demo2 extends StatelessWidget {
-  const Demo2 ({Key? key}) : super(key: key);
+  const Demo2({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Demo2-MapToList and ListToMap Con'),
+        title: const Text('Demo2'),
       ),
-      body: MyDemo(),
+      body: const MyDemo(),
     );
   }
 }
 
 class MyDemo extends StatefulWidget {
-  const MyDemo ({Key? key}) : super(key: key);
+  const MyDemo({Key? key}) : super(key: key);
   @override
   MyDemoState createState() => MyDemoState();
 }
 
 class MyDemoState extends State<MyDemo> {
+  late List<ListItem> items;
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        child: const Text('Press'),
-        onPressed: () {
-          performTasks();
-        },
-      ),
+    items = List<ListItem>.generate(
+      20,
+      (i) => i % 6 == 0
+          ? HeadingItem("Heading $i")
+          : MessageItem("Sender $i", "Message body $i"),
+    );
+
+    return ListView.builder(
+      // Let the ListView.builder know how many items it needs to build.
+      itemCount: items.length,
+      // Provide an itemBuilder function. This is where the magic happens.
+      // Convert each item in the list
+      //into a widget based on the type of item it is.
+      itemBuilder: (context, index) {
+        final item = items[index];
+
+        if (item is HeadingItem) {
+          return ListTile(
+            title: Text(
+              item.heading,
+              style: Theme.of(context).textTheme.headline4,
+            ),
+          );
+        } else if (item is MessageItem) {
+          return ListTile(
+            title: Text(item.sender),
+            subtitle: Text(item.body),
+          );
+        } else {
+          return const ListTile(
+            title: Text('nothing'),
+          );
+        }
+      },
     );
   }
 }
 
-void performTasks() {
-  Map map = {'Jack': 23, 'Adam': 27, 'Katherin': 25};
-  //Map map0 = {'name': 'Jack', 'age': 27};
-  var list1 = [];
-  //Convert a map to a list of CustomerOne objects.
-  map.forEach((k, v) => list1.add(CustomerOne(k, v)));
-  print('list1= $list1');
-  //Another way to convert a map to a list of CustomerOne objects.
-  var list2 = [];
-  map.entries.forEach((e) => list2.add(CustomerOne(e.key, e.value)));
-  print('list2= $list2');
-  //Another way to convert a map to a list of CustomerOne objects.
-  //We convert the map into a view and then to a list.
-  var list3 = [];
-  list3 = map.entries.map((e) => CustomerOne(e.key, e.value)).toList();
-  print('list3= $list3');
+// The base class for the different types of items the list can contain.
+abstract class ListItem {}
 
-  //Using CustomerOne
-  //Creating a list of CustomerOne objects.
-  List list4 = [];
-  list4.add(CustomerOne('Jack', 23));
-  list4.add(CustomerOne('Adam', 27));
-  list4.add(CustomerOne('Katherin', 25));
-  //Converting a list of CustomerOne objects to a map.
-  var map2 = {};
-  list4.forEach((customer) => map2[customer.name] = customer.age);
-  print('map2= $map2');
+// A ListItem that contains data to display a heading.
+class HeadingItem implements ListItem {
+  HeadingItem(this.heading);
 
-  //Creating a list of maps.
-  List<Map<String, dynamic>> myListOfMaps = [
-    {'name': 'Jack', 'age': 23},
-    {'name': 'Adam', 'age': 27},
-    {'name': 'katie', 'age': 25},
-  ];
-  // Convert the List<Map<String, dynamic> into a List<CustomerOne>.
-  var list5 = List.generate(myListOfMaps.length, (i) {
-    return CustomerOne(
-      myListOfMaps[i]['name'],
-      myListOfMaps[i]['age'],
-    );
-  });
-  print('list5= $list5');
+  final String heading;
+}
 
-  //Using CustomerTwo
-  //Creating a list of CustomerTwo objects.
-  List listOfCustomerObjects1 = [];
-  listOfCustomerObjects1.add(CustomerTwo(name: 'Jack', age: 23));
-  listOfCustomerObjects1.add(CustomerTwo(name: 'Adam', age: 27));
-  listOfCustomerObjects1.add(CustomerTwo(name: 'Katherin', age: 25));
+// A ListItem that contains data to display a message.
+class MessageItem implements ListItem {
+  MessageItem(this.sender, this.body);
 
-  //Convert the List<CustomerTwo> into a List<Map<String, dynamic>>
-  var listOfMaps1 = List.generate(listOfCustomerObjects1.length, (i) {
-    return listOfCustomerObjects1[i].toMap();
-  });
-  print('listOfMaps1= $listOfMaps1');
-
-  //Creating a list of maps.
-  List<Map<String, dynamic>> listOfMaps2 = [
-    {'name': 'Jack', 'age': 23},
-    {'name': 'Adam', 'age': 27},
-    {'name': 'katie', 'age': 25},
-  ];
-  // Convert the List<Map<String, dynamic>> into a List<CustomerTWo>.
-  var listOfCustomerObjects2 = List.generate(listOfMaps2.length, (i) {
-    return CustomerTwo(
-      name: listOfMaps2[i]['name'],
-      age: listOfMaps2[i]['age'],
-    );
-  });
-  print('listOfCustomerObjects2= $listOfCustomerObjects2');
+  final String sender;
+  final String body;
 }

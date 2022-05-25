@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:robbinlaw/themes/theme.dart';
 
-import 'package:robbinlaw/demos/aa-demo1.dart';
-import 'package:robbinlaw/demos/ab-demo2.dart';
+import 'package:robbinlaw/views/home.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp ({Key? key}) : super(key: key);
+  MyApp ({Key? key}) : super(key: key);
+  final Color themeColor = Color(0xFF808366);
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
-      home: const Demo1(),
-      //home: const Demo2(),
+      //theme: ThemeData.dark(),
+      theme: buildTheme(),
+      home: HomeView(),
     );
   }
 }
