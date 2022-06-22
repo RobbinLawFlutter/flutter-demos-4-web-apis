@@ -1,21 +1,23 @@
+//streams in Flutter in Focus series
+//https://www.youtube.com/watch?v=nQBpOIHE4eE
+
 import 'package:flutter/material.dart';
-import 'dart:io';
+import 'dart:async';
 
 class Demo1 extends StatelessWidget {
-  const Demo1 ({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Demo1'),
+        title: const Text('Demo 1'),
       ),
-      body: const MyDemo(),
+      body: MyDemo(),
     );
   }
 }
 
 class MyDemo extends StatefulWidget {
-  const MyDemo({Key? key}) : super(key: key);
+  const MyDemo ({Key? key}) : super(key: key);
   @override
   MyDemoState createState() => MyDemoState();
 }
@@ -35,81 +37,49 @@ class MyDemoState extends State<MyDemo> {
 }
 
 void performTasks() {
-  //https://dart.dev/guides/language/language-tour#maps
+  //this controller allows for any type of data to
+  //be added to the streams data events queue.
+  StreamController controller = StreamController();
+  try {
+    //add a data event to the stream of type double
+    controller.add(100.0);
+    //add a data event to the stream of type list<dynamic>.
+    controller.add([10, 20, 30, 'hey there']);
+    //add a data event to the stream of type map<string, dynamic>.
+    controller.add({'name': 'robbin', 'age': 35});
+    //add a data event to the stream of type list<map<string, dynamic>>.
+    controller.add([
+      {'name': 'joe', 'age': 20},
+      {'name': 'sam', 'age': 30}
+    ]);
+    //add a data event to the stream of type null.
+    controller.add(null);
+    //add an error event to the stream.
+    controller.addError(StateError('This is an error event'));
+    //add a data event to the stream of type int.
+    controller.add(5);
+    //close the controller. Cannot add anything to the stream
+    //after closing the controller.
+    controller.close();
+    //controller.add(10);
+  } catch (e) {
+    print('catch: $e');
+  }
 
-  //Maps are generic and both the key and value can be any type.
-  Map<String, int> myAgeBook = {
-    'Rob': 60,
-    'Linda': 70,
-    'Bob': 40,
-    'James': 30,
-  };
-  //We could use var here as well
-  //var hawaiianBeaches = {};
-  Map<String, List<String>> hawaiianBeaches = {
-    'Oahu': ['Waikiki', 'Kailua', 'Waimanalo'],
-    'Big Island': ['Wailea Bay', 'Pololu Beach'],
-    'Kauai': ['Hanalei', 'Poipu']
-  };
+  Stream stream = controller.stream;
 
-  //Maps can be built from a constructor.
-  //Maps are parameterized types; you can specify what
-  //types the key and value should be explicitly.
-  var nobleGases = Map<int, String>();
-  //With this syntax the key is 'Bob' and the value is returned.
-  print(myAgeBook['Bob']);
-  //If key is not in the map a NULL is returned.
-  print(myAgeBook['Jim']);
-  //Adding a new key:value to the map.
-  myAgeBook['Tim'] = 20;
-  //Iterate thru the map.
-  myAgeBook.forEach((key, value) {
-    print('key is $key, value is $value');
+  //here we are subscribing to listen to our stream.
+  stream.listen((eventData) {
+    //this callback is fired every time a new data event
+    //is put into the streams queue.
+    print('Value of the event: $eventData');
+  }, onError: (error) {
+    //this onError callback is fired when an error event
+    //is added to the stream.
+    print('An error event has occured: $error');
+  }, onDone: () {
+    //this onDone callback is fired when the controller
+    //closes the stream.
+    print('This stream is done');
   });
-  //Common Map properties: length, keys, values, isEmpty, isNotEmpty
-  print('myAgeBook Length is: ${myAgeBook.length}');
-  print('myAgeBook Keys are: ${myAgeBook.keys}');
-  print('myAgeBook Values are: ${myAgeBook.values}');
-  print('myAgeBook isEmpty is: ${myAgeBook.isEmpty}');
-  print('myAgeBook isNotEmpty is: ${myAgeBook.isNotEmpty}');
-  //Common Map methods: remove, removeWhere, from, of,
-  Map map = {1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five'};
-  map.remove(2);
-  print(map);
-
-  map.removeWhere((k, v) => v.startsWith('f'));
-  print(map);
-
-  map.clear();
-  print(map);
-
-  var map2 = Map.from(myAgeBook);
-  print(map2);
-
-  var map3 = Map.of(myAgeBook);
-  print(map3);
-
-  print(hawaiianBeaches.keys);
-  print(hawaiianBeaches.values);
-  print(hawaiianBeaches['Big Island']);
-  print(hawaiianBeaches['Oahu']![1]);
-
-  //You can also allow for the key and value types to change
-  //on the fly programmatically.
-  var planets = <dynamic, dynamic>{};
-
-  planets[1] = 'Pluto';
-  planets[4] = 'Jupiter';
-  planets['this key is a string'] = 20;
-  planets.forEach((key, value) {
-    print(planets);
-  });
-
-  var map4 = {1: 'one', 2: 'two', 3: 'three'};
-
-  var transformedMap = map4.map((k, v) {
-    return MapEntry('($k)', v.toUpperCase());
-  });
-
-  print(transformedMap);
 }
