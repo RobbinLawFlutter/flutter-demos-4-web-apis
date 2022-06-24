@@ -10,37 +10,37 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Flutter Firestore Demo 1"),
+        title: const Text("Flutter Firestore Demo 1"),
       ),
       body: Center(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               ElevatedButton(
-                child: Text("Create"),
                 onPressed: _create,
+                child: const Text("Create"),
               ),
               ElevatedButton(
-                child: Text("Read"),
                 onPressed: _read,
+                child: const Text("Read"),
               ),
               ElevatedButton(
-                child: Text("Update"),
                 onPressed: _update,
+                child: const Text("Update"),
               ),
               ElevatedButton(
-                child: Text("Delete"),
                 onPressed: _delete,
+                child: const Text("Delete"),
               ),
             ]),
       ),
@@ -58,14 +58,14 @@ class _MyHomePageState extends State<MyHomePage> {
         "successful create",
         '',
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 3),
+        duration: const Duration(seconds: 3),
       );
     } catch (e) {
       Get.snackbar(
         "create ERROR",
-        e.message,
+        e.toString(),
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
       );
     }
   }
@@ -80,14 +80,14 @@ class _MyHomePageState extends State<MyHomePage> {
         "successful read",
         '${documentSnapshot.data()}',
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 3),
+        duration: const Duration(seconds: 3),
       );
     } catch (e) {
       Get.snackbar(
         "read ERROR",
-        e.message,
+        e.toString(),
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
       );
     }
   }
@@ -103,14 +103,14 @@ class _MyHomePageState extends State<MyHomePage> {
         "successful update",
         '',
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 3),
+        duration: const Duration(seconds: 3),
       );
     } catch (e) {
       Get.snackbar(
         "update ERROR",
-        e.message,
+        e.toString(),
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
       );
     }
   }
@@ -123,14 +123,14 @@ class _MyHomePageState extends State<MyHomePage> {
         "successful delete",
         '',
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 3),
+        duration: const Duration(seconds: 3),
       );
     } catch (e) {
       Get.snackbar(
         "delete ERROR",
-        e.message,
+        e.toString(),
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
       );
     }
   }
