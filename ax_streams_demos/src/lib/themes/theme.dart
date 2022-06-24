@@ -53,7 +53,7 @@ ThemeData buildTheme() {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: _colorScheme.primary,
-      labelStyle: TextStyle(),
+      labelStyle: const TextStyle(),
       hintStyle: TextStyle(
         fontWeight: FontWeight.w500,
         fontSize: 25,
@@ -61,7 +61,7 @@ ThemeData buildTheme() {
         color: _colorScheme.onPrimary,
       ),
       border: OutlineInputBorder(
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           color: Colors.black,
         ),
         borderRadius: BorderRadius.circular(20.0),
@@ -73,7 +73,7 @@ ThemeData buildTheme() {
           backgroundColor: MaterialStateProperty.all(_colorScheme.background),
           foregroundColor: MaterialStateProperty.all(_colorScheme.onPrimary),
           textStyle: MaterialStateProperty.all(
-            TextStyle(
+            const TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 20,
               letterSpacing: defaultLetterSpacing,
@@ -89,7 +89,7 @@ ThemeData buildTheme() {
           foregroundColor:
               MaterialStateProperty.resolveWith<Color>(getForegroundColor),
           textStyle: MaterialStateProperty.all(
-            TextStyle(
+            const TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 25,
               letterSpacing: defaultLetterSpacing,
@@ -107,29 +107,29 @@ TextTheme _buildTextTheme(TextTheme base) {
   return base
       .copyWith(
         //Extremely large text.
-        headline1: TextStyle(
+        headline1: const TextStyle(
           color: Colors.green,
         ),
         //Very, very large text.
-        headline2: TextStyle(
+        headline2: const TextStyle(
           color: Colors.green,
         ),
         //Very large text.
-        headline3: TextStyle(
+        headline3: const TextStyle(
           color: Colors.green,
         ),
         //Large text.
-        headline4: TextStyle(
+        headline4: const TextStyle(
           color: Colors.green,
         ),
         //Used for large text in dialogs
         //(e.g., the month and year in the dialog shown by showDatePicker)
-        headline5: TextStyle(
+        headline5: const TextStyle(
           color: Colors.green,
         ),
         //Used for the primary text in app bars and dialogs
         //(e.g., AppBar.title and AlertDialog.title).
-        headline6: base.headline6.copyWith(
+        headline6: base.headline6!.copyWith(
           color: Colors.purple,
           fontWeight: FontWeight.w500,
           fontSize: 25,
@@ -137,24 +137,24 @@ TextTheme _buildTextTheme(TextTheme base) {
         ),
         //Used for the primary text in lists (e.g., ListTile.title)
         //and the TextField edited text.
-        subtitle1: base.subtitle1.copyWith(
+        subtitle1: base.subtitle1!.copyWith(
           color: Colors.amber,
           fontWeight: FontWeight.w500,
           fontSize: 25,
           letterSpacing: defaultLetterSpacing,
         ),
         //For medium emphasis text that's a little smaller than subtitle1
-        subtitle2: base.subtitle2.copyWith(
+        subtitle2: base.subtitle2!.copyWith(
           color: Colors.cyan,
           fontSize: 15,
         ),
         //Used for emphasizing text that would otherwise be bodyText2.
-        bodyText1: base.bodyText1.copyWith(
+        bodyText1: base.bodyText1!.copyWith(
           color: Colors.blue,
         ),
         //The default text style for material.
         //Color for ListTile.trailing
-        bodyText2: base.bodyText2.copyWith(
+        bodyText2: base.bodyText2!.copyWith(
           color: Colors.green,
           fontWeight: FontWeight.w500,
           fontSize: 15,
@@ -162,7 +162,7 @@ TextTheme _buildTextTheme(TextTheme base) {
         ),
         //Used for auxiliary text with images.
         //Used for ListTile.subtile
-        caption: base.caption.copyWith(
+        caption: base.caption!.copyWith(
           color: Colors.black,
           fontWeight: FontWeight.w400,
           fontSize: 15,
@@ -170,7 +170,7 @@ TextTheme _buildTextTheme(TextTheme base) {
         ),
         //Used for text on ElevatedButton, TextButton, and OutlinedButton
         //if no others
-        button: base.button.copyWith(
+        button: base.button!.copyWith(
           //Button text color
           color: Colors.white,
           //button text background color, NOT button color.
