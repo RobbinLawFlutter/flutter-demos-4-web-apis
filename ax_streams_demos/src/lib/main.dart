@@ -13,6 +13,7 @@ import 'package:robbinlaw/themes/theme.dart';
 
 import 'package:robbinlaw/demos/aa-demo1.dart';
 import 'package:robbinlaw/demos/ab-demo2.dart';
+import 'package:robbinlaw/demos/ac-demo3.dart';
 
 
 void main() {
@@ -28,8 +29,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       //theme: ThemeData.dark(),
       theme: buildTheme(),
-      //home: const Demo1(),
-      home: Demo2(),
+      home: const Demo1(),
+      //home: const Demo2(),
       //home: Demo3(),
     );
   }

@@ -1,5 +1,6 @@
-import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class Demo2 extends StatelessWidget {
   const Demo2 ({Key? key}) : super(key: key);
@@ -44,7 +45,7 @@ class MyDemoState extends State<MyDemo> {
         //After 3 ticks, pause for five seconds, then resume.
         //During the pause time the controller will sense this
         //and stop putting events into the stream.
-        subscription.pause(Future.delayed(const Duration(seconds: 5)));
+        //subscription.pause(Future.delayed(const Duration(seconds: 5)));
       }
     }, onError: (error) {
       print('There has been an error event: $error');
@@ -53,9 +54,9 @@ class MyDemoState extends State<MyDemo> {
     });
   }
 
-  Stream<int> timedCounterStream(Duration interval, [int maxCount]) {
+  Stream<int> timedCounterStream(Duration interval, [int maxCount = 5]) {
     StreamController<int> controller = StreamController<int>();
-    Timer timer;
+    Timer? timer;
     int counter = 0;
 
     void tick(_) {
@@ -82,7 +83,7 @@ class MyDemoState extends State<MyDemo> {
     void stopTimer() {
       print('Stop Timer');
       if (timer != null) {
-        timer.cancel();
+        timer!.cancel();
         timer = null;
       }
     }
