@@ -6,14 +6,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:robbinlaw/themes/theme.dart';
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage ({Key? key}) : super(key: key);
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  UserCredential _authResult;
-  String _email, _password;
+  late UserCredential _authResult;
+  String _email = "", _password = "";
   bool isUserLoggedIn = false;
 
   final formKey = GlobalKey<FormState>();
@@ -22,18 +23,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    _auth.authStateChanges().listen((User user) {
+    _auth.authStateChanges().listen((User? user) {
       if (user == null) {
         isUserLoggedIn = false;
         print('User is currently signed out!');
       } else {
         isUserLoggedIn = true;
-        print('User is signed in as: ${_auth.currentUser.email}');
+        print('User is signed in as: ${_auth.currentUser!.email}');
       }
     });
     return Scaffold(
       appBar: AppBar(
-        title: Text("Firebase Auth Demo1"),
+        title: const Text("Firebase Auth Demo1"),
       ),
       body: Container(
         child: Form(
@@ -49,22 +50,22 @@ class _MyHomePageState extends State<MyHomePage> {
                     //print(value);
                   },
                   onFieldSubmitted: (text) {
-                    if (formKey.currentState.validate()) {}
+                    if (formKey.currentState!.validate()) {}
                     print('Submitted Email Text = $text');
                   },
                   validator: (input) {
-                    return input.contains('@') ? null : 'hey it must include @';
+                    return input!.contains('@') ? null : 'hey it must include @';
                   },
                   onSaved: (input) {
                     print('onSaved email = $input');
-                    _email = input;
+                    _email = input.toString();
                   },
                   cursorColor: colorScheme.onPrimary,
                   maxLength: 30,
                   decoration: InputDecoration(
                     //The border property is what makes a outlined
                     //textformfield instead of a filled one.
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                     icon: Icon(
                       Icons.email,
                       color: colorScheme.onBackground,
@@ -77,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
@@ -86,21 +87,21 @@ class _MyHomePageState extends State<MyHomePage> {
                     //print(value);
                   },
                   onFieldSubmitted: (text) {
-                    if (formKey.currentState.validate()) {}
+                    if (formKey.currentState!.validate()) {}
                     //print('Submitted Password Text = $text');
                   },
                   validator: (input) {
-                    return input.length < 6 ? 'min 6 chars' : null;
+                    return input!.length < 6 ? 'min 6 chars' : null;
                   },
                   onSaved: (input) {
-                    _password = input;
+                    _password = input.toString();
                     print('onSaved password = $input');
                   },
                   //obscureText: true,
                   cursorColor: colorScheme.onPrimary,
                   maxLength: 20,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                     icon: Icon(
                       Icons.emoji_emotions,
                       color: colorScheme.onBackground,
@@ -113,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
@@ -121,10 +122,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      child: Text("Sign Up"),
+                      child: const Text("Sign Up"),
                       onPressed: () {
-                        if (formKey.currentState.validate()) {
-                          formKey.currentState.save();
+                        if (formKey.currentState!.validate()) {
+                          formKey.currentState!.save();
                           //textEditingController1.clear();
                           //textEditingController2.clear();
                           setState(() {});
@@ -135,10 +136,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                     ),
                     ElevatedButton(
-                      child: Text("Log In"),
+                      child: const Text("Log In"),
                       onPressed: () {
-                        if (formKey.currentState.validate()) {
-                          formKey.currentState.save();
+                        if (formKey.currentState!.validate()) {
+                          formKey.currentState!.save();
                           //textEditingController1.clear();
                           //textEditingController2.clear();
                           setState(() {});
@@ -149,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                     ),
                     ElevatedButton(
-                      child: Text("Log Out"),
+                      child: const Text("Log Out"),
                       onPressed: () {
                         _logOut();
                         _email = '';
@@ -177,16 +178,16 @@ class _MyHomePageState extends State<MyHomePage> {
       //print('login is anonymous: ${_authResult.user.isAnonymous}');
       Get.snackbar(
         "signup successful",
-        'user email: ${_authResult.user.email}',
+        'user email: ${_authResult.user!.email}',
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
       );
     } catch (e) {
       Get.snackbar(
         "signup ERROR",
-        e.message,
+        e.toString(),
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
       );
     }
   }
@@ -197,16 +198,16 @@ class _MyHomePageState extends State<MyHomePage> {
           email: email, password: password);
       Get.snackbar(
         "login SUCCESSFUL",
-        'user email: ${_authResult.user.email}',
+        'user email: ${_authResult.user!.email}',
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
       );
     } catch (e) {
       Get.snackbar(
         "login ERROR",
-        e.message,
+        e.toString(),
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
       );
     }
   }
@@ -217,14 +218,14 @@ class _MyHomePageState extends State<MyHomePage> {
       //_authResult = null;
       Get.snackbar(
         "logOut SUCCESSFUL",
-        'user email: ${_authResult.user.email}',
+        'user email: ${_authResult.user!.email}',
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
       );
     } catch (e) {
       Get.snackbar(
         "logOut ERROR",
-        e.message,
+        e.toString(),
         snackPosition: SnackPosition.BOTTOM,
       );
     }

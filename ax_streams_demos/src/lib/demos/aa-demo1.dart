@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 class Demo1 extends StatelessWidget {
-  const Demo1 ({Key? key}) : super(key: key);
+  const Demo1({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +18,7 @@ class Demo1 extends StatelessWidget {
 }
 
 class MyDemo extends StatefulWidget {
-  const MyDemo ({Key? key}) : super(key: key);
+  const MyDemo({Key? key}) : super(key: key);
   @override
   MyDemoState createState() => MyDemoState();
 }
@@ -56,7 +56,7 @@ void performTasks() {
     //add a data event to the stream of type null.
     controller.add(null);
     //add an error event to the stream.
-    controller.addError(StateError('This is an error event'));
+    controller.addError(StateError('Error event message'));
     //add a data event to the stream of type int.
     controller.add(5);
     //close the controller. Cannot add anything to the stream
@@ -73,11 +73,11 @@ void performTasks() {
   stream.listen((eventData) {
     //this callback is fired every time a new data event
     //is put into the streams queue.
-    print('Value of the event: $eventData');
+    print('A data event has been added to queue with value: $eventData');
   }, onError: (error) {
     //this onError callback is fired when an error event
     //is added to the stream.
-    print('An error event has occured: $error');
+    print('An error event has been added to queue with value: $error');
   }, onDone: () {
     //this onDone callback is fired when the controller
     //closes the stream.

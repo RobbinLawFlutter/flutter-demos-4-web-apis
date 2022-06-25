@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:robbinlaw/themes/theme.dart';
 
 import 'package:robbinlaw/demos/aa-demo1.dart';
+import 'package:robbinlaw/demos/ab-demo2.dart';
 
 
 void main() {
@@ -19,6 +20,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp ({Key? key}) : super(key: key);
   final Color themeColor = const Color(0xFF808366);
   @override
   Widget build(BuildContext context) {
@@ -26,8 +28,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       //theme: ThemeData.dark(),
       theme: buildTheme(),
-      home: const Demo1(),
-      //home: Demo2(),
+      //home: const Demo1(),
+      home: Demo2(),
       //home: Demo3(),
     );
   }

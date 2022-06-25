@@ -1,10 +1,8 @@
-//This demo is from the following codelab.
-//https://codelabs.developers.google.com/codelabs/flutter-firebase#1
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 
-final dummySnapshot = [
+final dummyListOfMaps = [
   //{"name": "Jimmy", "votes": null},
   {"name": "Filip", "votes": 15},
   {"name": "Abraham", "votes": 14},
@@ -14,6 +12,7 @@ final dummySnapshot = [
 ];
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage ({Key? key}) : super(key: key);
   @override
   MyHomePageState createState() {
     return MyHomePageState();
@@ -24,24 +23,24 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Baby Name Votes')),
+      appBar: AppBar(title: const Text('Baby Name Votes')),
       body: _buildBody(context),
     );
   }
 
   Widget _buildBody(BuildContext context) {
-    return _buildList(context, dummySnapshot);
+    return _buildList(context, dummyListOfMaps);
   }
 
-  Widget _buildList(BuildContext context, List<Map> snapshot) {
+  Widget _buildList(BuildContext context, List<Map<String, dynamic>> listOfMaps) {
     return ListView(
       padding: const EdgeInsets.only(top: 20.0),
-      children: snapshot.map((data) => _buildListItem(context, data)).toList(),
+      children: listOfMaps.map((dataMap) => _buildListItem(context, dataMap)).toList(),
     );
   }
 
-  Widget _buildListItem(BuildContext context, Map data) {
-    final record = Record.fromMap(data);
+  Widget _buildListItem(BuildContext context, Map<String, dynamic> dataMap) {
+    final record = Record.fromMap(dataMap);
 
     return Padding(
       key: ValueKey(record.name),
@@ -64,15 +63,9 @@ class MyHomePageState extends State<MyHomePage> {
 class Record {
   final String name;
   final int votes;
-  //reference is NOT used in dummydata.dart
-  //but used in firebasedemo.dart.
-  final DocumentReference reference;
 
   //Redirecting Constuctors and optional parameters
   //https://bezkoder.com/dart-flutter-constructors/#Redirecting_Constructor
-  //For this dummydata.dart portion we do not use .fromSnapshot.
-  // Record.fromSnapshot(DocumentSnapshot snapshot)
-  //     : this.fromMap(snapshot.data, reference: snapshot.reference);
 
   //Using an initializer list
   //https://dart.dev/guides/language/language-tour#using-constructors
@@ -80,9 +73,7 @@ class Record {
   //How assert works from the medium community.
   //https://medium.com/run-dart/dart-dartlang-introduction-advanced-dart-features-524de79456b9
 
-  //this.reference is a named optional parameter
-  //and is NOT used here.
-  Record.fromMap(Map<String, dynamic> map, {this.reference})
+  Record.fromMap(Map<String, dynamic> map)
       : assert(map['name'] != null),
         assert(map['votes'] != null),
         name = map['name'],
