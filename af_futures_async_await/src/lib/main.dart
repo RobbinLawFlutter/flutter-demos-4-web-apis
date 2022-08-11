@@ -7,14 +7,14 @@
 //Async Await from Google Flutter in Focus series 8min.
 //https://www.youtube.com/watch?v=SmTCmDMi4BY&list=PLjxrf2q8roU2HdJQDjJzOeO6J3FoFLWr2&index=17
 
-//Futurebuilder Widget of the Weeek 2min.
+//FutureBuilder Widget of the Week 2min.
 //https://www.youtube.com/watch?v=ek8ZPdWj4Qo
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:robbinlaw/demos/aa-demo1.dart';
-import 'package:robbinlaw/demos/ab-demo2.dart';
+import 'package:robbinlaw/demos/demo1.dart';
+import 'package:robbinlaw/demos/demo2.dart';
 
 void main() {
   runApp(const MyApp());
