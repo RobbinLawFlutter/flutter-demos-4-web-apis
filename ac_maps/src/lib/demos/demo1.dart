@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
 
 class Demo1 extends StatelessWidget {
   const Demo1 ({Key? key}) : super(key: key);
@@ -55,7 +54,6 @@ void performTasks() {
   //Maps can be built from a constructor.
   //Maps are parameterized types; you can specify what
   //types the key and value should be explicitly.
-  var nobleGases = Map<int, String>();
   //With this syntax the key is 'Bob' and the value is returned.
   print(myAgeBook['Bob']);
   //If key is not in the map a NULL is returned.

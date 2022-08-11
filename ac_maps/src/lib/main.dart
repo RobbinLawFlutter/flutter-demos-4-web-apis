@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:robbinlaw/demos/aa-demo1.dart';
-import 'package:robbinlaw/demos/ab-demo2.dart';
+import 'package:robbinlaw/demos/demo1.dart';
+import 'package:robbinlaw/demos/demo2.dart';
 
 void main() {
   runApp(const MyApp());

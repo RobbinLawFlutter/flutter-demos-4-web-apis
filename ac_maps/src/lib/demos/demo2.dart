@@ -37,7 +37,7 @@ class Demo2 extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Demo2-MapToList and ListToMap Con'),
       ),
-      body: MyDemo(),
+      body: const MyDemo(),
     );
   }
 }
@@ -70,10 +70,6 @@ void performTasks() {
   map.forEach((k, v) => list1.add(CustomerOne(k, v)));
   print('list1= $list1');
   //Another way to convert a map to a list of CustomerOne objects.
-  var list2 = [];
-  map.entries.forEach((e) => list2.add(CustomerOne(e.key, e.value)));
-  print('list2= $list2');
-  //Another way to convert a map to a list of CustomerOne objects.
   //We convert the map into a view and then to a list.
   var list3 = [];
   list3 = map.entries.map((e) => CustomerOne(e.key, e.value)).toList();
@@ -85,10 +81,6 @@ void performTasks() {
   list4.add(CustomerOne('Jack', 23));
   list4.add(CustomerOne('Adam', 27));
   list4.add(CustomerOne('Katherin', 25));
-  //Converting a list of CustomerOne objects to a map.
-  var map2 = {};
-  list4.forEach((customer) => map2[customer.name] = customer.age);
-  print('map2= $map2');
 
   //Creating a list of maps.
   List<Map<String, dynamic>> myListOfMaps = [
