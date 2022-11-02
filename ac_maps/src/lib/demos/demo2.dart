@@ -9,7 +9,7 @@ class CustomerOne {
 
   @override
   String toString() {
-    return '{ $name, $age }';
+    return '/ $name | $age /';
   }
 }
 
@@ -27,12 +27,12 @@ class CustomerTwo {
 
   @override
   String toString() {
-    return '{ $name, $age }';
+    return '/ $name || $age /';
   }
 }
 
 class Demo2 extends StatelessWidget {
-  const Demo2 ({Key? key}) : super(key: key);
+  const Demo2({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +45,7 @@ class Demo2 extends StatelessWidget {
 }
 
 class MyDemo extends StatefulWidget {
-  const MyDemo ({Key? key}) : super(key: key);
+  const MyDemo({Key? key}) : super(key: key);
   @override
   MyDemoState createState() => MyDemoState();
 }
@@ -65,7 +65,7 @@ class MyDemoState extends State<MyDemo> {
 }
 
 void performTasks() {
-  Map map = {'Jack': 23, 'Adam': 27, 'Katherin': 25};
+  Map map = {'Jack': 23, 'Adam': 27, 'Katherine': 25};
   //Map map0 = {'name': 'Jack', 'age': 27};
   var list1 = [];
   //Convert a map to a list of CustomerOne objects.
@@ -86,8 +86,8 @@ void performTasks() {
 
   //Creating a list of maps.
   List<Map<String, dynamic>> myListOfMaps = [
-    {'name': 'Jack', 'age': 23},
-    {'name': 'Adam', 'age': 27},
+    {'name': 'Jackie', 'age': 23},
+    {'name': 'AdamAnt', 'age': 27},
     {'name': 'katie', 'age': 25},
   ];
   // Convert the List<Map<String, dynamic> into a List<CustomerOne>.
@@ -102,9 +102,9 @@ void performTasks() {
   //Using CustomerTwo
   //Creating a list of CustomerTwo objects.
   List listOfCustomerObjects1 = [];
-  listOfCustomerObjects1.add(CustomerTwo(name: 'Jack', age: 23));
-  listOfCustomerObjects1.add(CustomerTwo(name: 'Adam', age: 27));
-  listOfCustomerObjects1.add(CustomerTwo(name: 'Katherin', age: 25));
+  listOfCustomerObjects1.add(CustomerTwo(name: 'Jackson', age: 23));
+  listOfCustomerObjects1.add(CustomerTwo(name: 'Adamson', age: 27));
+  listOfCustomerObjects1.add(CustomerTwo(name: 'Katy', age: 25));
 
   //Convert the List<CustomerTwo> into a List<Map<String, dynamic>>
   var listOfMaps1 = List.generate(listOfCustomerObjects1.length, (i) {
@@ -114,9 +114,9 @@ void performTasks() {
 
   //Creating a list of maps.
   List<Map<String, dynamic>> listOfMaps2 = [
-    {'name': 'Jack', 'age': 23},
-    {'name': 'Adam', 'age': 27},
-    {'name': 'katie', 'age': 25},
+    {'name': 'Jerry', 'age': 23},
+    {'name': 'Arny', 'age': 27},
+    {'name': 'kay', 'age': 25},
   ];
   // Convert the List<Map<String, dynamic>> into a List<CustomerTWo>.
   var listOfCustomerObjects2 = List.generate(listOfMaps2.length, (i) {
