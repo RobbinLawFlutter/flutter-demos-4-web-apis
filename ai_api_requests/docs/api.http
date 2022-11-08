@@ -18,4 +18,6 @@
 
 
 #const apiToken = 'Tpk_27e2aa9354b742e4aac4092f8d2b7f59';
-GET https://sandbox.iexapis.com/stable/stock/td/quote/?token=Tpk_27e2aa9354b742e4aac4092f8d2b7f59
+GET https://cloud.iexapis.com/stable/stock/td/quote/?token=Tpk_27e2aa9354b742e4aac4092f8d2b7f59
+
+#jsonviewer.stack.hu

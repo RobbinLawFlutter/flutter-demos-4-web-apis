@@ -1,23 +1,21 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 import 'dart:io';
 
 class Demo1 extends StatelessWidget {
-  const Demo1 ({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Demo1'),
       ),
-      body: const MyDemo(),
+      body: MyDemo(),
     );
   }
 }
 
 class MyDemo extends StatefulWidget {
-  const MyDemo ({Key? key}) : super(key: key);
   @override
   MyDemoState createState() => MyDemoState();
 }
@@ -78,14 +76,14 @@ void task2() {
 //In this method the Future.delayed method runs asynchronously.
 String task3() {
   print('Task 3 start');
-  String result = '';
+  String result = 'task 3 init data';
   Duration myFiveSeconds = const Duration(seconds: 5);
   //async method that will delay for 5 seconds,
   //and then run the callback method, which is
   //the second parm.
   Future.delayed(myFiveSeconds, () {
     result = 'task 3 data';
-    print('Task 3 future callback complete');
+    print('Task 3 future callback complete with $result');
   });
   print('Task 3 end');
   return result;
@@ -99,7 +97,7 @@ void task4(String data) {
 //In this method the Future.delayed method runs synchronously.
 Future<String> task5() async {
   print('Task 5 start');
-  String result = '';
+  String result = 'task 5 init data';
   Duration myFiveSeconds = const Duration(seconds: 5);
   //async method that will delay for 5 seconds,
   //and then run the callback method, which is
@@ -107,7 +105,7 @@ Future<String> task5() async {
   //Using await will cause this to now act synchronously.
   await Future.delayed(myFiveSeconds, () {
     result = 'task 5 data';
-    print('Task 5 future callback complete');
+    print('Task 5 future callback complete with $result');
   });
   print('Task 5 end');
   return result;
