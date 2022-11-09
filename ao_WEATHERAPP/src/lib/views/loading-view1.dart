@@ -16,12 +16,14 @@
 //<key>NSLocationAlwaysUsageDescription</key>
 //<string>This app needs access to location when in the background.</string>
 
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:robbinlaw/services/location.dart';
 
 class LoadingView1 extends StatefulWidget {
-  const LoadingView1 ({Key? key}) : super(key: key);
+  const LoadingView1({Key? key}) : super(key: key);
   @override
   LoadingView1State createState() => LoadingView1State();
 }
