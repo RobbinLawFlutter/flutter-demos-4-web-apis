@@ -1,21 +1,20 @@
+// ignore_for_file: file_names, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
-import 'dart:io';
 
 class Demo1 extends StatelessWidget {
-  const Demo1 ({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Demo1'),
       ),
-      body: const MyDemo(),
+      body: MyDemo(),
     );
   }
 }
 
 class MyDemo extends StatefulWidget {
-  const MyDemo ({Key? key}) : super(key: key);
   @override
   MyDemoState createState() => MyDemoState();
 }

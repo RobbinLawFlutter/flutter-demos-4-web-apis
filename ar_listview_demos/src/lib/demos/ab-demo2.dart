@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 
 class Demo2 extends StatelessWidget {
@@ -8,13 +10,12 @@ class Demo2 extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Demo2'),
       ),
-      body: const MyDemo(),
+      body: MyDemo(),
     );
   }
 }
 
 class MyDemo extends StatefulWidget {
-  const MyDemo({Key? key}) : super(key: key);
   @override
   MyDemoState createState() => MyDemoState();
 }
