@@ -8,177 +8,171 @@
 
 import 'package:flutter/material.dart';
 
+final ThemeData base = ThemeData.light();
+
 ThemeData buildTheme() {
-  final ThemeData base = ThemeData.light();
   return base.copyWith(
     colorScheme: _colorScheme,
-    //brightness: Brightness.light,
-    accentColor: Colors.black,
-    //primaryColor: _colorScheme.primary,
-    //scaffoldBackgroundColor: themeColor,
-    cursorColor: _colorScheme.onPrimary,
-    primaryIconTheme: _buildIconTheme(base.iconTheme),
     textTheme: _buildTextTheme(base.textTheme),
-    //primaryTextTheme: _buildTextTheme(base.primaryTextTheme),
-    //accentTextTheme: _buildTextTheme(base.accentTextTheme),
     iconTheme: _buildIconTheme(base.iconTheme),
-    appBarTheme: AppBarTheme(
-      color: _colorScheme.primary,
-      iconTheme: IconThemeData(
-        color: _colorScheme.onPrimary,
-      ),
-      actionsIconTheme: IconThemeData(
-        color: _colorScheme.onPrimary,
-      ),
-      //If textTheme property is null the appbar will use ThemeData.primaryTextTheme.
-      textTheme: _buildTextTheme(base.textTheme),
-      centerTitle: true,
-    ),
-    dialogTheme: DialogTheme(
-      backgroundColor: Colors.white,
-      titleTextStyle: TextStyle(
-        color: _colorScheme.onPrimary,
-        fontWeight: FontWeight.w500,
-        fontSize: 25,
-        letterSpacing: defaultLetterSpacing,
-      ),
-      contentTextStyle: TextStyle(
-        color: _colorScheme.onPrimary,
-        fontWeight: FontWeight.w500,
-        fontSize: 25,
-        letterSpacing: defaultLetterSpacing,
-      ),
-    ),
+    appBarTheme: _buildAppBarTheme(base.appBarTheme),
+    textButtonTheme: _buildTextButtonThemeData(base.textButtonTheme),
+    elevatedButtonTheme:
+        _buildElevatedButtonThemeData(base.elevatedButtonTheme),
+    dialogTheme: _buildDialogTheme(base.dialogTheme),
     //inputDecorationTheme applies to TextField Widget.
-    inputDecorationTheme: InputDecorationTheme(
-      filled: true,
-      fillColor: _colorScheme.primary,
-      labelStyle: TextStyle(),
-      hintStyle: TextStyle(
-        fontWeight: FontWeight.w500,
-        fontSize: 25,
-        letterSpacing: defaultLetterSpacing,
-        color: _colorScheme.onPrimary,
-      ),
-      border: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.black,
-        ),
-        borderRadius: BorderRadius.circular(20.0),
-      ),
+    inputDecorationTheme: _buildInputDecorationTheme(base.inputDecorationTheme),
+    textSelectionTheme: _textSelectionThemeData(),
+  );
+}
+
+AppBarTheme _buildAppBarTheme(AppBarTheme original) {
+  return original.copyWith(
+    color: _colorScheme.primary,
+    titleTextStyle: _buildTextStyle(
+      _colorScheme.onPrimary,
+      //size: 18,
     ),
-    indicatorColor: Colors.black,
-    textButtonTheme: TextButtonThemeData(
-      style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(_colorScheme.background),
-          foregroundColor: MaterialStateProperty.all(_colorScheme.onPrimary),
-          textStyle: MaterialStateProperty.all(
-            TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 20,
-              letterSpacing: defaultLetterSpacing,
-            ),
-          )),
-    ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ButtonStyle(
-          //The buttons background fill color.
-          backgroundColor:
-              MaterialStateProperty.resolveWith<Color>(getBackgroundColor),
-          //The color of the buttons text and icon decendant widgets.
-          foregroundColor:
-              MaterialStateProperty.resolveWith<Color>(getForegroundColor),
-          textStyle: MaterialStateProperty.all(
-            TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 25,
-              letterSpacing: defaultLetterSpacing,
-            ),
-          )),
+    centerTitle: true,
+  );
+}
+
+TextButtonThemeData _buildTextButtonThemeData(TextButtonThemeData original) {
+  return TextButtonThemeData(
+    style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(_colorScheme.background),
+        foregroundColor: MaterialStateProperty.all(_colorScheme.onPrimary),
+        textStyle: MaterialStateProperty.all(
+          const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 20,
+            letterSpacing: defaultLetterSpacing,
+          ),
+        )),
+  );
+}
+
+ElevatedButtonThemeData _buildElevatedButtonThemeData(
+    ElevatedButtonThemeData? original) {
+  return ElevatedButtonThemeData(
+    style: ButtonStyle(
+        //The buttons background fill color.
+        backgroundColor:
+            MaterialStateProperty.resolveWith<Color>(_getBackgroundColor),
+        //The color of the buttons text and icon descendant widgets.
+        foregroundColor:
+            MaterialStateProperty.resolveWith<Color>(_getForegroundColor),
+        textStyle: MaterialStateProperty.all(
+          const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 25,
+            letterSpacing: defaultLetterSpacing,
+          ),
+        )),
+  );
+}
+
+DialogTheme _buildDialogTheme(DialogTheme original) {
+  return original.copyWith(
+    backgroundColor: Colors.white,
+    titleTextStyle: _buildTextStyle(_colorScheme.onPrimary, size: 25),
+    contentTextStyle: _buildTextStyle(_colorScheme.onPrimary, size: 25),
+  );
+}
+
+InputDecorationTheme _buildInputDecorationTheme(InputDecorationTheme original) {
+  return original.copyWith(
+    //filled: true,
+    fillColor: _colorScheme.primary,
+    focusColor: _colorScheme.onPrimary,
+    contentPadding: const EdgeInsets.all(16),
+    floatingLabelBehavior: FloatingLabelBehavior.always,
+    //floatingLabelBehavior: FloatingLabelBehavior.auto,
+    //constraints: BoxConstraints(maxWidth: 150),
+    // borders
+    enabledBorder: _buildBorderStyle(_colorScheme.primary),
+    errorBorder: _buildBorderStyle(_colorScheme.error),
+    focusedErrorBorder: _buildBorderStyle(_colorScheme.error),
+    focusedBorder: _buildBorderStyle(_colorScheme.primary),
+    disabledBorder: _buildBorderStyle(Colors.black26),
+    // text
+    suffixStyle: _buildTextStyle(_colorScheme.onPrimary),
+    counterStyle: _buildTextStyle(_colorScheme.onPrimary, size: 12.0),
+    floatingLabelStyle: _buildTextStyle(_colorScheme.onPrimary),
+    errorStyle: _buildTextStyle(_colorScheme.error),
+    hintStyle: _buildTextStyle(_colorScheme.onPrimary),
+    helperStyle: _buildTextStyle(_colorScheme.onPrimary),
+    labelStyle: _buildTextStyle(_colorScheme.onPrimary),
+    prefixStyle: _buildTextStyle(_colorScheme.onPrimary),
+    // icons
+    iconColor: _colorScheme.onPrimary,
+  );
+}
+
+OutlineInputBorder _buildBorderStyle(Color color,
+    {double width = 2.0, Radius borderRadius = const Radius.circular(10)}) {
+  return OutlineInputBorder(
+    borderRadius: BorderRadius.all(borderRadius),
+    borderSide: BorderSide(
+      color: color,
+      width: width,
     ),
   );
 }
 
 IconThemeData _buildIconTheme(IconThemeData original) {
-  return original.copyWith(color: brown900);
+  return original.copyWith(color: _colorScheme.onPrimary);
 }
 
-TextTheme _buildTextTheme(TextTheme base) {
-  return base
+TextStyle _buildTextStyle(Color color,
+    {double size = 16.0, FontWeight weight = FontWeight.w500}) {
+  return TextStyle(
+    color: color,
+    fontSize: size,
+    fontWeight: weight,
+    letterSpacing: defaultLetterSpacing,
+  );
+}
+
+TextSelectionThemeData _textSelectionThemeData() {
+  return TextSelectionThemeData(
+    cursorColor: _colorScheme.onPrimary,
+  );
+}
+
+TextTheme _buildTextTheme(TextTheme original) {
+  return original
       .copyWith(
         //Extremely large text.
-        headline1: TextStyle(
-          color: Colors.green,
-        ),
+        headline1: _buildTextStyle(Colors.green),
         //Very, very large text.
-        headline2: TextStyle(
-          color: Colors.green,
-        ),
+        headline2: _buildTextStyle(Colors.green),
         //Very large text.
-        headline3: TextStyle(
-          color: Colors.green,
-        ),
+        headline3: _buildTextStyle(Colors.green),
         //Large text.
-        headline4: TextStyle(
-          color: Colors.green,
-        ),
+        headline4: _buildTextStyle(Colors.green),
         //Used for large text in dialogs
         //(e.g., the month and year in the dialog shown by showDatePicker)
-        headline5: TextStyle(
-          color: Colors.green,
-        ),
+        headline5: _buildTextStyle(Colors.green),
         //Used for the primary text in app bars and dialogs
         //(e.g., AppBar.title and AlertDialog.title).
-        headline6: base.headline6!.copyWith(
-          color: Colors.purple,
-          fontWeight: FontWeight.w500,
-          fontSize: 25,
-          letterSpacing: defaultLetterSpacing,
-        ),
+        headline6: _buildTextStyle(Colors.purple),
         //Used for the primary text in lists (e.g., ListTile.title)
         //and the TextField edited text.
-        subtitle1: base.subtitle1!.copyWith(
-          color: Colors.amber,
-          fontWeight: FontWeight.w500,
-          fontSize: 25,
-          letterSpacing: defaultLetterSpacing,
-        ),
+        subtitle1: _buildTextStyle(Colors.amber),
         //For medium emphasis text that's a little smaller than subtitle1
-        subtitle2: base.subtitle2!.copyWith(
-          color: Colors.cyan,
-          fontSize: 15,
-        ),
+        subtitle2: _buildTextStyle(Colors.cyan),
         //Used for emphasizing text that would otherwise be bodyText2.
-        bodyText1: base.bodyText1!.copyWith(
-          color: Colors.blue,
-        ),
+        bodyText1: _buildTextStyle(Colors.blue),
         //The default text style for material.
         //Color for ListTile.trailing
-        bodyText2: base.bodyText2!.copyWith(
-          color: Colors.green,
-          fontWeight: FontWeight.w500,
-          fontSize: 15,
-          letterSpacing: defaultLetterSpacing,
-        ),
+        bodyText2: _buildTextStyle(Colors.green),
         //Used for auxiliary text with images.
         //Used for ListTile.subtile
-        caption: base.caption!.copyWith(
-          color: Colors.black,
-          fontWeight: FontWeight.w400,
-          fontSize: 15,
-          letterSpacing: defaultLetterSpacing,
-        ),
+        caption: _buildTextStyle(Colors.green),
         //Used for text on ElevatedButton, TextButton, and OutlinedButton
         //if no others
-        button: base.button!.copyWith(
-          //Button text color
-          color: Colors.white,
-          //button text background color, NOT button color.
-          //backgroundColor: Colors.red,
-          fontWeight: FontWeight.w500,
-          fontSize: 25,
-          letterSpacing: defaultLetterSpacing,
-        ),
+        button: _buildTextStyle(Colors.green),
       )
       .apply(
         fontFamily: 'Rubik',
@@ -190,7 +184,7 @@ TextTheme _buildTextTheme(TextTheme base) {
       );
 }
 
-Color getBackgroundColor(Set<MaterialState> states) {
+Color _getBackgroundColor(Set<MaterialState> states) {
   const Set<MaterialState> interactiveStates = <MaterialState>{
     MaterialState.pressed,
     MaterialState.hovered,
@@ -202,7 +196,7 @@ Color getBackgroundColor(Set<MaterialState> states) {
   return _colorScheme.primary;
 }
 
-Color getForegroundColor(Set<MaterialState> states) {
+Color _getForegroundColor(Set<MaterialState> states) {
   const Set<MaterialState> interactiveStates = <MaterialState>{
     MaterialState.pressed,
     MaterialState.hovered,
@@ -214,23 +208,22 @@ Color getForegroundColor(Set<MaterialState> states) {
   return _colorScheme.onPrimary;
 }
 
-ColorScheme _colorScheme = ColorScheme(
-  primary: blue200,
-  primaryVariant: brown900,
-  secondary: pink50,
-  secondaryVariant: brown900,
-  surface: surfaceWhite,
-  background: backgroundWhite,
-  error: errorRed,
+const ColorScheme _colorScheme = ColorScheme(
+  //primary: blue200,
+  primary: pink100,
   onPrimary: brown900,
+  secondary: pink50,
   onSecondary: brown900,
+  surface: surfaceWhite,
   onSurface: brown900,
+  background: backgroundWhite,
   onBackground: brown900,
+  error: errorRed,
   onError: surfaceWhite,
   brightness: Brightness.light,
 );
 
-Color blue200 = Colors.cyan.shade200;
+const Color blue200 = Color(0xFF80DEEA);
 
 const Color pink50 = Color(0xFFFEEAE6);
 const Color pink100 = Color(0xFFFEDBD0);
@@ -245,4 +238,4 @@ const Color errorRed = Color(0xFFC5032B);
 const Color surfaceWhite = Color(0xFFFFFBFA);
 const Color backgroundWhite = Colors.white;
 
-const defaultLetterSpacing = 0.03;
+const defaultLetterSpacing = 0.09;
