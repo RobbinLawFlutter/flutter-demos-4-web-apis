@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:robbinlaw/themes/theme.dart';
@@ -9,15 +11,12 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp ({Key? key}) : super(key: key);
-  final Color themeColor = const Color(0xFF808366);
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      //theme: ThemeData.dark(),
       theme: buildTheme(),
-      home: const HomeView(),
+      home: HomeView(),
     );
   }
 }

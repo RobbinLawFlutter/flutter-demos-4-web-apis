@@ -1,14 +1,14 @@
 //https://flutter.dev/docs/cookbook/persistence/sqlite
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:get/get.dart';
 
 import 'package:robbinlaw/services/db-service.dart';
 import 'package:robbinlaw/models/dog.dart';
 import 'package:robbinlaw/models/dog_list.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView ({Key? key}) : super(key: key);
   @override
   HomeViewState createState() => HomeViewState();
 }
@@ -45,7 +45,7 @@ class HomeViewState extends State<HomeView> {
               'Delete All Records in Database',
             ),
             onPressed: () async {
-              _dogList.forEach(
+              _dogList.map(
                 (dog) async {
                   await _databaseService.deleteDog(dog);
                 },

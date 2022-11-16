@@ -19,6 +19,7 @@ class SQFliteDbService {
       db = await sqflitePackage.openDatabase(
         path,
         onCreate: (sqflitePackage.Database db1, int version) async {
+          print('about to create table');
           await db1.execute(
             "CREATE TABLE dogs(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)",
           );
@@ -38,7 +39,7 @@ class SQFliteDbService {
         print('No Dogs in the list');
       } else {
         listOfDogs.forEach((dog) {
-          print('Dog{id: ${dog.id}, name: ${dog.name}, age: ${dog.age}');
+          print('Dog{id: ${dog.id}, name: ${dog.name}, age: ${dog.age}}');
         });
       }
     } catch (e) {
