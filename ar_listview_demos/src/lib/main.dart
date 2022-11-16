@@ -1,5 +1,7 @@
 //ListView Widget of the Week
 //https://www.youtube.com/watch?v=KJpkjHGiI5A&vl=en
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,14 +13,13 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp ({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: Demo1(),
-      //home: Demo2(),
+      //home: Demo1(),
+      home: Demo2(),
     );
   }
 }
