@@ -3,6 +3,8 @@
 //sqflite package of the week.
 //https://www.youtube.com/watch?v=HefHf5B1YM0&vl=en
 
+// ignore_for_file: avoid_print, library_prefixes, file_names
+
 import 'package:path/path.dart' as pathPackage;
 import 'package:sqflite/sqflite.dart' as sqflitePackage;
 
@@ -14,12 +16,12 @@ class SQFliteDbService {
 
   Future<void> getOrCreateDatabaseHandle() async {
     try {
+      print('SQFliteDbService getOrCreateDatabaseHandle TRY');
       var databasesPath = await sqflitePackage.getDatabasesPath();
       path = pathPackage.join(databasesPath, 'doggie_database.db');
       db = await sqflitePackage.openDatabase(
         path,
         onCreate: (sqflitePackage.Database db1, int version) async {
-          print('about to create table');
           await db1.execute(
             "CREATE TABLE dogs(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)",
           );
@@ -28,27 +30,13 @@ class SQFliteDbService {
       );
       print('$db');
     } catch (e) {
-      print('SQFliteDbService getOrCreateDatabaseHandle: $e');
-    }
-  }
-
-  Future<void> printAllDogsInDbToConsole() async {
-    try {
-      List<Dog> listOfDogs = await getAllDogsFromDb();
-      if (listOfDogs.isEmpty) {
-        print('No Dogs in the list');
-      } else {
-        listOfDogs.forEach((dog) {
-          print('Dog{id: ${dog.id}, name: ${dog.name}, age: ${dog.age}}');
-        });
-      }
-    } catch (e) {
-      print('SQFliteDbService printAllDogsInDbToConsole: $e');
+      print('SQFliteDbService getOrCreateDatabaseHandle CATCH: $e');
     }
   }
 
   Future<List<Dog>> getAllDogsFromDb() async {
     try {
+      print('SQFliteDbService getAllDogsFromDb TRY');
       // Query the table for all The Dogs.
       //The .query will return a list with each item in the list being a map.
       final List<Map<String, dynamic>> dogMap = await db!.query('dogs');
@@ -61,24 +49,24 @@ class SQFliteDbService {
         );
       });
     } catch (e) {
-      print('SQFliteDbService getAllDogsFromDb: $e');
+      print('SQFliteDbService getAllDogsFromDb CATCH: $e');
       return <Dog>[];
     }
   }
 
   Future<void> deleteDb() async {
     try {
+      print('SQFliteDbService deleteDb TRY');
       await sqflitePackage.deleteDatabase(path);
       db = null;
-      print('Db deleted');
-      getOrCreateDatabaseHandle();
     } catch (e) {
-      print('SQFliteDbService deleteDb: $e');
+      print('SQFliteDbService deleteDb CATCH: $e');
     }
   }
 
   Future<void> insertDog(Dog dog) async {
     try {
+      print('SQFliteDbService insertDog TRY');
       // Insert the Dog into the correct table. Also specify the
       // `conflictAlgorithm`. In this case, if the same dog is inserted
       // multiple times, it replaces the previous data.
@@ -88,12 +76,13 @@ class SQFliteDbService {
         //conflictAlgorithm: sqflitePackage.ConflictAlgorithm.replace,
       );
     } catch (e) {
-      print('SQFliteDbService insertDog: $e');
+      print('SQFliteDbService insertDog CATCH: $e');
     }
   }
 
   Future<void> updateDog(Dog dog) async {
     try {
+      print('SQFliteDbService updateDog TRY');
       // Update the given Dog.
       await db!.update(
         'dogs',
@@ -104,12 +93,13 @@ class SQFliteDbService {
         whereArgs: [dog.id],
       );
     } catch (e) {
-      print('SQFliteDbService updateDog: $e');
+      print('SQFliteDbService updateDog CATCH: $e');
     }
   }
 
   Future<void> deleteDog(Dog dog) async {
     try {
+      print('SQFliteDbService deleteDog TRY');
       // Remove the Dog from the database.
       await db!.delete(
         'dogs',
@@ -119,7 +109,7 @@ class SQFliteDbService {
         whereArgs: [dog.id],
       );
     } catch (e) {
-      print('SQFliteDbService deleteDog: $e');
+      print('SQFliteDbService deleteDog CATCH: $e');
     }
   }
 }

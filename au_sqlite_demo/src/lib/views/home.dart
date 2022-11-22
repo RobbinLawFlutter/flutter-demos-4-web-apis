@@ -1,5 +1,6 @@
 //https://flutter.dev/docs/cookbook/persistence/sqlite
-// ignore_for_file: use_key_in_widget_constructors
+
+// ignore_for_file: use_key_in_widget_constructors, avoid_print
 
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -21,13 +22,13 @@ class HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    getOrCreateDbAndDisplayAllDogsInDb();
+    getOrCreateDbAndDisplayAllDogsInDbToConsole();
   }
 
-  void getOrCreateDbAndDisplayAllDogsInDb() async {
+  void getOrCreateDbAndDisplayAllDogsInDbToConsole() async {
     await _databaseService.getOrCreateDatabaseHandle();
     _dogList = await _databaseService.getAllDogsFromDb();
-    await _databaseService.printAllDogsInDbToConsole();
+    await printAllDogsInListToConsole(_dogList);
     setState(() {});
   }
 
@@ -45,14 +46,10 @@ class HomeViewState extends State<HomeView> {
               'Delete All Records in Database',
             ),
             onPressed: () async {
-              _dogList.map(
-                (dog) async {
-                  await _databaseService.deleteDog(dog);
-                },
-              );
-              _dogList = await _databaseService.getAllDogsFromDb();
-              await _databaseService.printAllDogsInDbToConsole();
               await _databaseService.deleteDb();
+              await _databaseService.getOrCreateDatabaseHandle();
+              _dogList = await _databaseService.getAllDogsFromDb();
+              await printAllDogsInListToConsole(_dogList);
               setState(() {});
             },
           ),
@@ -73,7 +70,22 @@ class HomeViewState extends State<HomeView> {
     );
   }
 
-  Future<Null> _addDogToDb() async {
+  Future<void> printAllDogsInListToConsole(List<Dog> listOfDogs) async {
+    try {
+      print('HomeView printAllDogsInListToConsole TRY');
+      if (listOfDogs.isEmpty) {
+        print('No Dogs in the list');
+      } else {
+        listOfDogs.forEach((dog) {
+          print('Dog{id: ${dog.id}, name: ${dog.name}, age: ${dog.age}}');
+        });
+      }
+    } catch (e) {
+      print('HomeView printAllDogsInDbToConsole CATCH: $e');
+    }
+  }
+
+  Future<void> _addDogToDb() async {
     await showDialog<String>(
       context: context,
       builder: (BuildContext context) {
@@ -98,7 +110,7 @@ class HomeViewState extends State<HomeView> {
                     await _databaseService.insertDog(
                         Dog(id: _dogList.length, name: _dogName, age: 5));
                     _dogList = await _databaseService.getAllDogsFromDb();
-                    _databaseService.printAllDogsInDbToConsole();
+                    await printAllDogsInListToConsole(_dogList);
                     setState(() {});
                   } catch (e) {
                     print('HomeView _addDogToDb catch: $e');
