@@ -1,6 +1,6 @@
 //https://flutter.dev/docs/cookbook/persistence/sqlite
 
-// ignore_for_file: use_key_in_widget_constructors, avoid_print
+// ignore_for_file: use_key_in_widget_constructors, avoid_print, avoid_function_literals_in_foreach_calls
 
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -104,6 +104,7 @@ class HomeViewState extends State<HomeView> {
             TextButton(
               child: const Text("AddDog"),
               onPressed: () async {
+                Navigator.pop(context);
                 if (_dogName.isNotEmpty) {
                   print('User entered dogName: $_dogName');
                   try {
@@ -117,7 +118,7 @@ class HomeViewState extends State<HomeView> {
                   }
                 }
                 _dogName = "";
-                Navigator.pop(context);
+                //Navigator.pop(context);
               },
             ),
             TextButton(

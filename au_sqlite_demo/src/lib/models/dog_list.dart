@@ -1,9 +1,11 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dog.dart';
 
 class DogList extends StatefulWidget {
-  const DogList ({Key? key, required this.dogs}) : super(key: key);
+  const DogList ({required this.dogs});
 
   final List<Dog> dogs;
 
