@@ -34,6 +34,16 @@ class SQFliteDbService {
     }
   }
 
+  Future<void> deleteDb() async {
+    try {
+      print('SQFliteDbService deleteDb TRY');
+      await sqflitePackage.deleteDatabase(path);
+      db = null;
+    } catch (e) {
+      print('SQFliteDbService deleteDb CATCH: $e');
+    }
+  }
+  
   Future<List<Dog>> getAllDogsFromDb() async {
     try {
       print('SQFliteDbService getAllDogsFromDb TRY');
@@ -51,16 +61,6 @@ class SQFliteDbService {
     } catch (e) {
       print('SQFliteDbService getAllDogsFromDb CATCH: $e');
       return <Dog>[];
-    }
-  }
-
-  Future<void> deleteDb() async {
-    try {
-      print('SQFliteDbService deleteDb TRY');
-      await sqflitePackage.deleteDatabase(path);
-      db = null;
-    } catch (e) {
-      print('SQFliteDbService deleteDb CATCH: $e');
     }
   }
 
