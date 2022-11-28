@@ -4,6 +4,8 @@
 //What is a nosql database... 12 videos about FireStore
 //https://www.youtube.com/watch?v=v_hR4K4auoQ&list=PLl-K7zZEsYLluG5MCVEzXAQ7ACZBCuZgZ
 
+// ignore_for_file: use_key_in_widget_constructors, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
@@ -76,7 +78,7 @@ class Record {
   final int votes;
   final firestore.DocumentReference reference;
 
-  //Redirecting Contstuctors and optional parameters
+  //Redirecting Constructors and optional parameters
   //https://bezkoder.com/dart-flutter-constructors/#Redirecting_Constructor
   Record.fromSnapshot(firestore.DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data() as Map<String, dynamic>, reference: snapshot.reference);
@@ -87,7 +89,9 @@ class Record {
   //How assert works
   //https://medium.com/run-dart/dart-dartlang-introduction-advanced-dart-features-524de79456b9
 
-  //this.reference is a named optional parameter.
+  //this.reference is a named optional parameter,
+  //but because of required reserved word 
+  //is not optional.
   Record.fromMap(Map<String, dynamic> map, {required this.reference})
       : assert(map['name'] != null),
         assert(map['votes'] != null),

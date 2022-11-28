@@ -1,10 +1,23 @@
 {
 	"cSpell.words": [
+		"agrqe",
+		"appspot",
+		"cancg",
+		"Constuctors",
+		"Coti",
+		"DGTP",
+		"Filip",
+		"firebaseauthdemo",
 		"Firestore",
+		"firestoredemo",
+		"Futter",
 		"Geolocator",
 		"getx",
+		"googleusercontent",
+		"GYSY",
 		"Hanalei",
 		"Katherin",
+		"nosql",
 		"Poipu",
 		"Pololu",
 		"robbinlaw",
@@ -13,5 +26,5 @@
 		"Wailea",
 		"Waimanalo"
 	],
-	"cSpell.ignoreWords": ["sqflight", "sqflite", "textformfield"]
+	"cSpell.ignoreWords": ["dummydata", "sqflight", "sqflite", "textformfield"]
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
@@ -12,7 +14,6 @@ final dummyListOfMaps = [
 ];
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage ({Key? key}) : super(key: key);
   @override
   MyHomePageState createState() {
     return MyHomePageState();
@@ -32,10 +33,13 @@ class MyHomePageState extends State<MyHomePage> {
     return _buildList(context, dummyListOfMaps);
   }
 
-  Widget _buildList(BuildContext context, List<Map<String, dynamic>> listOfMaps) {
+  Widget _buildList(
+      BuildContext context, List<Map<String, dynamic>> listOfMaps) {
     return ListView(
       padding: const EdgeInsets.only(top: 20.0),
-      children: listOfMaps.map((dataMap) => _buildListItem(context, dataMap)).toList(),
+      children: listOfMaps
+          .map((dataMap) => _buildListItem(context, dataMap))
+          .toList(),
     );
   }
 
