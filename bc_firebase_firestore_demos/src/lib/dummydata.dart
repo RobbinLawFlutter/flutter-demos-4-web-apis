@@ -5,10 +5,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 
 final dummyListOfMaps = [
-  //{"name": "Jimmy", "votes": null},
   {"name": "Filip", "votes": 15},
   {"name": "Abraham", "votes": 14},
   {"name": "Richard", "votes": 11},
+  //{"name": "Jimmy", "votes": null},
   {"name": "Ike", "votes": 10},
   {"name": "Justin", "votes": 1},
 ];
