@@ -32,8 +32,8 @@ class MyApp extends StatelessWidget {
       theme: buildTheme(),
       //home: dummydata.MyHomePage(),
       //home: firestoredemo1.MyHomePage(),
-      //home: firestoredemo2.MyHomePage(),
-      home: firebaseauthdemo1.MyHomePage(),
+      home: firestoredemo2.MyHomePage(),
+      //home: firebaseauthdemo1.MyHomePage(),
     );
   }
 }
