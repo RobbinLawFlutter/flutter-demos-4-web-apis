@@ -8,7 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart' as firestoreLib;
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -18,9 +18,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-  final firestoreLib.FirebaseFirestore firestoreInst =
-      firestoreLib.FirebaseFirestore.instance;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,8 +27,9 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return StreamBuilder<firestoreLib.QuerySnapshot>(
-      stream: firestoreInst.collection('baby').snapshots(),
+    return StreamBuilder<firestore.QuerySnapshot>(
+      stream:
+          firestore.FirebaseFirestore.instance.collection('baby').snapshots(),
       builder: (context, snapshot) {
         print('demo2 _buildBody StreamBuilder builder');
         if (!snapshot.hasData) {
@@ -45,7 +43,7 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildList(
-      BuildContext context, List<firestoreLib.DocumentSnapshot> snapshots) {
+      BuildContext context, List<firestore.DocumentSnapshot> snapshots) {
     print('demo2 _buildList');
     return ListView(
       padding: const EdgeInsets.only(top: 20.0),
@@ -56,7 +54,7 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildListItem(
-      BuildContext context, firestoreLib.DocumentSnapshot snapshot) {
+      BuildContext context, firestore.DocumentSnapshot snapshot) {
     final record = Record.fromSnapshot(snapshot);
     print('demo2 _buildListItem with ${record.name}');
     return Padding(
@@ -74,7 +72,7 @@ class MyHomePageState extends State<MyHomePage> {
             onTap: () {
               print(record);
               record.reference
-                  .update({'votes': firestoreLib.FieldValue.increment(1)});
+                  .update({'votes': firestore.FieldValue.increment(1)});
             }),
       ),
     );
@@ -84,11 +82,11 @@ class MyHomePageState extends State<MyHomePage> {
 class Record {
   final String name;
   final int votes;
-  final firestoreLib.DocumentReference reference;
+  final firestore.DocumentReference reference;
 
   //Redirecting Constructors and optional parameters
   //https://bezkoder.com/dart-flutter-constructors/#Redirecting_Constructor
-  Record.fromSnapshot(firestoreLib.DocumentSnapshot snapshot)
+  Record.fromSnapshot(firestore.DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data() as Map<String, dynamic>,
             reference: snapshot.reference);
 

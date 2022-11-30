@@ -1,11 +1,11 @@
 //FlutterFire docs
 //https://firebase.flutter.dev/docs/overview
 
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, library_prefixes
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:firebase_core/firebase_core.dart' as firebaseCoreLib;
+import 'package:firebase_core/firebase_core.dart' as firebase;
 import 'firebase_options.dart';
 import 'package:robbinlaw/themes/theme.dart';
 
@@ -13,12 +13,11 @@ import 'package:robbinlaw/dummydata.dart' as dummydata;
 import 'package:robbinlaw/firestore_demo1.dart' as firestoredemo1;
 import 'package:robbinlaw/firestore_demo2.dart' as firestoredemo2;
 
-
 import 'package:robbinlaw/firebase_auth_demo1.dart' as firebaseauthdemo1;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await firebaseCoreLib.Firebase.initializeApp(
+  await firebase.Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MyApp());
