@@ -4,11 +4,11 @@
 //What is a nosql database... 12 videos about FireStore
 //https://www.youtube.com/watch?v=v_hR4K4auoQ&list=PLl-K7zZEsYLluG5MCVEzXAQ7ACZBCuZgZ
 
-// ignore_for_file: use_key_in_widget_constructors, avoid_print
+// ignore_for_file: use_key_in_widget_constructors, avoid_print, library_prefixes
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
+import 'package:cloud_firestore/cloud_firestore.dart' as firestoreLib;
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -18,6 +18,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
+  final firestoreLib.FirebaseFirestore firestoreInst =
+      firestoreLib.FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,18 +30,23 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return StreamBuilder<firestore.QuerySnapshot>(
-      stream:
-          firestore.FirebaseFirestore.instance.collection('baby').snapshots(),
+    return StreamBuilder<firestoreLib.QuerySnapshot>(
+      stream: firestoreInst.collection('baby').snapshots(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) return const LinearProgressIndicator();
+        print('demo2 _buildBody StreamBuilder builder');
+        if (!snapshot.hasData) {
+          print('no data yet');
+          return const LinearProgressIndicator();
+        }
+        print('yes data');
         return _buildList(context, snapshot.data!.docs);
       },
     );
   }
 
   Widget _buildList(
-      BuildContext context, List<firestore.DocumentSnapshot> snapshots) {
+      BuildContext context, List<firestoreLib.DocumentSnapshot> snapshots) {
+    print('demo2 _buildList');
     return ListView(
       padding: const EdgeInsets.only(top: 20.0),
       children: snapshots
@@ -48,9 +56,9 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildListItem(
-      BuildContext context, firestore.DocumentSnapshot snapshot) {
+      BuildContext context, firestoreLib.DocumentSnapshot snapshot) {
     final record = Record.fromSnapshot(snapshot);
-
+    print('demo2 _buildListItem with ${record.name}');
     return Padding(
       //key: ValueKey(record.name),
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -66,7 +74,7 @@ class MyHomePageState extends State<MyHomePage> {
             onTap: () {
               print(record);
               record.reference
-                  .update({'votes': firestore.FieldValue.increment(1)});
+                  .update({'votes': firestoreLib.FieldValue.increment(1)});
             }),
       ),
     );
@@ -76,12 +84,13 @@ class MyHomePageState extends State<MyHomePage> {
 class Record {
   final String name;
   final int votes;
-  final firestore.DocumentReference reference;
+  final firestoreLib.DocumentReference reference;
 
   //Redirecting Constructors and optional parameters
   //https://bezkoder.com/dart-flutter-constructors/#Redirecting_Constructor
-  Record.fromSnapshot(firestore.DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data() as Map<String, dynamic>, reference: snapshot.reference);
+  Record.fromSnapshot(firestoreLib.DocumentSnapshot snapshot)
+      : this.fromMap(snapshot.data() as Map<String, dynamic>,
+            reference: snapshot.reference);
 
   //Using an initializer list
   //https://dart.dev/guides/language/language-tour#using-constructors
@@ -90,7 +99,7 @@ class Record {
   //https://medium.com/run-dart/dart-dartlang-introduction-advanced-dart-features-524de79456b9
 
   //this.reference is a named optional parameter,
-  //but because of required reserved word 
+  //but because of required reserved word
   //is not optional.
   Record.fromMap(Map<String, dynamic> map, {required this.reference})
       : assert(map['name'] != null),
@@ -98,7 +107,7 @@ class Record {
         name = map['name'],
         votes = map['votes'] {
     //Get an objects type with .runtimeType
-    print(reference.runtimeType);
+    //print(reference.runtimeType);
   }
 
   @override

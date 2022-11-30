@@ -8,7 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestoreLib;
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final firestoreLib.FirebaseFirestore firestoreInst = firestoreLib.FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class MyHomePageState extends State<MyHomePage> {
 
   void _create() async {
     try {
-      await firestore.collection('users').doc('testUser').set({
+      await firestoreInst.collection('users').doc('testUser').set({
         'firstName': 'test',
         'lastName': 'user',
       });
@@ -73,10 +73,10 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   void _read() async {
-    DocumentSnapshot documentSnapshot;
+    firestoreLib.DocumentSnapshot documentSnapshot;
     try {
       documentSnapshot =
-          await firestore.collection('users').doc('testUser').get();
+          await firestoreInst.collection('users').doc('testUser').get();
       print(documentSnapshot.data());
       Get.snackbar(
         "successful read",
@@ -96,7 +96,7 @@ class MyHomePageState extends State<MyHomePage> {
 
   void _update() async {
     try {
-      await firestore.collection('users').doc('testUser').update({
+      await firestoreInst.collection('users').doc('testUser').update({
         'firstName': 'testUpdated',
         'lastName': 'userUpdated',
       });
@@ -119,7 +119,7 @@ class MyHomePageState extends State<MyHomePage> {
 
   void _delete() async {
     try {
-      await firestore.collection('users').doc('testUser').delete();
+      await firestoreInst.collection('users').doc('testUser').delete();
       print('successful delete');
       Get.snackbar(
         "successful delete",

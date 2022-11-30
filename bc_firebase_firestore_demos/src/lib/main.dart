@@ -5,18 +5,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:firebase_core/firebase_core.dart' as firebase;
+import 'package:firebase_core/firebase_core.dart' as firebaseCoreLib;
 import 'firebase_options.dart';
 import 'package:robbinlaw/themes/theme.dart';
 
 import 'package:robbinlaw/dummydata.dart' as dummydata;
 import 'package:robbinlaw/firestore_demo1.dart' as firestoredemo1;
+import 'package:robbinlaw/firestore_demo2.dart' as firestoredemo2;
+
 
 import 'package:robbinlaw/firebase_auth_demo1.dart' as firebaseauthdemo1;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await firebase.Firebase.initializeApp(
+  await firebaseCoreLib.Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MyApp());
@@ -30,9 +32,9 @@ class MyApp extends StatelessWidget {
       //theme: ThemeData.dark(),
       theme: buildTheme(),
       //home: dummydata.MyHomePage(),
-      home: firestoredemo1.MyHomePage(),
+      //home: firestoredemo1.MyHomePage(),
       //home: firestoredemo2.MyHomePage(),
-      //home: firebaseauthdemo1.MyHomePage(),
+      home: firebaseauthdemo1.MyHomePage(),
     );
   }
 }

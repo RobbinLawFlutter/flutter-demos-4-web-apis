@@ -11,7 +11,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('Home build:');
-    Get.find<AppController>().upDate();
+    Get.find<instantiated>().upDate();
     return Scaffold(
       appBar: AppBar(
         title: GetX<UserController>(
@@ -95,7 +95,7 @@ class Home extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          GetX<AppController>(
+          GetX<instantiated>(
             initState: (_) async {
               print("Home Getx<AppController> initState: try");
             },

@@ -1,9 +1,11 @@
+// ignore_for_file: avoid_print
+
 import 'package:get/get.dart';
 import 'package:robbinlaw/controllers/authController.dart';
 import 'package:robbinlaw/models/app.dart';
 import 'package:robbinlaw/services/database.dart';
 
-class AppController extends GetxController {
+class instantiated extends GetxController {
   //Create a Stream of data events of type List<AppModel>.
   //this is a private field.
   Rx<List<AppModel>> _appStreamOfList = Rx<List<AppModel>>([]);
@@ -20,7 +22,7 @@ class AppController extends GetxController {
   }
 
   //This upDate method is called every time the Home() class is
-  //instanciated and its build is run, so as to bind the proper
+  //instantiated and its build is run, so as to bind the proper
   //stream as per the logged in user.
   void upDate() {
     print('AppController upDate: try');

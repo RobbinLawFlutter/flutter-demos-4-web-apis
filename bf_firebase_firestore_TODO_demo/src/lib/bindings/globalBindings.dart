@@ -16,6 +16,6 @@ class GlobalBindings extends Bindings {
     //Get.lazyPut(() => UserController());
     Get.put<UserController>(UserController(), permanent: true);
     //Get.lazyPut(() => TodoController());
-    Get.put<AppController>(AppController(), permanent: true);
+    Get.put<instantiated>(instantiated(), permanent: true);
   }
 }
