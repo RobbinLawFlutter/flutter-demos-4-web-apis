@@ -5,7 +5,7 @@ import 'package:robbinlaw/controllers/authController.dart';
 import 'package:robbinlaw/models/app.dart';
 import 'package:robbinlaw/services/database.dart';
 
-class instantiated extends GetxController {
+class AppController extends GetxController {
   //Create a Stream of data events of type List<AppModel>.
   //this is a private field.
   Rx<List<AppModel>> _appStreamOfList = Rx<List<AppModel>>([]);
