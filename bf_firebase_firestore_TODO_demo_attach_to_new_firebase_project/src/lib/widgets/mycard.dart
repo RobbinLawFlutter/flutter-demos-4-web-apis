@@ -1,4 +1,4 @@
-//Dismissable Widget of the Week 1min.
+//Dismissible Widget of the Week 1min.
 //https://www.youtube.com/watch?v=iEMgjrfuc58&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=29
 
 //flutter_slidable Package of the Week 2min.
@@ -7,11 +7,12 @@
 //flutter_slidable by Trey Codes
 //https://www.youtube.com/watch?v=5kxt_ssl-uE
 
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:robbinlaw/models/app.dart';
 import 'package:robbinlaw/services/database.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 
 class MyCardWithDismissible extends StatelessWidget {
   final String userId;
@@ -32,7 +33,7 @@ class MyCardWithDismissible extends StatelessWidget {
         Database().deleteAppData(userId, appModel.id);
       },
       child: Card(
-        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Row(
@@ -40,8 +41,8 @@ class MyCardWithDismissible extends StatelessWidget {
               Expanded(
                 child: Text(
                   appModel.content,
-                  style: TextStyle(
-                    fontSize: 15,
+                  style: const TextStyle(
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

@@ -30,13 +30,6 @@
             {
               "client_id": "442511002985-7hvejumf6oeou086je7umeeloptnhhh3.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "442511002985-rq3406cancg883ii8mhm44agrqe0q4sr.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.robbinlaw"
-              }
             }
           ]
         }
@@ -66,13 +59,6 @@
             {
               "client_id": "442511002985-7hvejumf6oeou086je7umeeloptnhhh3.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "442511002985-rq3406cancg883ii8mhm44agrqe0q4sr.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.robbinlaw"
-              }
             }
           ]
         }
@@ -102,13 +88,6 @@
             {
               "client_id": "442511002985-7hvejumf6oeou086je7umeeloptnhhh3.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "442511002985-rq3406cancg883ii8mhm44agrqe0q4sr.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.robbinlaw"
-              }
             }
           ]
         }

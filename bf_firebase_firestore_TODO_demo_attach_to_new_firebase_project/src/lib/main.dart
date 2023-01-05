@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase;
 import 'firebase_options.dart';
+import 'package:robbinlaw/themes/theme.dart';
 import 'package:robbinlaw/bindings/globalBindings.dart';
 import 'package:robbinlaw/views/root.dart';
 
@@ -36,7 +37,8 @@ class MyApp extends StatelessWidget {
       //dependance injection via Bindings().
       initialBinding: GlobalBindings(),
       home: Root(),
-      theme: ThemeData.dark(),
+      //theme: ThemeData.dark(),
+      theme: buildTheme(),
     );
   }
 }

@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -29,33 +32,12 @@ class DefaultFirebaseOptions {
           'DefaultFirebaseOptions have not been configured for macos - '
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
-      case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
-      case TargetPlatform.linux:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for linux - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
         );
     }
   }
-
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB1JLQl6SHffOka8z97r9gG2a74yhlJKyc',
-    appId: '1:442511002985:web:aaea74fa38f36bbbd241f8',
-    messagingSenderId: '442511002985',
-    projectId: 'firestoredemo-16c50',
-    authDomain: 'firestoredemo-16c50.firebaseapp.com',
-    databaseURL: 'https://firestoredemo-16c50.firebaseio.com',
-    storageBucket: 'firestoredemo-16c50.appspot.com',
-    measurementId: 'G-TW8TXHXRQ7',
-  );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDGTP4AH02qGgVClzFX2KpGYSY5jVND584',
