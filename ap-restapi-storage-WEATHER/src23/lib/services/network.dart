@@ -14,7 +14,9 @@ class NetworkService {
       print('ERROR response status code: ${response.statusCode}');
     } else {
       String data = response.body;
-      return jsonDecode(data);
+      var jsonData = jsonDecode(data);
+      print('json data: $jsonData');
+      return jsonData;
     }
   }
 }

@@ -2,7 +2,6 @@
 //lon = -113.469
 //lat = 53.55
 
-//import 'package:robbinlaw/services/location.dart';
 import 'package:robbinlaw/services/network.dart';
 
 const apiKey = 'eada4f9ea302c58abd6d02fb791a812a';
@@ -19,8 +18,8 @@ class WeatherService {
       query: 'q=$cityName&appid=$apiKey&units=metric'
     );
     NetworkService networkService = NetworkService(url);
-    var weatherData = await networkService.getData();
-    return weatherData;
+    var data = await networkService.getData();
+    return data;
   }
 
   String getWeatherIcon(int condition) {

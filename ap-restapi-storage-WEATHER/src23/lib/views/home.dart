@@ -1,22 +1,27 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:robbinlaw/models/stock-list.dart';
-import 'package:robbinlaw/models/stock.dart';
-import 'package:robbinlaw/services/stock-service.dart';
+import 'package:robbinlaw/models/model-element-list.dart';
+import 'package:robbinlaw/models/model-element.dart';
+import 'package:robbinlaw/services/weather.dart';
 import 'package:robbinlaw/services/db-service.dart';
 
 class HomeView extends StatefulWidget {
   @override
-  _HomeViewState createState() => _HomeViewState();
+  HomeViewState createState() => HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
-  final StockService _stockService = StockService();
+class HomeViewState extends State<HomeView> {
+  final WeatherService _weatherService = WeatherService();
   final SQFliteDbService _databaseService = SQFliteDbService();
-  var _stockList = <Stock>[];
+  var _list = <ModelElement>[];
   String _stockSymbol = "";
+  late String weatherDescription;
+  late int temperature;
+  late String weatherIcon;
+  late String cityName;
+  late String weatherMessage;
 
   @override
   void initState() {
@@ -26,8 +31,8 @@ class _HomeViewState extends State<HomeView> {
 
   void getOrCreateDbAndDisplayAllStocksInDb() async {
     await _databaseService.getOrCreateDatabaseHandle();
-    _stockList = await _databaseService.getAllStocksFromDb();
-    await _databaseService.printAllStocksInDbToConsole();
+    _list = await _databaseService.getAllRecordsFromDb();
+    await _databaseService.printAllRecordsInDbToConsole();
     setState(() {});
   }
 
@@ -35,7 +40,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Stock Ticker'),
+        title: const Text('Weather Channel'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,20 +50,20 @@ class _HomeViewState extends State<HomeView> {
               'Delete All Records and Db',
             ),
             onPressed: () async {
-              _stockList.forEach(
+              _list.forEach(
                 (e) async {
-                  await _databaseService.deleteStock(e);
+                  await _databaseService.deleteRecord(e);
                 },
               );
-              _stockList = await _databaseService.getAllStocksFromDb();
-              await _databaseService.printAllStocksInDbToConsole();
+              _list = await _databaseService.getAllRecordsFromDb();
+              await _databaseService.printAllRecordsInDbToConsole();
               await _databaseService.deleteDb();
               setState(() {});
             },
           ),
           ElevatedButton(
             child: const Text(
-              'Add Stock',
+              'Add City Weather',
             ),
             onPressed: () {
               _inputStock();
@@ -68,73 +73,75 @@ class _HomeViewState extends State<HomeView> {
           //the dynamic ListView to play nice
           //with the TextButton.
           //StockList(stocks: _stockList),
-          Expanded(child: StockList(stocks: _stockList)),
+          Expanded(child: ModelElementList(modelElements: _list)),
         ],
       ),
     );
   }
 
-  Future<Null> _inputStock() async {
+  void updateUI(dynamic weatherData) {
+    setState(() {
+      if (weatherData == null) {
+        temperature = 0;
+        weatherIcon = 'Error';
+        weatherMessage = 'Unable to get weather data';
+        cityName = '';
+        return;
+      }
+      weatherDescription = weatherData['weather'][0]['description'];
+      print('Weather Description: $weatherDescription');
+      double temp = weatherData['main']['temp'];
+      //temperature = temp;
+      temperature = temp.toInt();
+      print('Temperature: $temperature degC');
+      int condition = weatherData['weather'][0]['id'];
+      print('Current Condition: $condition');
+      weatherIcon = _weatherService.getWeatherIcon(condition);
+      cityName = weatherData['name'];
+      print('City Name: $cityName');
+      weatherMessage = _weatherService.getMessage(temperature);
+      print(weatherMessage);
+    });
+  }
+
+  Future<void> _inputStock() async {
     await showDialog<String>(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Input Stock Symbol'),
-            contentPadding: EdgeInsets.all(5.0),
+            title: const Text('Input City Name'),
+            contentPadding: const EdgeInsets.all(5.0),
             content: TextField(
-              decoration: InputDecoration(hintText: "Symbol"),
+              decoration: const InputDecoration(hintText: "City Name"),
               onChanged: (String value) {
                 _stockSymbol = value;
               },
             ),
             actions: <Widget>[
               TextButton(
-                child: const Text("Add Stock"),
+                child: const Text("Add City"),
                 onPressed: () async {
                   if (_stockSymbol.isNotEmpty) {
-                    print('User entered Symbol: $_stockSymbol');
-                    var symbol = _stockSymbol;
-                    var companyName = '';
-                    var price = '';
+                    print('User entered City: $_stockSymbol');
+
                     try {
-                      //TODO:
-                      //Inside of this try,
-                      //get the company data with _stockService.getCompanyInfo
-                      //then get the stock data with _stockService.getQuote
-                      //but remember you must use await,
-                      //then if it is not null,
-                      //dig out the symbol, companyName, and latestPrice,
-                      //then create a new object of
-                      //type Stock and add it to
-                      //the database by calling
-                      //_databaseService.insertStock,
-                      //then get all the stocks from
-                      //the database with
-                      //_databaseService.getAllStocksFromDb and
-                      //attach them to _stockList,
-                      //then print all stocks to the console and,
-                      //finally call setstate at the end.
-                      var companyData =
-                          await _stockService.getCompanyInfo(_stockSymbol);
-                      if (companyData == null) {
-                        print("Call to getCompanyInfo failed to return data");
-                      } else {
-                        companyName = companyData['Name'];
-                        print('Symbol = $symbol, Name = $companyName');
-                      }
-                      var stockData =
-                          await _stockService.getQuote(_stockSymbol);
-                      if (stockData == null) {
-                        print("Call to getQuote failed to return data");
-                      } else {
-                        price = (stockData['Global Quote']['05. price']);
+                      var data = await _weatherService
+                          .getCityWeatherData(_stockSymbol);
+                      if (data == null) {
                         print(
-                            'Price = $price, PriceType = ${price.runtimeType}');
-                        await _databaseService.insertStock(Stock(
-                            symbol: symbol, name: companyName, price: price));
-                        _stockList =
-                            await _databaseService.getAllStocksFromDb();
-                        _databaseService.printAllStocksInDbToConsole();
+                            "Call to getCityWeatherData failed to return data");
+                      } else {
+                        updateUI(data);
+                        await _databaseService.insertRecord(
+                          ModelElement(
+                            city: cityName,
+                            temperature: temperature,
+                            message: weatherMessage,
+                            condition: weatherIcon,
+                          ),
+                        );
+                        _list = await _databaseService.getAllRecordsFromDb();
+                        _databaseService.printAllRecordsInDbToConsole();
                         setState(() {});
                       }
                     } catch (e) {
