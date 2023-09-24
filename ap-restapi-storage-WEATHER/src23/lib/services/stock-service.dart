@@ -1,36 +1,42 @@
 // ignore_for_file: avoid_print
 
-import 'package:http/http.dart' as http;
 import 'dart:async';
-import 'dart:convert';
+import 'package:robbinlaw/services/network.dart';
 
 const apiToken = 'QTVXCOASBD3ZIC1J';
 
 class StockService {
-  Future getCompanyInfo(String symbol) async {
-    var url = Uri.parse(
-        'https://www.alphavantage.co/query?function=OVERVIEW&symbol=$symbol&apikey=$apiToken');
 
-    http.Response response = await http.get(url);
-    print('jsonDecode of response.body is ${jsonDecode(response.body)}');
-    if (response.statusCode != 200) {
-      print('Response Status for getCompanyInfo is ${response.statusCode}');
-    } else if (response.statusCode != 200) {
-    } else if (response.statusCode != 200) {
-      return jsonDecode(response.body);
-    }
+  Future getCompanyInfo(String symbol) async {
+
+    var urlUsingOneString = Uri.parse('https://www.alphavantage.co/query?function=OVERVIEW&symbol=$symbol&apikey=$apiToken');
+
+    Uri url = Uri(
+      scheme: 'https',
+      host: 'www.alphavantage.co',
+      path: '/query',
+      query: 'function=OVERVIEW&symbol=$symbol&apikey=$apiToken'
+    );
+    print('url: $url');
+    NetworkService networkService = NetworkService(url);
+    var data = await networkService.getData();
+    return data;
   }
 
   Future getQuote(String symbol) async {
-    var url = Uri.parse(
+
+    var urlUsingOneString = Uri.parse(
         'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=$symbol&apikey=$apiToken');
 
-    http.Response response = await http.get(url);
-    print(jsonDecode(response.body)['Global Quote']);
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body)['Global Quote'];
-    } else {
-      print('Response Status for getQuote is ${response.statusCode}');
-    }
+    Uri url = Uri(
+      scheme: 'https',
+      host: 'www.alphavantage.co',
+      path: '/query',
+      query: 'function=GLOBAL_QUOTE&symbol=$symbol&apikey=$apiToken'
+    );
+    print('url: $url');
+    NetworkService networkService = NetworkService(url);
+    var data = await networkService.getData();
+    return data;
   }
 }

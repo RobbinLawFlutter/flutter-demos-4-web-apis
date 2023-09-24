@@ -95,7 +95,7 @@ class LocationViewState extends State<LocationView> {
                           },
                         ),
                       );
-                      print(typedCityName);
+                      print('User entered City Name: $typedCityName');
                       if (typedCityName != null) {
                         var weatherData = await weatherService
                             .getCityWeatherData(typedCityName);

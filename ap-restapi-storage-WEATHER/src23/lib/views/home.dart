@@ -35,7 +35,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('App 4 Stock Ticker'),
+        title: const Text('Stock Ticker'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -127,7 +127,7 @@ class _HomeViewState extends State<HomeView> {
                       if (stockData == null) {
                         print("Call to getQuote failed to return data");
                       } else {
-                        price = (stockData['05. price']);
+                        price = (stockData['Global Quote']['05. price']);
                         print(
                             'Price = $price, PriceType = ${price.runtimeType}');
                         await _databaseService.insertStock(Stock(
