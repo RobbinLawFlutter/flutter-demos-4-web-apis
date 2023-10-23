@@ -2,6 +2,9 @@
 //lon = -113.469
 //lat = 53.55
 
+// ignore_for_file: unused_local_variable
+
+import 'dart:async';
 import 'package:robbinlaw/services/network.dart';
 
 const apiKey = 'eada4f9ea302c58abd6d02fb791a812a';
@@ -11,6 +14,7 @@ class WeatherService {
   
   Future<dynamic> getCityWeatherData(String cityName) async {
     var urlOneString = '$openWeatherMapURL?q=$cityName&appid=$apiKey&units=metric';
+    
     Uri url = Uri(
       scheme: 'https',
       host: 'api.openweathermap.org',
