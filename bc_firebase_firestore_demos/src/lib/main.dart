@@ -1,5 +1,5 @@
 //FlutterFire docs
-//https://firebase.flutter.dev/docs/overview
+//https://firebase.google.com/docs/flutter/setup?platform=android
 
 // ignore_for_file: use_key_in_widget_constructors, library_prefixes
 
