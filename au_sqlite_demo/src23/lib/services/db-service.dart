@@ -5,10 +5,13 @@ import 'package:sqflite/sqflite.dart' as sqflitePackage;
 
 import 'package:robbinlaw/models/dog.dart';
 
-//https://flutter.dev/docs/cookbook/persistence/sqlite
+// https://flutter.dev/docs/cookbook/persistence/sqlite
 
-//sqflite package of the week.
-//https://www.youtube.com/watch?v=HefHf5B1YM0&vl=en
+// sqflite package of the week.
+// https://www.youtube.com/watch?v=HefHf5B1YM0&vl=en
+
+// sql injection attack
+// https://stackoverflow.com/questions/48828839/android-sqlite-update-why-whereargs
 
 class SQFliteDbService {
   late sqflitePackage.Database? db;
