@@ -27,9 +27,9 @@ class MyDemoState extends State<MyDemo> {
       child: ElevatedButton(
         child: const Text('Press'),
         onPressed: () {
-          performTasks1And2();
+          //performTasks1And2();
           //performTasks3And4();
-          //performTasks5And6();
+          performTasks5And6();
         },
       ),
     );

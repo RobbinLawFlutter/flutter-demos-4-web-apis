@@ -82,10 +82,10 @@ void performTasks() {
   print(map);
 
   var map2 = Map.from(myAgeBook);
-  print(map2);
+  print('map2: $map2');
 
   var map3 = Map.of(myAgeBook);
-  print(map3);
+  print('map3: $map3');
 
   print(hawaiianBeaches.keys);
   print(hawaiianBeaches.values);
@@ -94,13 +94,14 @@ void performTasks() {
 
   //You can also allow for the key and value types to change
   //on the fly programmatically.
+  Map<dynamic, dynamic> planetss = <dynamic, dynamic>{};
   var planets = <dynamic, dynamic>{};
 
   planets[1] = 'Pluto';
   planets[4] = 'Jupiter';
   planets['this key is a string'] = 20;
   planets.forEach((key, value) {
-    print(planets);
+    print('key is $key, value is $value');
   });
 
   var map4 = {1: 'one', 2: 'two', 3: 'three'};
