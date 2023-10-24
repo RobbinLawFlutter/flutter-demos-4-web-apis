@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, use_key_in_widget_constructors
+// ignore_for_file: avoid_print, use_key_in_widget_constructors, unused_local_variable
 
 import 'package:flutter/material.dart';
 
@@ -94,7 +94,7 @@ void performTasks() {
 
   //You can also allow for the key and value types to change
   //on the fly programmatically.
-  Map<dynamic, dynamic> planetss = <dynamic, dynamic>{};
+  Map<dynamic, dynamic> planetsLongDeclaration = <dynamic, dynamic>{};
   var planets = <dynamic, dynamic>{};
 
   planets[1] = 'Pluto';
