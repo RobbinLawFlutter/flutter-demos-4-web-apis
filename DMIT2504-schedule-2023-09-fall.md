@@ -2,7 +2,7 @@
 
 ## Links
 
-- [Link to my demos repo](https://github.com/RobbinLawFlutter/flutter-demos-1-ui-layout.git)
+- [Link to my demos repo](https://github.com/RobbinLawFlutter)
 
 ---
 
@@ -11,12 +11,12 @@
 |Assessment|via|Due 11:59 PM Friday|%|
 |:-:|:-:|:-:|:-:|
 | Assignment 1 | Moodle | week 3  | 12 |
-| Quiz 1 | Moodle | week 3  | 8 |
 | Assignment 2 | Moodle | week 6 | 12 |
-| Quiz 2 | Moodle | week 6 | 8 |
+| Quiz 1 | Moodle | week 6  | 8 |
 | Assignment 3 | Moodle | week 9  | 12 |
-| Quiz 3 | Moodle | week 9  | 8 |
-| Project Proposal| Moodle | week 11 | 10|
+| Quiz 2 | Moodle | week 9 | 8 |
+| Project Proposal| Moodle | week 10 | 10|
+| Quiz 3 | Moodle | week 12  | 8 |
 | Project Completion| Moodle | week 15 | 10|
 | Project Presentation| Youtube | week 15 | 20|
 |Total|||100|
@@ -27,16 +27,16 @@
 |:-:|:-:|:-:|:-:|:-:|
 |1-S04|Environment-Setup|Environment-Setup|Environment-Setup||
 |2-S11|UI Layout|UI Layout|UI Layout||
-|3-S18|UI Layout|UI Layout|UI Layout|A1 Q1|
+|3-S18|UI Layout|UI Layout|UI Layout|A1|
 |4-S25|User Input|User Input|User Input||
 |5-O02|User Input|User Input|User Input||
-|6-O09|User Input|User Input|User Input|A2 Q2|
+|6-O09|User Input|User Input|User Input|A2 Q1|
 |7-O16|RestApi & Storage|RestApi & Storage|RestApi & Storage||
 |8-O23|RestApi & Storage|RestApi & Storage|RestApi & Storage||
-|9-O30|RestApi & Storage|RestApi & Storage|RestApi & Storage|A3 Q3|
-|10-N06|Project Proposal|Project Proposal|Project Proposal||
-|11-N13|Project Proposal|Project Proposal|Project Proposal|Proposal|
-|12-N20|Project Completion|Project Completion|Project Completion||
+|9-O30|RestApi & Storage|RestApi & Storage|RestApi & Storage|A3 Q2|
+|10-N06|Firebase/Project Proposal|Firebase/Project Proposal|Firebase/Project Proposal|Project Proposal|
+|11-N13|FireStore/Project Completion|FireStore/Project Completion|FireStore/Project Completion||
+|12-N20|GPS-Camera/Project Completion|GPS-Camera/Project Completion|GPS-Camera/Project Completion|Q3|
 |13-N27|Project Completion|Project Completion|Project Completion||
 |14-D04|Project Completion|Project Completion|Project Completion|Completion|
 |15-D11|Project Presentation|Project Presentation|Project Presentation|Presentation|
