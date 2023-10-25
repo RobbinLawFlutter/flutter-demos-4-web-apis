@@ -1,13 +1,12 @@
-//https://flutter.dev/docs/cookbook/persistence/sqlite
-
 // ignore_for_file: use_key_in_widget_constructors, avoid_print, avoid_function_literals_in_foreach_calls
 
 import 'package:flutter/material.dart';
 import 'dart:async';
-
 import 'package:robbinlaw/services/db-service.dart';
 import 'package:robbinlaw/models/dog.dart';
 import 'package:robbinlaw/models/dog_list.dart';
+
+//https://flutter.dev/docs/cookbook/persistence/sqlite
 
 class HomeView extends StatefulWidget {
   @override

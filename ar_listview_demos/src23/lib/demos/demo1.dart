@@ -29,7 +29,7 @@ class MyDemoState extends State<MyDemo> {
         TextField(
           controller: eCtrl,
           style: const TextStyle(
-            fontSize: 30,
+            fontSize: 60,
           ),
           onSubmitted: (text) {
             listItems.add(text);
@@ -44,7 +44,7 @@ class MyDemoState extends State<MyDemo> {
                   return Text(
                     listItems[index],
                     style: const TextStyle(
-                      fontSize: 30,
+                      fontSize: 90,
                     ),
                   );
                 }))

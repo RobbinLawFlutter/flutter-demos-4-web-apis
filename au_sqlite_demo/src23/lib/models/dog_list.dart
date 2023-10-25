@@ -1,8 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'dog.dart';
+import 'package:robbinlaw/models/dog.dart';
 
 class DogList extends StatefulWidget {
   const DogList ({required this.dogs});
