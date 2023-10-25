@@ -1,14 +1,13 @@
+// ignore_for_file: use_key_in_widget_constructors, avoid_print, library_prefixes
+
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestoreLib;
+
 //Intro to FireStore from Google Futter in Focus series
 //https://www.youtube.com/watch?v=DqJ_KjFzL9I&t=7s
 
 //What is a nosql database... 12 videos about FireStore
 //https://www.youtube.com/watch?v=v_hR4K4auoQ&list=PLl-K7zZEsYLluG5MCVEzXAQ7ACZBCuZgZ
-
-// ignore_for_file: use_key_in_widget_constructors, avoid_print
-
-import 'package:flutter/material.dart';
-//import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart' as firestoreLib;
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -56,19 +55,9 @@ class MyHomePageState extends State<MyHomePage> {
         'lastName': 'user',
       });
       print('successful create');
-      // Get.snackbar(
-      //   "successful create",
-      //   '',
-      //   snackPosition: SnackPosition.BOTTOM,
-      //   duration: const Duration(seconds: 3),
-      // );
+      
     } catch (e) {
-      // Get.snackbar(
-      //   "create ERROR",
-      //   e.toString(),
-      //   snackPosition: SnackPosition.BOTTOM,
-      //   duration: const Duration(seconds: 5),
-      // );
+      print(e.toString());
     }
   }
 
@@ -78,19 +67,9 @@ class MyHomePageState extends State<MyHomePage> {
       documentSnapshot =
           await firestoreInst.collection('users').doc('testUser').get();
       print(documentSnapshot.data());
-      // Get.snackbar(
-      //   "successful read",
-      //   '${documentSnapshot.data()}',
-      //   snackPosition: SnackPosition.BOTTOM,
-      //   duration: const Duration(seconds: 3),
-      // );
+      
     } catch (e) {
-      // Get.snackbar(
-      //   "read ERROR",
-      //   e.toString(),
-      //   snackPosition: SnackPosition.BOTTOM,
-      //   duration: const Duration(seconds: 5),
-      // );
+      print(e.toString());
     }
   }
 
@@ -101,19 +80,9 @@ class MyHomePageState extends State<MyHomePage> {
         'lastName': 'userUpdated',
       });
       print('successful update');
-      // Get.snackbar(
-      //   "successful update",
-      //   '',
-      //   snackPosition: SnackPosition.BOTTOM,
-      //   duration: const Duration(seconds: 3),
-      // );
+      
     } catch (e) {
-      // Get.snackbar(
-      //   "update ERROR",
-      //   e.toString(),
-      //   snackPosition: SnackPosition.BOTTOM,
-      //   duration: const Duration(seconds: 5),
-      // );
+      print(e.toString());
     }
   }
 
@@ -121,19 +90,9 @@ class MyHomePageState extends State<MyHomePage> {
     try {
       await firestoreInst.collection('users').doc('testUser').delete();
       print('successful delete');
-      // Get.snackbar(
-      //   "successful delete",
-      //   '',
-      //   snackPosition: SnackPosition.BOTTOM,
-      //   duration: const Duration(seconds: 3),
-      // );
+      
     } catch (e) {
-      // Get.snackbar(
-      //   "delete ERROR",
-      //   e.toString(),
-      //   snackPosition: SnackPosition.BOTTOM,
-      //   duration: const Duration(seconds: 5),
-      // );
+      print(e.toString());
     }
   }
 }

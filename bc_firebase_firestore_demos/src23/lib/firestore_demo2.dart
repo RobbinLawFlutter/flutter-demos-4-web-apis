@@ -1,14 +1,13 @@
+// ignore_for_file: use_key_in_widget_constructors, avoid_print, library_prefixes, unused_import
+
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
+
 //Intro to FireStore from Google Futter in Focus series
 //https://www.youtube.com/watch?v=DqJ_KjFzL9I&t=7s
 
 //What is a nosql database... 12 videos about FireStore
 //https://www.youtube.com/watch?v=v_hR4K4auoQ&list=PLl-K7zZEsYLluG5MCVEzXAQ7ACZBCuZgZ
-
-// ignore_for_file: use_key_in_widget_constructors, avoid_print, library_prefixes
-
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 
 class MyHomePage extends StatefulWidget {
   @override
