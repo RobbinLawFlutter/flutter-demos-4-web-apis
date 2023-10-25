@@ -1,10 +1,11 @@
 //https://firebase.flutter.dev/docs/auth/usage/
 
-// ignore_for_file: avoid_print, use_key_in_widget_constructors
+// ignore_for_file: avoid_print, use_key_in_widget_constructors, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 //import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:robbinlaw/main.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -23,6 +24,7 @@ class MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print('build started');
     _auth.authStateChanges().listen((User? user) {
       if (user == null) {
         isUserLoggedIn = false;
@@ -137,23 +139,25 @@ class MyHomePageState extends State<MyHomePage> {
                   ElevatedButton(
                     child: const Text("Log In"),
                     onPressed: () {
-                      if (formKey.currentState!.validate()) {
+                      
+                        if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
                         //textEditingController1.clear();
                         //textEditingController2.clear();
                         setState(() {});
-                      }
-                      _logIn(_email, _password);
-                      //_email = '';
-                      //_password = '';
+                        }
+                        _logIn(_email, _password);
+                        
+                        //_email = '';
+                        //_password = '';
                     },
                   ),
                   ElevatedButton(
                     child: const Text("Log Out"),
                     onPressed: () {
                       _logOut();
-                      _email = '';
-                      _password = '';
+                      //_email = '';
+                      //_password = '';
                     },
                   ),
                 ],
@@ -169,63 +173,64 @@ class MyHomePageState extends State<MyHomePage> {
     try {
       _authResult = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      //print('user credential: ${_authResult.credential}');
-      //print('user id: ${_authResult.user.uid}');
-      //print('user email: ${_authResult.user.email}');
-      //print('email has been verified: ${_authResult.user.emailVerified}');
-      //print('login is anonymous: ${_authResult.user.isAnonymous}');
-      // Get.snackbar(
-      //   "signup successful",
-      //   'user email: ${_authResult.user!.email}',
-      //   snackPosition: SnackPosition.BOTTOM,
-      //   duration: const Duration(seconds: 5),
-      // );
+      print('user credential: ${_authResult.credential}');
+      print('user id: ${_authResult.user?.uid}');
+      print('user email: ${_authResult.user?.email}');
+      print('email has been verified: ${_authResult.user?.emailVerified}');
+      print('login is anonymous: ${_authResult.user?.isAnonymous}');
+      dynamic snackBar = mySnackBar('signup success');
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } catch (e) {
-      // Get.snackbar(
-      //   "signup ERROR",
-      //   e.toString(),
-      //   snackPosition: SnackPosition.BOTTOM,
-      //   duration: const Duration(seconds: 5),
-      // );
+      print(e.toString());
+      dynamic snackBar = mySnackBar('signup failed');
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 
-  void _logIn(String email, String password) async {
+   void _logIn(email, String password) async {
     try {
       _authResult = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      // Get.snackbar(
-      //   "login SUCCESSFUL",
-      //   'user email: ${_authResult.user!.email}',
-      //   snackPosition: SnackPosition.BOTTOM,
-      //   duration: const Duration(seconds: 5),
-      // );
+      dynamic snackBar = mySnackBar('login success');
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } catch (e) {
-      // Get.snackbar(
-      //   "login ERROR",
-      //   e.toString(),
-      //   snackPosition: SnackPosition.BOTTOM,
-      //   duration: const Duration(seconds: 5),
-      // );
+      print(e.toString());
+      dynamic snackBar = mySnackBar('login failed');
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 
   void _logOut() async {
     try {
       await _auth.signOut();
+      dynamic snackBar = mySnackBar('logout success');
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
       //_authResult = null;
-      // Get.snackbar(
-      //   "logOut SUCCESSFUL",
-      //   'user email: ${_authResult.user!.email}',
-      //   snackPosition: SnackPosition.BOTTOM,
-      //   duration: const Duration(seconds: 5),
-      // );
     } catch (e) {
-      // Get.snackbar(
-      //   "logOut ERROR",
-      //   e.toString(),
-      //   snackPosition: SnackPosition.BOTTOM,
-      // );
+      print(e.toString());
+      dynamic snackBar = mySnackBar('logout failed');
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
+  }
+
+  SnackBar mySnackBar(String text) {
+    return SnackBar(
+      behavior: SnackBarBehavior.floating,
+      content: Row(
+        children: [
+          const Icon(Icons.accessibility_new_rounded),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(text),
+        ],
+      ),
+      action: SnackBarAction(
+        label: 'Click Me',
+        onPressed: () {
+          print('hey you clicked on the snackbar Action');
+        },
+      ),
+    );
   }
 }
