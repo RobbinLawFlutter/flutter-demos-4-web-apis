@@ -1,21 +1,11 @@
 // ignore_for_file: unused_import
 
 import 'package:flutter/material.dart';
-//import 'package:get/get.dart';
 import 'package:robbinlaw/themes/theme.dart';
 
 import 'package:robbinlaw/demos/aa-demo1.dart';
 import 'package:robbinlaw/demos/ab-demo2.dart';
 import 'package:robbinlaw/demos/ac-demo3.dart';
-
-//streams from flutter in focus series.
-//https://www.youtube.com/watch?v=nQBpOIHE4eE
-
-//streambuilder widget of the week.
-//https://www.youtube.com/watch?v=MkKEWHfy99Y
-
-//stream basics by medium
-//https://medium.com/flutter-community/flutter-stream-basics-for-beginners-eda23e44e32f
 
 void main() {
   runApp(MyApp());
