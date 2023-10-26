@@ -1,22 +1,21 @@
+// ignore_for_file: file_names, use_key_in_widget_constructors, unused_local_variable, avoid_print
 
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 class Demo2 extends StatelessWidget {
-  const Demo2 ({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Demo 2'),
       ),
-      body: const MyDemo(),
+      body: MyDemo(),
     );
   }
 }
 
 class MyDemo extends StatefulWidget {
-  const MyDemo ({Key? key}) : super(key: key);
   @override
   MyDemoState createState() => MyDemoState();
 }

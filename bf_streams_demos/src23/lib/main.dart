@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 import 'package:robbinlaw/themes/theme.dart';
@@ -12,7 +12,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp ({Key? key}) : super(key: key);
   final Color themeColor = const Color(0xFF808366);
   @override
   Widget build(BuildContext context) {
@@ -20,8 +19,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       //theme: ThemeData.dark(),
       theme: buildTheme(),
-      //home: const Demo1(),
-      //home: const Demo2(),
+      //home: Demo1(),
+      //home: Demo2(),
       home: Demo3(),
     );
   }
