@@ -42,71 +42,35 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildList(
-      BuildContext context, List<firestore.DocumentSnapshot> snapshots) {
+      BuildContext context, List<firestore.DocumentSnapshot> listofdocumentsnapshots) {
     print('demo2 _buildList');
     return ListView(
       padding: const EdgeInsets.only(top: 20.0),
-      children: snapshots
-          .map((snapshot) => _buildListItem(context, snapshot))
+      children: listofdocumentsnapshots
+          .map((documentsnapshot) => _buildListItem(context, documentsnapshot))
           .toList(),
     );
   }
 
   Widget _buildListItem(
-      BuildContext context, firestore.DocumentSnapshot snapshot) {
-    final record = Record.fromSnapshot(snapshot);
-    print('demo2 _buildListItem with ${record.name}');
+      BuildContext context, firestore.DocumentSnapshot documentsnapshot) {
+    var documentdata = documentsnapshot.data() as Map<String, dynamic>;
+    print('Name: ${documentdata['name']}, Votes: ${documentdata['votes']}');
     return Padding(
-      //key: ValueKey(record.name),
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
           borderRadius: BorderRadius.circular(5.0),
         ),
-        //ListTile can act as a button with onTap property.
         child: ListTile(
-            title: Text(record.name),
-            trailing: Text(record.votes.toString()),
+            title: Text(documentdata['name']),
+            trailing: Text(documentdata['votes'].toString()),
             onTap: () {
-              print(record);
-              record.reference
+              documentsnapshot.reference
                   .update({'votes': firestore.FieldValue.increment(1)});
             }),
       ),
     );
   }
-}
-
-class Record {
-  final String name;
-  final int votes;
-  final firestore.DocumentReference reference;
-
-  //Redirecting Constructors and optional parameters
-  //https://bezkoder.com/dart-flutter-constructors/#Redirecting_Constructor
-  Record.fromSnapshot(firestore.DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data() as Map<String, dynamic>,
-            reference: snapshot.reference);
-
-  //Using an initializer list
-  //https://dart.dev/guides/language/language-tour#using-constructors
-
-  //How assert works
-  //https://medium.com/run-dart/dart-dartlang-introduction-advanced-dart-features-524de79456b9
-
-  //this.reference is a named optional parameter,
-  //but because of required reserved word
-  //is not optional.
-  Record.fromMap(Map<String, dynamic> map, {required this.reference})
-      : assert(map['name'] != null),
-        assert(map['votes'] != null),
-        name = map['name'],
-        votes = map['votes'] {
-    //Get an objects type with .runtimeType
-    //print(reference.runtimeType);
-  }
-
-  @override
-  String toString() => "Record<$name:$votes>";
 }
