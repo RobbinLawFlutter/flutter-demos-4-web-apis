@@ -15,7 +15,7 @@ class HomeView extends StatefulWidget {
 
 class HomeViewState extends State<HomeView> {
   final SQFliteDbService _databaseService = SQFliteDbService();
-  var _dogList = <Dog>[];
+  List<Dog> _dogList = [];
   String _dogName = "";
 
   @override
@@ -63,7 +63,9 @@ class HomeViewState extends State<HomeView> {
           //We must use an Expanded widget to get
           //the dynamic ListView to play nice
           //with the RaisedButtons.
-          Expanded(child: DogList(dogs: _dogList)),
+          Expanded(
+            child: DogList(dogs: _dogList),
+          ),
         ],
       ),
     );

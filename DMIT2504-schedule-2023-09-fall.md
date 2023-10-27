@@ -31,11 +31,11 @@
 |4-S25|User Input|User Input|User Input||
 |5-O02|User Input|User Input|User Input||
 |6-O09|User Input|User Input|User Input|A2 Q1|
-|7-O16|RestApi & Storage|RestApi & Storage|RestApi & Storage||
-|8-O23|RestApi & Storage|RestApi & Storage|RestApi & Storage||
-|9-O30|RestApi & Storage|RestApi & Storage|RestApi & Storage|A3 Q2|
-|10-N06|Firebase/Project Proposal|Firebase/Project Proposal|Firebase/Project Proposal|Project Proposal|
-|11-N13|FireStore/Project Completion|FireStore/Project Completion|FireStore/Project Completion||
+|7-O16|RestApi/Local-Storage|RestApi/Local-Storage|RestApi/Local-Storage||
+|8-O23|RestApi/Local-Storage|RestApi/Local-Storage|RestApi/Local-Storage||
+|9-O30|RestApi/Local-Storage|RestApi/Local-Storage|RestApi/Local-Storage||
+|10-N06|Firebase/Project-Proposal|Firebase/Project-Proposal|Firebase/Project-Proposal|A3 Q2|
+|11-N13|FireStore/Project-Proposal|FireStore/Project-Proposal|FireStore/Project-Proposal|Project-Proposal|
 |12-N20|GPS-Camera/Project Completion|GPS-Camera/Project Completion|GPS-Camera/Project Completion|Q3|
 |13-N27|Project Completion|Project Completion|Project Completion||
 |14-D04|Project Completion|Project Completion|Project Completion|Completion|
