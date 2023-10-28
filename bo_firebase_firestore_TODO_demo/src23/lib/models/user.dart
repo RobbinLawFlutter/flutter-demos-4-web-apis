@@ -15,7 +15,6 @@ class UserModel {
 
   UserModel.fromDocumentSnapshot({required DocumentSnapshot documentSnapshot}) {
     id = documentSnapshot.id;
-    //name = documentSnapshot.data()["name"];
     name = documentSnapshot["name"];
     email = documentSnapshot["email"];
     print('UserModel.fromDocumentSnapshot: name= $name');

@@ -6,7 +6,7 @@ import 'package:robbinlaw/views/home.dart';
 import 'package:robbinlaw/views/signup.dart';
 
 class Login extends StatelessWidget {
-  Authorization auth = Authorization();
+  final Authorization auth = Authorization();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -38,9 +38,9 @@ class Login extends StatelessWidget {
               ElevatedButton(
                 child: const Text("Log In"),
                 onPressed: () async {
-                  bool status = await auth.login(emailController.text, passwordController.text);
+                  bool status = await auth.logIn(emailController.text, passwordController.text);
                   if (status) {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => Home(),
@@ -52,7 +52,7 @@ class Login extends StatelessWidget {
               ElevatedButton(
                 child: const Text("Sign Up"),
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => SignUp(),

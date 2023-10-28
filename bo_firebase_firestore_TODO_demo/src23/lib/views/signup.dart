@@ -1,17 +1,21 @@
+// ignore_for_file: use_build_context_synchronously, use_key_in_widget_constructors, avoid_print
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:robbinlaw/controllers/authController.dart';
+import 'package:robbinlaw/services/authorization.dart';
+import 'package:robbinlaw/views/home.dart';
 
 class SignUp extends StatelessWidget {
+  final Authorization auth = Authorization();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    print('SignUp build');
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sign Up"),
+        title: const Text("Sign Up"),
       ),
       body: Center(
         child: Padding(
@@ -20,29 +24,37 @@ class SignUp extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(hintText: "Full Name"),
+                decoration: const InputDecoration(hintText: "Full Name"),
                 controller: nameController,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               TextFormField(
-                decoration: InputDecoration(hintText: "Email"),
+                decoration: const InputDecoration(hintText: "Email"),
                 controller: emailController,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               TextFormField(
-                decoration: InputDecoration(hintText: "Password"),
+                decoration: const InputDecoration(hintText: "Password"),
                 obscureText: true,
                 controller: passwordController,
               ),
               TextButton(
-                child: Text("Sign Up"),
-                onPressed: () {
-                  Get.find<AuthController>().createUser(nameController.text,
+                child: const Text("Sign Up"),
+                onPressed: () async {
+                  bool status = await auth.createUser(nameController.text,
                       emailController.text, passwordController.text);
+                  if (status) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Home(),
+                      ),
+                    );
+                  }
                 },
               )
             ],

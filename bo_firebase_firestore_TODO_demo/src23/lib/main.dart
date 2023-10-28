@@ -1,11 +1,9 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase;
 import 'firebase_options.dart';
 import 'package:robbinlaw/themes/theme.dart';
-import 'package:robbinlaw/bindings/globalBindings.dart';
 import 'package:robbinlaw/views/root.dart';
 
 //Isolates (single threaded non blocking process with an event loop),
@@ -18,9 +16,6 @@ import 'package:robbinlaw/views/root.dart';
 //Firestore by the flutter in focus series
 //https://www.youtube.com/watch?v=DqJ_KjFzL9I&list=PLjxrf2q8roU2HdJQDjJzOeO6J3FoFLWr2&index=9
 
-//getx (navigation manager and state manager) documentation from medium
-//https://medium.com/flutter-community/the-flutter-getx-ecosystem-dependency-injection-8e763d0ec6b9
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await firebase.Firebase.initializeApp(
@@ -32,10 +27,8 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      //dependance injection via Bindings().
-      initialBinding: GlobalBindings(),
       home: Root(),
       theme: buildTheme(),
     );

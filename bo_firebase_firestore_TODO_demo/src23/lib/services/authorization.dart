@@ -23,6 +23,7 @@ class Authorization {
       auth.UserCredential credential =
           await authInst.createUserWithEmailAndPassword(
               email: email.trim(), password: password);
+      credential.user!.updateDisplayName(name);
       UserModel userModel = UserModel(
         id: credential.user!.uid,
         name: name,
@@ -36,7 +37,7 @@ class Authorization {
     }
   }
 
-  Future<bool> login(String email, String password) async {
+  Future<bool> logIn(String email, String password) async {
     try {
       auth.UserCredential credential = await authInst
           .signInWithEmailAndPassword(email: email.trim(), password: password);
@@ -46,7 +47,6 @@ class Authorization {
       print(e);
       return false;
     }
-    
   }
 
   Future<bool> logOut() async {

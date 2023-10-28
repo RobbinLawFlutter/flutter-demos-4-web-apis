@@ -38,16 +38,18 @@ class MyDemoState extends State<MyDemo> {
           },
         ),
         Expanded(
-            child: ListView.builder(
-                itemCount: listItems.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Text(
-                    listItems[index],
-                    style: const TextStyle(
-                      fontSize: 90,
-                    ),
-                  );
-                }))
+          child: ListView.builder(
+            itemCount: listItems.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Text(
+                listItems[index],
+                style: const TextStyle(
+                  fontSize: 90,
+                ),
+              );
+            },
+          ),
+        ),
       ],
     );
   }

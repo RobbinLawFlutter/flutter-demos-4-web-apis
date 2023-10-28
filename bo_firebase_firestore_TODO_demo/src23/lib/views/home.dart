@@ -1,22 +1,36 @@
 // ignore_for_file: use_key_in_widget_constructors, avoid_print, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:robbinlaw/models/app.dart';
 import 'package:robbinlaw/services/authorization.dart';
 import 'package:robbinlaw/services/database.dart';
 import 'package:robbinlaw/widgets/mycard.dart';
 import 'package:robbinlaw/views/login.dart';
-import 'package:robbinlaw/views/signup.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final bool useDissmissible = false;
   final Authorization auth = Authorization();
-  final TextEditingController _textEditingController = TextEditingController();
-  
+  final TextEditingController textEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     print('Home build:');
+    String currentUserId = (auth.authInst.currentUser == null
+        ? ''
+        : auth.authInst.currentUser!.uid);
+    String? currentUserName = (auth.authInst.currentUser == null
+        ? ''
+        : auth.authInst.currentUser!.displayName);
+    
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('user: ${auth.authInst.currentUser?.uid}'),
+        title: Text('user: $currentUserName'),
         centerTitle: true,
         actions: [
           IconButton(
@@ -24,13 +38,13 @@ class Home extends StatelessWidget {
             onPressed: () async {
               bool status = await auth.logOut();
               if (status) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Login(),
-                      ),
-                    );
-                  }
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Login(),
+                  ),
+                );
+              }
             },
           ),
         ],
@@ -55,17 +69,17 @@ class Home extends StatelessWidget {
                 children: [
                   Expanded(
                     child: TextFormField(
-                      controller: _textEditingController,
+                      controller: textEditingController,
                     ),
                   ),
                   IconButton(
                     icon: const Icon(Icons.add),
                     onPressed: () {
                       print('Home +Icon onPressed:');
-                      if (_textEditingController.text != "") {
+                      if (textEditingController.text != "") {
                         Database().addAppData(
-                            _textEditingController.text, auth.authInst.currentUser?.uid);
-                        _textEditingController.clear();
+                            textEditingController.text, currentUserId);
+                        textEditingController.clear();
                       }
                     },
                   )
@@ -80,21 +94,34 @@ class Home extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          // StreamBuilder(
-          //   stream: Database().streamOfAppData(auth.currentUserUid),
-          //   builder: (){Center(child: Text('fun'),)},
-          // ),
-          // Expanded(
-          //   child: ListView.builder(
-          //     itemCount: _.appList.length,
-          //     itemBuilder: (__, index) {
-          //       return MyCardWithDismissible(
-          //           key: const ValueKey(0),
-          //           userId: auth.currentUserUid,
-          //           appModel: _.appList[index]);
-          //     },
-          //   ),
-          // ),
+          StreamBuilder(
+              stream: Database().streamOfAppData(currentUserId),
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<AppModel>> snapshot) {
+                if (snapshot.data != null) {
+                  return Expanded(
+                    child: ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (BuildContext context, index) {
+                          if (useDissmissible) {
+                            return MyCardWithDismissible(
+                              key: const ValueKey(0),
+                              userId: currentUserId,
+                              appModel: snapshot.data![index],
+                            );
+                          } else {
+                            return MyCardWithSlidable(
+                              key: const ValueKey(0),
+                              userId: currentUserId,
+                              appModel: snapshot.data![index],
+                            );
+                          }
+                        }),
+                  );
+                } else {
+                  return const Text('snapshot data is null');
+                }
+              }),
         ],
       ),
     );
