@@ -1,11 +1,14 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:get/get.dart';
 import 'package:robbinlaw/controllers/userController.dart';
 import 'package:robbinlaw/models/user.dart';
 import 'package:robbinlaw/services/database.dart';
+import 'package:robbinlaw/services/authorization.dart';
 
 class AuthController extends GetxController {
-  auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
+  final auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
   //create a stream of data events of type User.
   //User is a type defined in firebase.
   
@@ -20,7 +23,7 @@ class AuthController extends GetxController {
   onInit() {
     // super should be called first with onInit.
     super.onInit();
-    print('AuthController onInit:');
+    //print('AuthController onInit:');
     //bind the stream from firebase to our _firebaseUserStream stream.
     _firebaseUserStream.bindStream(_firebaseAuth.authStateChanges());
   }
@@ -28,67 +31,67 @@ class AuthController extends GetxController {
   @override
   // called after the widget is rendered on screen
   void onReady() {
-    print('AuthController onReady:');
+    //print('AuthController onReady:');
     super.onReady();
   }
 
   @override
   // called just before the Controller is deleted from memory
   void onClose() {
-    print('AuthController onClose:');
+    //print('AuthController onClose:');
     // super should be called last with onClose.
     super.onClose();
   }
 
   void createUser(String name, String email, String password) async {
     try {
-      auth.UserCredential _firebaseAuthReturnUserCredential =
+      auth.UserCredential credential =
           await _firebaseAuth.createUserWithEmailAndPassword(
               email: email.trim(), password: password);
       //create user in database.dart
-      UserModel _userModel = UserModel(
-        id: _firebaseAuthReturnUserCredential.user!.uid,
+      UserModel userModel = UserModel(
+        id: credential.user!.uid,
         name: name,
-        email: _firebaseAuthReturnUserCredential.user!.email,
+        email: credential.user!.email,
       );
-      if (await Database().createNewUser(_userModel)) {
-        Get.find<UserController>().user = _userModel;
+      if (await Database().createNewUser(userModel)) {
+        Get.find<UserController>().user = userModel;
         Get.back();
       }
       Get.snackbar(
         "createUser",
         "successful",
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
       );
     } catch (e) {
       Get.snackbar(
         "createUser ERROR",
         "something bad happened",
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
       );
     }
   }
 
   void login(String email, String password) async {
     try {
-      auth.UserCredential _firebaseAuthReturnUserCredential = await _firebaseAuth
+      auth.UserCredential credential = await _firebaseAuth
           .signInWithEmailAndPassword(email: email.trim(), password: password);
       Get.find<UserController>().user =
-          await Database().getUser(_firebaseAuthReturnUserCredential.user!.uid);
+          await Database().getUser(credential.user!.uid);
       Get.snackbar(
         "login",
         "successful",
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
       );
     } catch (e) {
       Get.snackbar(
         "login ERROR",
         "something bad happened",
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
       );
     }
   }
@@ -101,7 +104,7 @@ class AuthController extends GetxController {
         "logOut",
         "successful",
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
       );
     } catch (e) {
       Get.snackbar(

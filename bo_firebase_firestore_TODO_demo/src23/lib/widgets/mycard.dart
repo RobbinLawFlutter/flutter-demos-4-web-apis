@@ -1,3 +1,10 @@
+// ignore_for_file: avoid_print, unused_import
+
+import 'package:flutter/material.dart';
+import 'package:robbinlaw/models/app.dart';
+import 'package:robbinlaw/services/database.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+
 //Dismissible Widget of the Week 1min.
 //https://www.youtube.com/watch?v=iEMgjrfuc58&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=29
 
@@ -6,13 +13,6 @@
 
 //flutter_slidable by Trey Codes
 //https://www.youtube.com/watch?v=5kxt_ssl-uE
-
-// ignore_for_file: avoid_print
-
-import 'package:flutter/material.dart';
-import 'package:robbinlaw/models/app.dart';
-import 'package:robbinlaw/services/database.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 
 class MyCardWithDismissible extends StatelessWidget {
   final String userId;

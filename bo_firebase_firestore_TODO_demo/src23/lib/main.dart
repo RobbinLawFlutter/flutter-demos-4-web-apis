@@ -1,3 +1,13 @@
+// ignore_for_file: use_key_in_widget_constructors
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:firebase_core/firebase_core.dart' as firebase;
+import 'firebase_options.dart';
+import 'package:robbinlaw/themes/theme.dart';
+import 'package:robbinlaw/bindings/globalBindings.dart';
+import 'package:robbinlaw/views/root.dart';
+
 //Isolates (single threaded non blocking process with an event loop),
 //Futures (Promises in JavaScript; container with 3 states:
 //non-completed, completed with data, completed with error),
@@ -10,16 +20,6 @@
 
 //getx (navigation manager and state manager) documentation from medium
 //https://medium.com/flutter-community/the-flutter-getx-ecosystem-dependency-injection-8e763d0ec6b9
-
-// ignore_for_file: use_key_in_widget_constructors
-
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:firebase_core/firebase_core.dart' as firebase;
-import 'firebase_options.dart';
-import 'package:robbinlaw/themes/theme.dart';
-import 'package:robbinlaw/bindings/globalBindings.dart';
-import 'package:robbinlaw/views/root.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +37,6 @@ class MyApp extends StatelessWidget {
       //dependance injection via Bindings().
       initialBinding: GlobalBindings(),
       home: Root(),
-      //theme: ThemeData.dark(),
       theme: buildTheme(),
     );
   }

@@ -18,19 +18,19 @@ class AppController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    print('AppController onInit:');
+    //print('AppController onInit:');
   }
 
   //This upDate method is called every time the Home() class is
   //instantiated and its build is run, so as to bind the proper
   //stream as per the logged in user.
   void upDate() {
-    print('AppController upDate: try');
+    //print('AppController upDate: try');
     try {
       //The ? allows us to call on uid when the firebaseUser is null, null safety,
       //and therefore the try will not fail if the firebaseUser is null.
       String userId = Get.find<AuthController>().firebaseUser!.uid;
-      print('AppController upDate: uid= $userId');
+      //print('AppController upDate: uid= $userId');
       //Bind to our controller appstream the FireStore stream.
       _appStreamOfList.bindStream(Database().streamOfAppData(userId));
     } catch (e) {

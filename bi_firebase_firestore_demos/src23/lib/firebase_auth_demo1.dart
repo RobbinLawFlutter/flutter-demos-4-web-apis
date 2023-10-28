@@ -1,10 +1,9 @@
-//https://firebase.flutter.dev/docs/auth/usage/
-
 // ignore_for_file: avoid_print, use_key_in_widget_constructors, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-//import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+//https://firebase.google.com/docs/auth/flutter/start
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -12,9 +11,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  late UserCredential _authResult;
-  String _email = "", _password = "";
+  final FirebaseAuth authInst = FirebaseAuth.instance;
+  late UserCredential credential;
+  String email = "", password = "";
   bool isUserLoggedIn = false;
 
   final formKey = GlobalKey<FormState>();
@@ -24,13 +23,16 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     print('build started');
-    _auth.authStateChanges().listen((User? user) {
+    authInst.authStateChanges().listen((User? user) {
       if (user == null) {
         isUserLoggedIn = false;
         print('User is currently signed out!');
       } else {
         isUserLoggedIn = true;
-        print('User is signed in as: ${_auth.currentUser!.email}');
+        print('user id: ${authInst.currentUser!.uid}');
+        print('user email: ${authInst.currentUser!.email}');
+        print('email has been verified: ${authInst.currentUser!.emailVerified}');
+        print('login is anonymous: ${authInst.currentUser!.isAnonymous}');
       }
     });
     return Scaffold(
@@ -58,7 +60,7 @@ class MyHomePageState extends State<MyHomePage> {
                 },
                 onSaved: (input) {
                   print('onSaved email = $input');
-                  _email = input.toString();
+                  email = input.toString();
                 },
                 //cursorColor: colorScheme.onPrimary,
                 maxLength: 30,
@@ -94,7 +96,7 @@ class MyHomePageState extends State<MyHomePage> {
                   return input!.length < 6 ? 'min 6 chars' : null;
                 },
                 onSaved: (input) {
-                  _password = input.toString();
+                  password = input.toString();
                   print('onSaved password = $input');
                 },
                 //obscureText: true,
@@ -130,7 +132,7 @@ class MyHomePageState extends State<MyHomePage> {
                         //textEditingController2.clear();
                         setState(() {});
                       }
-                      _signUp(_email, _password);
+                      signUp(email, password);
                       //_email = '';
                       //_password = '';
                     },
@@ -145,7 +147,7 @@ class MyHomePageState extends State<MyHomePage> {
                         //textEditingController2.clear();
                         setState(() {});
                         }
-                        _logIn(_email, _password);
+                        logIn(email, password);
                         
                         //_email = '';
                         //_password = '';
@@ -154,7 +156,7 @@ class MyHomePageState extends State<MyHomePage> {
                   ElevatedButton(
                     child: const Text("Log Out"),
                     onPressed: () {
-                      _logOut();
+                      logOut();
                       //_email = '';
                       //_password = '';
                     },
@@ -168,15 +170,10 @@ class MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _signUp(String email, String password) async {
+  void signUp(String email, String password) async {
     try {
-      _authResult = await _auth.createUserWithEmailAndPassword(
+      credential = await authInst.createUserWithEmailAndPassword(
           email: email, password: password);
-      print('user credential: ${_authResult.credential}');
-      print('user id: ${_authResult.user?.uid}');
-      print('user email: ${_authResult.user?.email}');
-      print('email has been verified: ${_authResult.user?.emailVerified}');
-      print('login is anonymous: ${_authResult.user?.isAnonymous}');
       dynamic snackBar = mySnackBar('signup success');
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } catch (e) {
@@ -186,9 +183,9 @@ class MyHomePageState extends State<MyHomePage> {
     }
   }
 
-   void _logIn(email, String password) async {
+   void logIn(email, String password) async {
     try {
-      _authResult = await _auth.signInWithEmailAndPassword(
+      credential = await authInst.signInWithEmailAndPassword(
           email: email, password: password);
       dynamic snackBar = mySnackBar('login success');
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -199,9 +196,9 @@ class MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void _logOut() async {
+  void logOut() async {
     try {
-      await _auth.signOut();
+      await authInst.signOut();
       dynamic snackBar = mySnackBar('logout success');
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       //_authResult = null;

@@ -12,11 +12,11 @@ class UserController extends GetxController {
   @override
   onInit() {
     super.onInit();
-    print('UserController onInit:');
+    //print('UserController onInit:');
   }
 
   void clear() {
     _userModelStream.value = UserModel(id: "",name: "",email: "");
-    print('UserController clear:');
+    //print('UserController clear:');
   }
 }

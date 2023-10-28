@@ -79,7 +79,7 @@ class Database {
     }
   }
 
-  Future<void> addAppData(String content, String userId) async {
+  Future<void> addAppData(String content, String? userId) async {
     print('Database addAppData: try');
     try {
       await _firestore.collection("users").doc(userId).collection("todos").add({
