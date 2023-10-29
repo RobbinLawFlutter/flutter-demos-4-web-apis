@@ -23,10 +23,10 @@ class AppModel {
     //get the value of the key-value pair by specifying the key.
     //content = documentSnapshot.data()["content"];
     content = documentSnapshot["content"];
-    //print('AppModel.fromDocumentSnapshot: content= $content');
     //dateCreated = documentSnapshot.data()["dateCreated"];
     dateCreated = documentSnapshot["dateCreated"];
     //done = documentSnapshot.data()["done"];
     done = documentSnapshot["done"];
+    print('AppModel.fromDocumentSnapshot: id: $id content: $content dateCreated: $dateCreated done: $done');
   }
 }

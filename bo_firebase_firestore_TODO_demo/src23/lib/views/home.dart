@@ -26,7 +26,6 @@ class _HomeState extends State<Home> {
     String? currentUserName = (auth.authInst.currentUser == null
         ? ''
         : auth.authInst.currentUser!.displayName);
-    
 
     return Scaffold(
       appBar: AppBar(
@@ -88,7 +87,7 @@ class _HomeState extends State<Home> {
             ),
           ),
           const Text(
-            "Your Todos",
+            "Your Todos as a stream",
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,

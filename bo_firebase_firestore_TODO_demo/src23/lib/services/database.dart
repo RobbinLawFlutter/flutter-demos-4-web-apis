@@ -21,35 +21,6 @@ class Database {
     }
   }
 
-  Future<String> getUserName(String userId) async {
-    print('Database getUserName: try');
-    try {
-      DocumentSnapshot documentSnapshot =
-          await db.collection("users").doc(userId).get();
-      return UserModel.fromDocumentSnapshot(documentSnapshot: documentSnapshot).name;
-    } catch (e) {
-      print('Database getUserName: catch $e');
-      rethrow;
-    }
-  }
-
-  Future<List<AppModel>> futureOfAppData(String userId) async {
-    print('Database futureOfAppData: try');
-    try {
-      QuerySnapshot doc =
-          await db.collection("users").doc(userId).collection("todos").get();
-      List<AppModel> listOfAppModel = [];
-      doc.docs.forEach((element) {
-        listOfAppModel
-            .add(AppModel.fromDocumentSnapshot(documentSnapshot: element));
-      });
-      return listOfAppModel;
-    } catch (e) {
-      print('Database futureOfAppData: catch $e');
-      rethrow;
-    }
-  }
-
   Stream<List<AppModel>> streamOfAppData(String userId) {
     print('Database streamOfAppData: try');
     try {
@@ -114,6 +85,36 @@ class Database {
           .delete();
     } catch (e) {
       print('Database deleteAppData: catch $e');
+      rethrow;
+    }
+  }
+
+  Future<String> getUserName(String userId) async {
+    print('Database getUserName: try');
+    try {
+      DocumentSnapshot documentSnapshot =
+          await db.collection("users").doc(userId).get();
+      return UserModel.fromDocumentSnapshot(documentSnapshot: documentSnapshot)
+          .name;
+    } catch (e) {
+      print('Database getUserName: catch $e');
+      rethrow;
+    }
+  }
+
+  Future<List<AppModel>> futureOfAppData(String userId) async {
+    print('Database futureOfAppData: try');
+    try {
+      QuerySnapshot doc =
+          await db.collection("users").doc(userId).collection("todos").get();
+      List<AppModel> listOfAppModel = [];
+      doc.docs.forEach((element) {
+        listOfAppModel
+            .add(AppModel.fromDocumentSnapshot(documentSnapshot: element));
+      });
+      return listOfAppModel;
+    } catch (e) {
+      print('Database futureOfAppData: catch $e');
       rethrow;
     }
   }
