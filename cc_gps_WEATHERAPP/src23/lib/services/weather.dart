@@ -1,9 +1,11 @@
-//Edmonton, Alberta Data
-//lon = -113.469
-//lat = 53.55
+// ignore_for_file: avoid_print, unused_local_variable
 
 import 'package:robbinlaw/services/location.dart';
 import 'package:robbinlaw/services/network.dart';
+
+//Edmonton, Alberta Data
+//lon = -113.469
+//lat = 53.55
 
 const apiKey = 'eada4f9ea302c58abd6d02fb791a812a';
 const openWeatherMapURL = 'https://api.openweathermap.org/data/2.5/weather';
@@ -26,7 +28,6 @@ class WeatherService {
   }
 
   Future<dynamic> getCityWeatherData(String cityName) async {
-    var urla = '$openWeatherMapURL?q=$cityName&appid=$apiKey&units=metric';
     Uri url = Uri(
       scheme: 'https',
       host: 'api.openweathermap.org',
