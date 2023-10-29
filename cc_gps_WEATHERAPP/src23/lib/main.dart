@@ -1,8 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors, unused_import
 
 import 'package:flutter/material.dart';
-//import 'package:get/get.dart';
-
 import 'package:robbinlaw/views/loading-view1.dart';
 import 'package:robbinlaw/views/loading-view2.dart';
 
@@ -23,8 +21,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      //home: const LoadingView1(),
-      home: const LoadingView2(),
+      //home: LoadingView1(),
+      home: LoadingView2(),
     );
   }
 }

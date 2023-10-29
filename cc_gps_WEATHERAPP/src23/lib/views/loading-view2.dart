@@ -1,10 +1,11 @@
+// ignore_for_file: file_names, use_key_in_widget_constructors, avoid_print, use_build_context_synchronously, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:robbinlaw/services/weather.dart';
 import 'package:robbinlaw/views/location-view.dart';
 
 class LoadingView2 extends StatefulWidget {
-  const LoadingView2 ({Key? key}) : super(key: key);
   @override
   LoadingView2State createState() => LoadingView2State();
 }
@@ -30,13 +31,16 @@ class LoadingView2State extends State<LoadingView2> {
   @override
   Widget build(BuildContext context) {
     print('build started');
-    return const Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('gps demo'),
+        centerTitle: true,),
       body: Center(
-        child: SpinKitDoubleBounce(
-          color: Colors.white,
-          size: 100,
+          child: SpinKitDoubleBounce(
+            color: Colors.white,
+            size: 100,
+          ),
         ),
-      ),
     );
   }
 }

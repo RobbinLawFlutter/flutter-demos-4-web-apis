@@ -1,12 +1,13 @@
+// ignore_for_file: file_names, use_key_in_widget_constructors, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:robbinlaw/utilities/constants.dart';
 import 'package:robbinlaw/services/weather.dart';
-import 'package:robbinlaw/views/city-view.dart';
 
 class LocationView extends StatefulWidget {
-  const LocationView ({Key? key, required this.locationWeather}) : super(key: key);
+  const LocationView ({required this.locationWeather});
   //const LocationView(this.locationWeather);
-  final locationWeather;
+  final dynamic locationWeather;
   @override
   LocationViewState createState() => LocationViewState();
 }
@@ -24,7 +25,6 @@ class LocationViewState extends State<LocationView> {
   @override
   void initState() {
     super.initState();
-    //print(widget.locationWeather);
     updateUI(widget.locationWeather);
   }
 
@@ -56,84 +56,49 @@ class LocationViewState extends State<LocationView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: const AssetImage('assets/images/location_background.jpg'),
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-                Colors.white.withOpacity(0.8), BlendMode.dstATop),
-          ),
-        ),
-        constraints: const BoxConstraints.expand(),
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  TextButton(
-                    onPressed: () async {
-                      var weatherData =
-                          await weatherService.getLocationWeatherData();
-                      updateUI(weatherData);
-                    },
-                    child: const Icon(
-                      Icons.near_me,
-                      size: 50.0,
-                    ),
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                TextButton(
+                  onPressed: () async {
+                    var weatherData =
+                        await weatherService.getLocationWeatherData();
+                    updateUI(weatherData);
+                  },
+                  child: const Icon(
+                    Icons.near_me,
+                    size: 50.0,
                   ),
-                  TextButton(
-                    onPressed: () async {
-                      var typedCityName = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return CityView();
-                          },
-                        ),
-                      );
-                      print('User entered City Name: $typedCityName');
-                      if (typedCityName != null) {
-                        var weatherData = await weatherService
-                            .getCityWeatherData(typedCityName);
-                        updateUI(weatherData);
-                      }
-                    },
-                    child: const Icon(
-                      Icons.location_city,
-                      size: 50.0,
-                    ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    '$temperature°C',
+                    style: kTempTextStyle,
+                  ),
+                  Text(
+                    weatherIcon,
+                    style: kConditionTextStyle,
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15.0),
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      '$temperature°C',
-                      style: kTempTextStyle,
-                    ),
-                    Text(
-                      weatherIcon,
-                      style: kConditionTextStyle,
-                    ),
-                  ],
-                ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 15.0),
+              child: Text(
+                '$weatherMessage in $cityName',
+                textAlign: TextAlign.right,
+                style: kMessageTextStyle,
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 15.0),
-                child: Text(
-                  '$weatherMessage in $cityName',
-                  textAlign: TextAlign.right,
-                  style: kMessageTextStyle,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
