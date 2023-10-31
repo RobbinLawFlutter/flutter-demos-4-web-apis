@@ -15,8 +15,8 @@ class HomeView extends StatefulWidget {
 class HomeViewState extends State<HomeView> {
   final WeatherService _weatherService = WeatherService();
   final SQFliteDbService _databaseService = SQFliteDbService();
-  var _list = <ModelElement>[];
-  String _stockSymbol = "";
+  List<ModelElement> _list = [];
+  String _citySymbol = "";
   late String weatherDescription;
   late int temperature;
   late String weatherIcon;
@@ -25,19 +25,23 @@ class HomeViewState extends State<HomeView> {
 
   @override
   void initState() {
+    print('HomeView initState begin');
     super.initState();
     getOrCreateDbAndDisplayAllStocksInDb();
   }
 
   void getOrCreateDbAndDisplayAllStocksInDb() async {
+    print('HomeView getOrCreateDbAndDisplayAllStocksInDb() begin');
     await _databaseService.getOrCreateDatabaseHandle();
     _list = await _databaseService.getAllRecordsFromDb();
     await _databaseService.printAllRecordsInDbToConsole();
+    print('HomeView getOrCreateDbAndDisplayAllStocksInDb() end');
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    print('HomeView build begin');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Weather Channel'),
@@ -114,19 +118,19 @@ class HomeViewState extends State<HomeView> {
             content: TextField(
               decoration: const InputDecoration(hintText: "City Name"),
               onChanged: (String value) {
-                _stockSymbol = value;
+                _citySymbol = value;
               },
             ),
             actions: <Widget>[
               TextButton(
                 child: const Text("Add City"),
                 onPressed: () async {
-                  if (_stockSymbol.isNotEmpty) {
-                    print('User entered City: $_stockSymbol');
+                  if (_citySymbol.isNotEmpty) {
+                    print('User entered City: $_citySymbol');
 
                     try {
                       var data = await _weatherService
-                          .getCityWeatherData(_stockSymbol);
+                          .getCityWeatherData(_citySymbol);
                       if (data == null) {
                         print(
                             "Call to getCityWeatherData failed to return data");
@@ -148,7 +152,7 @@ class HomeViewState extends State<HomeView> {
                       print('HomeView _inputStock catch: $e');
                     }
                   }
-                  _stockSymbol = "";
+                  _citySymbol = "";
                   Navigator.pop(context);
                 },
               ),
