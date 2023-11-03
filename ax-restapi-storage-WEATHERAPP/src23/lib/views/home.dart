@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, use_key_in_widget_constructors
+// ignore_for_file: avoid_print, use_key_in_widget_constructors, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -54,14 +54,10 @@ class HomeViewState extends State<HomeView> {
               'Delete All Records and Db',
             ),
             onPressed: () async {
-              _list.forEach(
-                (e) async {
-                  await _databaseService.deleteRecord(e);
-                },
-              );
+              await _databaseService.deleteDb();
+              await _databaseService.getOrCreateDatabaseHandle();
               _list = await _databaseService.getAllRecordsFromDb();
               await _databaseService.printAllRecordsInDbToConsole();
-              await _databaseService.deleteDb();
               setState(() {});
             },
           ),

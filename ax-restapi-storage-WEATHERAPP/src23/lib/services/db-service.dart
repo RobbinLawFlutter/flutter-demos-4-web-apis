@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart' as sqflitePackage;
 import 'package:robbinlaw/models/model-element.dart';
 
 class SQFliteDbService {
-  late sqflitePackage.Database db;
+  late sqflitePackage.Database? db;
   late String path;
 
   Future<void> getOrCreateDatabaseHandle() async {
@@ -47,7 +47,7 @@ class SQFliteDbService {
     try {
       // Query the table for all The Records.
       // The .query will return a list with each item in the list being a map.
-      final List<Map<String, dynamic>> itemMap = await db.query('AppData');
+      final List<Map<String, dynamic>> itemMap = await db!.query('AppData');
       print('itemMap: $itemMap');
       // Convert the List<Map<String, dynamic> into a List<ModelElement>.
       return List.generate(itemMap.length, (i) {
@@ -68,7 +68,8 @@ class SQFliteDbService {
     try {
       await sqflitePackage.deleteDatabase(path);
       print('Db deleted');
-      getOrCreateDatabaseHandle();
+      //getOrCreateDatabaseHandle();
+      db = null;
     } catch (e) {
       print('SQFliteDbService deleteDb CATCH: $e');
     }
@@ -76,7 +77,7 @@ class SQFliteDbService {
 
   Future<void> insertRecord(ModelElement modelElement) async {
     try {
-      await db.insert(
+      await db!.insert(
         'AppData',
         modelElement.toMap(),
         conflictAlgorithm: sqflitePackage.ConflictAlgorithm.replace,
@@ -88,7 +89,7 @@ class SQFliteDbService {
 
   Future<void> updateRecord(ModelElement modelElement) async {
     try {
-      await db.update(
+      await db!.update(
         'AppData',
         modelElement.toMap(),
         where: "city = ?",
@@ -102,7 +103,7 @@ class SQFliteDbService {
 
   Future<void> deleteRecord(ModelElement modelElement) async {
     try {
-      await db.delete(
+      await db!.delete(
         'AppData',
         where: "city = ?",
         // whereArg to prevent SQL injection.
