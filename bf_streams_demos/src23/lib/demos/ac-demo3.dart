@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, file_names, prefer_const_constructors, avoid_print
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -19,12 +21,13 @@ class MyDemo extends StatefulWidget {
 }
 
 class MyDemoState extends State<MyDemo> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       alignment: FractionalOffset.center,
       //color: Colors.white,
       child: StreamBuilder<int>(
-        stream: timedCounterStream(const Duration(seconds: 1), 15),
+        stream: timedCounterStream(const Duration(seconds: 2), 10),
         builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
           List<Widget> children;
           if (snapshot.hasError) {
@@ -57,9 +60,9 @@ class MyDemoState extends State<MyDemo> {
               case ConnectionState.waiting:
                 children = <Widget>[
                   const SizedBox(
-                    child: const CircularProgressIndicator(),
                     width: 60,
                     height: 60,
+                    child: CircularProgressIndicator(),
                   ),
                   const Padding(
                     padding: EdgeInsets.only(top: 16),
@@ -76,7 +79,7 @@ class MyDemoState extends State<MyDemo> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 16),
-                    child: Text('\$${snapshot.data}'),
+                    child: Text('\$${snapshot.data} (active)'),
                   )
                 ];
                 break;
@@ -89,7 +92,7 @@ class MyDemoState extends State<MyDemo> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 16),
-                    child: Text('\$${snapshot.data} (closed)'),
+                    child: Text('\$${snapshot.data} (done)'),
                   )
                 ];
                 break;

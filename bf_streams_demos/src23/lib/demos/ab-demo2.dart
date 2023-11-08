@@ -35,16 +35,16 @@ class MyDemoState extends State<MyDemo> {
 
   void listenWithPause() {
     Stream<int> counterStream =
-        timedCounterStream(const Duration(seconds: 1), 10);
+        timedCounterStream(const Duration(seconds: 3), 10);
     StreamSubscription<int> subscription;
     //subscribe to listen to the stream.
     subscription = counterStream.listen((event) {
       print(event);
       if (event == 3) {
-        //After 3 ticks, pause for five seconds, then resume.
-        //During the pause time the controller will sense this
-        //and stop putting events into the stream.
-        //subscription.pause(Future.delayed(const Duration(seconds: 5)));
+        // After 3 ticks, pause for five seconds, then resume.
+        // During the pause time the controller will sense this
+        // and stop putting events into the stream.
+        //subscription.pause(Future.delayed(const Duration(seconds: 10)));
       }
     }, onError: (error) {
       print('There has been an error event: $error');

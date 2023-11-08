@@ -1,24 +1,24 @@
-//streams in Flutter in Focus series
-//https://www.youtube.com/watch?v=nQBpOIHE4eE
+// ignore_for_file: use_key_in_widget_constructors, file_names, avoid_print
 
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+//streams in Flutter in Focus series
+//https://www.youtube.com/watch?v=nQBpOIHE4eE
+
 class Demo1 extends StatelessWidget {
-  const Demo1({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Demo 1'),
       ),
-      body: const MyDemo(),
+      body: MyDemo(),
     );
   }
 }
 
 class MyDemo extends StatefulWidget {
-  const MyDemo({Key? key}) : super(key: key);
   @override
   MyDemoState createState() => MyDemoState();
 }
