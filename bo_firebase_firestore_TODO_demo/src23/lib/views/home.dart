@@ -97,29 +97,29 @@ class _HomeState extends State<Home> {
               stream: Database().streamOfAppData(currentUserId),
               builder: (BuildContext context,
                   AsyncSnapshot<List<AppModel>> snapshot) {
-                if (snapshot.data != null) {
-                  return Expanded(
-                    child: ListView.builder(
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (BuildContext context, index) {
-                          if (useDissmissible) {
-                            return MyCardWithDismissible(
-                              key: const ValueKey(0),
-                              userId: currentUserId,
-                              appModel: snapshot.data![index],
-                            );
-                          } else {
-                            return MyCardWithSlidable(
-                              key: const ValueKey(0),
-                              userId: currentUserId,
-                              appModel: snapshot.data![index],
-                            );
-                          }
-                        }),
-                  );
-                } else {
-                  return const Text('snapshot data is null');
+                if (!snapshot.hasData) {
+                  print('no data yet');
+                  return const LinearProgressIndicator();
                 }
+                return Expanded(
+                  child: ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (BuildContext context, index) {
+                        if (useDissmissible) {
+                          return MyCardWithDismissible(
+                            key: const ValueKey(0),
+                            userId: currentUserId,
+                            appModel: snapshot.data![index],
+                          );
+                        } else {
+                          return MyCardWithSlidable(
+                            key: const ValueKey(0),
+                            userId: currentUserId,
+                            appModel: snapshot.data![index],
+                          );
+                        }
+                      }),
+                );
               }),
         ],
       ),
