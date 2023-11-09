@@ -58,7 +58,6 @@ class MyDemoState extends State<MyDemo> {
 
   void tick() {
     counter++;
-    print(counter);
     if (counter == (maxCount / 2)) {
       // Ask stream to send a string as an error event.
       controller.addError('error event');

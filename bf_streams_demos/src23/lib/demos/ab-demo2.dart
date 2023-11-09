@@ -21,6 +21,58 @@ class MyDemo extends StatefulWidget {
 }
 
 class MyDemoState extends State<MyDemo> {
+  Timer? timer;
+  Duration interval = const Duration(seconds: 2);
+  int maxCount = 10;
+  int counter = 0;
+
+  StreamController<int> controller = StreamController<int>(
+    onListen: () {
+      print('StreamController onListen');
+    },
+    onPause: () {
+      print('StreamController onPause');
+    },
+    onResume: () {
+      print('StreamController onResume');
+    },
+    onCancel: () {
+      print('StreamController onCancel');
+    },
+  );
+
+  void startTimer() {
+    timer = Timer.periodic(interval, (x) {
+      tick();
+    });
+    print('timer created and started');
+  }
+
+  void stopTimer() {
+    if (timer != null) {
+      timer!.cancel();
+      timer = null;
+      print('timer stopped and killed');
+    }
+  }
+
+  void tick() {
+    counter++;
+    if (counter == (maxCount / 2)) {
+      // Ask stream to send a string as an error event.
+      controller.addError('error event');
+    } else {
+      // Ask stream to send counter value as a data event.
+      controller.add(counter);
+    }
+    if (counter == maxCount) {
+      // Stop and kill the timer instance.
+      stopTimer();
+      // Ask stream to shut down and tell listeners.
+      controller.close();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -34,12 +86,11 @@ class MyDemoState extends State<MyDemo> {
   }
 
   void listenWithPause() {
-    Stream<int> counterStream =
-        timedCounterStream(const Duration(seconds: 3), 10);
+    startTimer();
     StreamSubscription<int> subscription;
     //subscribe to listen to the stream.
-    subscription = counterStream.listen((event) {
-      print(event);
+    subscription = controller.stream.listen((event) {
+      print('StreamSubscription onData: $event');
       if (event == 3) {
         // After 3 ticks, pause for five seconds, then resume.
         // During the pause time the controller will sense this
@@ -47,72 +98,9 @@ class MyDemoState extends State<MyDemo> {
         //subscription.pause(Future.delayed(const Duration(seconds: 10)));
       }
     }, onError: (error) {
-      print('There has been an error event: $error');
+      print('StreamSubscription onError: $error');
     }, onDone: () {
-      print('This stream is done');
+      print('StreamSubscription onDone');
     });
-  }
-
-  Stream<int> timedCounterStream(Duration interval, [int maxCount = 5]) {
-    StreamController<int> controller = StreamController<int>();
-    Timer? timer;
-    int counter = 0;
-
-    void tick(_) {
-      counter++;
-      if (counter == (maxCount ~/ 2)) {
-        controller.addError('error event');
-      } else {
-        controller.add(counter); // Ask stream to send counter values as event.
-      }
-      if (counter == maxCount) {
-        //timer.cancel();
-        controller.close(); // Ask stream to shut down and tell listeners.
-      }
-    }
-
-    void startTimer() {
-      print('Start Timer');
-      //This timer starts at the interval and counts down to 0 in millisecond divs.
-      //Then it runs the tick callback, and starts over,
-      //so effectively the tick callback is called every interval seconds.
-      timer = Timer.periodic(interval, tick);
-    }
-
-    void stopTimer() {
-      print('Stop Timer');
-      if (timer != null) {
-        timer!.cancel();
-        timer = null;
-      }
-    }
-
-    controller = StreamController<int>(
-      onListen: () {
-        print('onListen');
-        startTimer();
-      },
-      onPause: () {
-        //Here we could stop the timer so no events enter the stream
-        //or keep it going and the stream buffer would store them
-        //until the subscription resumes listening to the stream events.
-        print('onPause');
-        stopTimer();
-      },
-      onResume: () {
-        //If we disable the stopTimer of onPause we must
-        //also disable the startTimer of onResume.
-        print('onResume');
-        startTimer();
-      },
-      onCancel: () {
-        print('onCancel');
-        stopTimer();
-      },
-    );
-    //return the stream that this controller created
-    //and controls, but leave the controller here to
-    //continue to control the stream.
-    return controller.stream;
   }
 }
