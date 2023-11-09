@@ -1,7 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, avoid_print, library_prefixes
 
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart' as firestoreLib;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 //Intro to FireStore from Google Futter in Focus series
 //https://www.youtube.com/watch?v=DqJ_KjFzL9I&t=7s
@@ -15,10 +15,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-  final firestoreLib.FirebaseFirestore firestoreInst = firestoreLib.FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
+    print('build');
     return Scaffold(
       appBar: AppBar(
         title: const Text("Flutter Firestore Demo 1"),
@@ -50,48 +50,52 @@ class MyHomePageState extends State<MyHomePage> {
 
   void _create() async {
     try {
-      await firestoreInst.collection('users').doc('testUser').set({
+      await FirebaseFirestore.instance.collection('users').doc('testUser').set({
         'firstName': 'test',
         'lastName': 'user',
       });
       print('successful create');
       
     } catch (e) {
+      print('ERROR');
       print(e.toString());
     }
   }
 
   void _read() async {
-    firestoreLib.DocumentSnapshot documentSnapshot;
+    DocumentSnapshot documentSnapshot;
     try {
       documentSnapshot =
-          await firestoreInst.collection('users').doc('testUser').get();
+          await FirebaseFirestore.instance.collection('users').doc('testUser').get();
       print(documentSnapshot.data());
       
     } catch (e) {
+      print('ERROR');
       print(e.toString());
     }
   }
 
   void _update() async {
     try {
-      await firestoreInst.collection('users').doc('testUser').update({
+      await FirebaseFirestore.instance.collection('users').doc('testUser').update({
         'firstName': 'testUpdated',
         'lastName': 'userUpdated',
       });
       print('successful update');
       
     } catch (e) {
+      print('ERROR');
       print(e.toString());
     }
   }
 
   void _delete() async {
     try {
-      await firestoreInst.collection('users').doc('testUser').delete();
+      await FirebaseFirestore.instance.collection('users').doc('testUser').delete();
       print('successful delete');
       
     } catch (e) {
+      print('ERROR');
       print(e.toString());
     }
   }
