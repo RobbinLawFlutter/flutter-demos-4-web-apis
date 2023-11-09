@@ -17,8 +17,8 @@
 | Quiz 2 | Moodle | week 9 | 8 |
 | Project Proposal| Moodle | week 10 | 10|
 | Quiz 3 | Moodle | week 12  | 8 |
-| Project Completion| Moodle | week 15 | 10|
-| Project Presentation| Youtube | week 15 | 20|
+| Project Completion| Moodle | week 15 | 15|
+| Project Presentation| Youtube | week 15 | 15|
 |Total|||100|
 
 ## Calendar
