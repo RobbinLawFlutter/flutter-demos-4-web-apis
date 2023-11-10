@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+//https://api.dart.dev/stable/3.1.5/dart-async/StreamController-class.html
+
 class Demo2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -41,15 +43,24 @@ class MyDemoState extends State<MyDemo> {
     },
   );
 
+  StreamSubscription<int>? subscription;
+
   void startTimer() {
-    timer = Timer.periodic(interval, (x) {
+    if(timer == null){
+      timer = Timer.periodic(interval, (x) {
       tick();
     });
     print('timer created and started');
+    }
+    else{
+      print('timer already on');
+    }
   }
 
   void stopTimer() {
-    if (timer != null) {
+    if (timer == null) {
+      print('timer already off');
+    }else{
       timer!.cancel();
       timer = null;
       print('timer stopped and killed');
@@ -57,50 +68,75 @@ class MyDemoState extends State<MyDemo> {
   }
 
   void tick() {
-    counter++;
-    if (counter == (maxCount / 2)) {
-      // Ask stream to send a string as an error event.
-      controller.addError('error event');
-    } else {
-      // Ask stream to send counter value as a data event.
-      controller.add(counter);
-    }
-    if (counter == maxCount) {
-      // Stop and kill the timer instance.
-      stopTimer();
-      // Ask stream to shut down and tell listeners.
-      controller.close();
+    try{
+      counter++;
+      if(controller.isClosed == true){
+        print('controller stream is closed so events CANNOT be added');
+      } else if (counter == (maxCount / 2)) {
+        // Ask stream to send a string as an error event.
+        controller.addError('error event');
+      } else {
+        // Ask stream to send counter value as a data event.
+        controller.add(counter);
+      }
+      if (counter == maxCount) {
+        // Stop and kill the timer instance.
+        stopTimer();
+        // Ask stream to shut down and tell listeners.
+        controller.close();
+      }
+    } catch(e){
+      print('error in tick $e');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        child: const Text('Press'),
-        onPressed: () {
-          listenWithPause();
-        },
-      ),
-    );
-  }
-
-  void listenWithPause() {
-    startTimer();
-    StreamSubscription<int> subscription;
+    print('build');
     //subscribe to listen to the stream.
     subscription = controller.stream.listen((event) {
       print('StreamSubscription onData: $event');
-      if (event == 3) {
-        // After 3 ticks, pause for five seconds, then resume.
-        // During the pause time the controller will sense this
-        // and stop putting events into the stream.
-        //subscription.pause(Future.delayed(const Duration(seconds: 10)));
-      }
     }, onError: (error) {
       print('StreamSubscription onError: $error');
     }, onDone: () {
       print('StreamSubscription onDone');
     });
+
+    return Center(
+      child: Column(
+        children: [
+          ElevatedButton(
+            child: const Text('Start timer'),
+            onPressed: () {
+              startTimer();
+            },
+          ),
+          ElevatedButton(
+            child: const Text('Stop timer'),
+            onPressed: () {
+              stopTimer();
+            },
+          ),
+          ElevatedButton(
+            child: const Text('Reset Counter'),
+            onPressed: () {
+              counter = 0;
+            },
+          ),
+          ElevatedButton(
+            child: const Text('Pause Subscription'),
+            onPressed: () {
+              subscription?.pause();
+            },
+          ),
+          ElevatedButton(
+            child: const Text('Resume Subscription'),
+            onPressed: () {
+              subscription?.resume();
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
