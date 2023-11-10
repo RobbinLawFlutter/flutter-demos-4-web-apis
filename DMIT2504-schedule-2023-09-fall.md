@@ -15,7 +15,7 @@
 | Quiz 1 | Moodle | week 6  | 8 |
 | Assignment 3 | Moodle | week 9  | 12 |
 | Quiz 2 | Moodle | week 9 | 8 |
-| Project Proposal| Moodle | week 10 | 10|
+| Project Proposal| Moodle | week 11 | 10|
 | Quiz 3 | Moodle | week 12  | 8 |
 | Project Completion| Moodle | week 15 | 15|
 | Project Presentation| Youtube | week 15 | 15|
