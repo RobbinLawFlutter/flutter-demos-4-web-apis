@@ -5,7 +5,7 @@ import 'package:robbinlaw/models/app.dart';
 import 'package:robbinlaw/services/authorization.dart';
 import 'package:robbinlaw/services/database.dart';
 import 'package:robbinlaw/widgets/mycard.dart';
-import 'package:robbinlaw/views/login.dart';
+import 'package:robbinlaw/views/root.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -20,16 +20,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     print('Home build:');
-    String currentUserId = (auth.authInst.currentUser == null
-        ? ''
-        : auth.authInst.currentUser!.uid);
-    String? currentUserName = (auth.authInst.currentUser == null
-        ? ''
-        : auth.authInst.currentUser!.displayName);
-
     return Scaffold(
       appBar: AppBar(
-        title: Text('user: $currentUserName'),
+        title: Text('user: ${auth.currentUser?.displayName}'),
         centerTitle: true,
         actions: [
           IconButton(
@@ -40,7 +33,7 @@ class _HomeState extends State<Home> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Login(),
+                    builder: (context) => Root(),
                   ),
                 );
               }
@@ -77,7 +70,7 @@ class _HomeState extends State<Home> {
                       print('Home +Icon onPressed:');
                       if (textEditingController.text != "") {
                         Database().addAppData(
-                            textEditingController.text, currentUserId);
+                            textEditingController.text, auth.currentUser!.uid);
                         textEditingController.clear();
                       }
                     },
@@ -94,7 +87,7 @@ class _HomeState extends State<Home> {
             ),
           ),
           StreamBuilder(
-              stream: Database().streamOfAppData(currentUserId),
+              stream: Database().streamOfAppData(auth.currentUser!.uid),
               builder: (BuildContext context,
                   AsyncSnapshot<List<AppModel>> snapshot) {
                 if (!snapshot.hasData) {
@@ -108,13 +101,13 @@ class _HomeState extends State<Home> {
                         if (useDissmissible) {
                           return MyCardWithDismissible(
                             key: const ValueKey(0),
-                            userId: currentUserId,
+                            userId: auth.currentUser!.uid,
                             appModel: snapshot.data![index],
                           );
                         } else {
                           return MyCardWithSlidable(
                             key: const ValueKey(0),
-                            userId: currentUserId,
+                            userId: auth.currentUser!.uid,
                             appModel: snapshot.data![index],
                           );
                         }

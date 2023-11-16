@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:robbinlaw/services/authorization.dart';
+import 'package:robbinlaw/views/root.dart';
 import 'package:robbinlaw/views/home.dart';
 
 class SignUp extends StatelessWidget {
@@ -13,6 +14,7 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('SignUp build');
+    auth.listen();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Sign Up"),
@@ -51,7 +53,7 @@ class SignUp extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Home(),
+                        builder: (context) => Root(),
                       ),
                     );
                   }

@@ -89,7 +89,7 @@ class Database {
     }
   }
 
-  Future<String> getUserName(String userId) async {
+  Future<String?> getUserName(String userId) async {
     print('Database getUserName: try');
     try {
       DocumentSnapshot documentSnapshot =

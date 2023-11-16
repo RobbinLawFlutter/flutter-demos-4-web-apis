@@ -11,8 +11,8 @@ class Root extends StatelessWidget {
   Widget build(BuildContext context) {
     print('Root build:');
     auth.listen();
-    print('Present User = ${auth.authInst.currentUser}');
-    if (auth.authInst.currentUser == null) {
+    print('Root build: Current User = ${auth.currentUser?.displayName}');
+    if (auth.currentUser == null) {
       return Login();
     } else {
       return Home();

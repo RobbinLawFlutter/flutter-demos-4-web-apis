@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:robbinlaw/services/authorization.dart';
+import 'package:robbinlaw/views/root.dart';
 import 'package:robbinlaw/views/home.dart';
 import 'package:robbinlaw/views/signup.dart';
 
@@ -43,7 +44,7 @@ class Login extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Home(),
+                        builder: (context) => Root(),
                       ),
                     );
                   }

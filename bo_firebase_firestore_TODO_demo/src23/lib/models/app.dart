@@ -27,6 +27,6 @@ class AppModel {
     dateCreated = documentSnapshot["dateCreated"];
     //done = documentSnapshot.data()["done"];
     done = documentSnapshot["done"];
-    print('AppModel.fromDocumentSnapshot: id: $id content: $content dateCreated: $dateCreated done: $done');
+    print('AppModel.fromDocumentSnapshot: content: $content');
   }
 }
