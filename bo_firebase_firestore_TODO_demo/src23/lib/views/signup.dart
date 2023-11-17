@@ -45,8 +45,12 @@ class SignUp extends StatelessWidget {
               ElevatedButton(
                 child: const Text("Sign Up"),
                 onPressed: () async {
-                  await auth.createUser(nameController.text,
+                  try{
+                    await auth.createUser(nameController.text,
                       emailController.text, passwordController.text);
+                  }catch(e){
+                    print('SignUp: CATCH $e');
+                  }
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(

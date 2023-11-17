@@ -38,8 +38,12 @@ class Login extends StatelessWidget {
               ElevatedButton(
                 child: const Text("Log In"),
                 onPressed: () async {
-                  await auth.logIn(
+                  try{
+                    await auth.logIn(
                       emailController.text, passwordController.text);
+                  } catch(e){
+                    print('Login: CATCH $e');
+                  }
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(

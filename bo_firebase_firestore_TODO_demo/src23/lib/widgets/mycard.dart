@@ -1,3 +1,10 @@
+// ignore_for_file: avoid_print
+
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:robbinlaw/services/database.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+
 //Dismissible Widget of the Week 1min.
 //https://www.youtube.com/watch?v=iEMgjrfuc58&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=29
 
@@ -7,25 +14,20 @@
 //flutter_slidable by Trey Codes
 //https://www.youtube.com/watch?v=5kxt_ssl-uE
 
-// ignore_for_file: avoid_print
-
-import 'package:flutter/material.dart';
-import 'package:robbinlaw/models/app.dart';
-import 'package:robbinlaw/services/database.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-
 class MyCardWithSlidable extends StatelessWidget {
   final String userId;
-  final AppModel appModel;
+  final QueryDocumentSnapshot<Map<String, dynamic>> document;
 
   const MyCardWithSlidable(
-      {required Key key, required this.userId, required this.appModel})
+      {required Key key, required this.userId, required this.document})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    //print(document.id);
+    //print(document.data());
     return Slidable(
-      key: Key('app-${appModel.id}'),
+      key: Key('app-${document.id}'),
       // The start action pane is the one at the left or the top side.
       startActionPane: ActionPane(
         // A motion is a widget used to control how the pane animates.
@@ -44,7 +46,7 @@ class MyCardWithSlidable extends StatelessWidget {
                   content: Text('delete'),
                 ),
               );
-              Database().deleteAppData(userId, appModel.id);
+              Database().deleteAppData(userId, document.id);
             },
             backgroundColor: const Color(0xFFFE4A49),
             foregroundColor: Colors.white,
@@ -74,7 +76,7 @@ class MyCardWithSlidable extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  appModel.content,
+                  document.data()['content'],
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -82,9 +84,9 @@ class MyCardWithSlidable extends StatelessWidget {
                 ),
               ),
               Checkbox(
-                value: appModel.done,
+                value: document.data()['done'],
                 onChanged: (newValue) {
-                  Database().updateAppData(newValue, userId, appModel.id);
+                  Database().updateAppData(newValue, userId, document.id);
                 },
               ),
             ],
@@ -97,21 +99,23 @@ class MyCardWithSlidable extends StatelessWidget {
 
 class MyCardWithDismissible extends StatelessWidget {
   final String userId;
-  final AppModel appModel;
+  final QueryDocumentSnapshot<Map<String, dynamic>> document;
 
   const MyCardWithDismissible(
-      {required Key key, required this.userId, required this.appModel})
+      {required Key key, required this.userId, required this.document})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    //print(document.id);
+    //print(document.data());
     return Dismissible(
-      key: Key('app-${appModel.id}'),
+      key: Key('app-${document.id}'),
       background: Container(color: Colors.red),
       direction: DismissDirection.endToStart,
       onDismissed: (direction) {
         print('MyCard build: Dismissible onDismissed:');
-        Database().deleteAppData(userId, appModel.id);
+        Database().deleteAppData(userId, document.id);
       },
       child: Card(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -121,7 +125,7 @@ class MyCardWithDismissible extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  appModel.content,
+                  document.data()['content'],
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -129,10 +133,10 @@ class MyCardWithDismissible extends StatelessWidget {
                 ),
               ),
               Checkbox(
-                value: appModel.done,
+                value: document.data()['done'],
                 onChanged: (newValue) {
                   print('MyCard build: Checkbox onChanged:');
-                  Database().updateAppData(newValue, userId, appModel.id);
+                  Database().updateAppData(newValue, userId, document.id);
                 },
               ),
             ],

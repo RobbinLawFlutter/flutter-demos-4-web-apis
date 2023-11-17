@@ -1,7 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, avoid_print, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:robbinlaw/models/app.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:robbinlaw/services/authorization.dart';
 import 'package:robbinlaw/services/database.dart';
 import 'package:robbinlaw/widgets/mycard.dart';
@@ -78,7 +78,7 @@ class _HomeState extends State<Home> {
             ),
           ),
           const Text(
-            "Your Todos as a stream",
+            "Your Todos",
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -87,26 +87,28 @@ class _HomeState extends State<Home> {
           StreamBuilder(
               stream: Database().streamOfAppData(auth.currentUser!.uid),
               builder: (BuildContext context,
-                  AsyncSnapshot<List<AppModel>> snapshot) {
-                if (!snapshot.hasData) {
+                  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                if (snapshot.data == null) {
                   print('no data yet');
                   return const LinearProgressIndicator();
                 }
+                var listOfDocs = snapshot.data!.docs;
                 return Expanded(
                   child: ListView.builder(
-                      itemCount: snapshot.data!.length,
+                      itemCount: listOfDocs.length,
                       itemBuilder: (BuildContext context, index) {
+                        var doc = listOfDocs[index];
                         if (useDissmissible) {
                           return MyCardWithDismissible(
                             key: const ValueKey(0),
                             userId: auth.currentUser!.uid,
-                            appModel: snapshot.data![index],
+                            document: doc,
                           );
                         } else {
                           return MyCardWithSlidable(
                             key: const ValueKey(0),
                             userId: auth.currentUser!.uid,
-                            appModel: snapshot.data![index],
+                            document: doc,
                           );
                         }
                       }),

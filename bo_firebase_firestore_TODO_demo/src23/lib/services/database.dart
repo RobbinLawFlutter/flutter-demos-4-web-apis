@@ -1,51 +1,40 @@
 // ignore_for_file: avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:robbinlaw/models/app.dart';
-import 'package:robbinlaw/models/user.dart';
 
 class Database {
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
-  Future<bool> createNewUser(UserModel user) async {
-    print('Database createNewUser: try');
+  Future<void> createNewUser(String? userId, String? userName, String? userEmail) async {
+    print('Database createNewUser: TRY');
     try {
-      await db.collection("users").doc(user.id).set({
-        "name": user.name,
-        "email": user.email,
+      await db.collection("users").doc(userId).set({
+        "name": userName,
+        "email": userEmail,
       });
-      return true;
     } catch (e) {
-      print('Database createNewUser: catch $e');
-      return false;
+      print('Database createNewUser: CATCH $e');
+      rethrow;
     }
   }
 
-  Stream<List<AppModel>> streamOfAppData(String userId) {
-    print('Database streamOfAppData: try');
+  Stream<QuerySnapshot<Map<String, dynamic>>> streamOfAppData(String userId) {
+    print('Database streamOfAppData: TRY');
     try {
       return db
           .collection("users")
           .doc(userId)
           .collection("todos")
           .orderBy("dateCreated", descending: true)
-          .snapshots()
-          .map((QuerySnapshot query) {
-        List<AppModel> listOfAppModel = [];
-        query.docs.forEach((element) {
-          listOfAppModel
-              .add(AppModel.fromDocumentSnapshot(documentSnapshot: element));
-        });
-        return listOfAppModel;
-      });
+          .snapshots();
     } catch (e) {
-      print('Database streamOfAppData: catch $e');
+      print('Database streamOfAppData: CATCH $e');
       rethrow;
     }
   }
 
   Future<void> addAppData(String content, String userId) async {
-    print('Database addAppData: try');
+    print('Database addAppData: TRY');
     try {
       await db.collection("users").doc(userId).collection("todos").add({
         'dateCreated': Timestamp.now(),
@@ -53,7 +42,7 @@ class Database {
         'done': false,
       });
     } catch (e) {
-      print('Database addAppData: catch $e');
+      print('Database addAppData: CATCH $e');
       rethrow;
     }
   }
@@ -85,36 +74,6 @@ class Database {
           .delete();
     } catch (e) {
       print('Database deleteAppData: catch $e');
-      rethrow;
-    }
-  }
-
-  Future<String?> getUserName(String userId) async {
-    print('Database getUserName: try');
-    try {
-      DocumentSnapshot documentSnapshot =
-          await db.collection("users").doc(userId).get();
-      return UserModel.fromDocumentSnapshot(documentSnapshot: documentSnapshot)
-          .name;
-    } catch (e) {
-      print('Database getUserName: catch $e');
-      rethrow;
-    }
-  }
-
-  Future<List<AppModel>> futureOfAppData(String userId) async {
-    print('Database futureOfAppData: try');
-    try {
-      QuerySnapshot doc =
-          await db.collection("users").doc(userId).collection("todos").get();
-      List<AppModel> listOfAppModel = [];
-      doc.docs.forEach((element) {
-        listOfAppModel
-            .add(AppModel.fromDocumentSnapshot(documentSnapshot: element));
-      });
-      return listOfAppModel;
-    } catch (e) {
-      print('Database futureOfAppData: catch $e');
       rethrow;
     }
   }
