@@ -3,10 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:robbinlaw/services/authorization.dart';
 import 'package:robbinlaw/views/root.dart';
-import 'package:robbinlaw/views/home.dart';
 
 class SignUp extends StatelessWidget {
-  final Authorization auth = Authorization();
+  final Auth auth = Auth();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -14,7 +13,6 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('SignUp build');
-    auth.listen();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Sign Up"),
@@ -44,19 +42,17 @@ class SignUp extends StatelessWidget {
                 obscureText: true,
                 controller: passwordController,
               ),
-              TextButton(
+              ElevatedButton(
                 child: const Text("Sign Up"),
                 onPressed: () async {
-                  bool status = await auth.createUser(nameController.text,
+                  await auth.createUser(nameController.text,
                       emailController.text, passwordController.text);
-                  if (status) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Root(),
-                      ),
-                    );
-                  }
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Root(),
+                    ),
+                  );
                 },
               )
             ],

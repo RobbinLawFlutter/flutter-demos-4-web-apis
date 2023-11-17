@@ -14,7 +14,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final bool useDissmissible = false;
-  final Authorization auth = Authorization();
+  final Auth auth = Auth();
   final TextEditingController textEditingController = TextEditingController();
 
   @override
@@ -28,15 +28,13 @@ class _HomeState extends State<Home> {
           IconButton(
             icon: const Icon(Icons.exit_to_app),
             onPressed: () async {
-              bool status = await auth.logOut();
-              if (status) {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Root(),
-                  ),
-                );
-              }
+              await auth.logOut();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Root(),
+                ),
+              );
             },
           ),
         ],

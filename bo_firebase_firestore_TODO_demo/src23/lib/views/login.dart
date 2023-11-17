@@ -3,11 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:robbinlaw/services/authorization.dart';
 import 'package:robbinlaw/views/root.dart';
-import 'package:robbinlaw/views/home.dart';
 import 'package:robbinlaw/views/signup.dart';
 
 class Login extends StatelessWidget {
-  final Authorization auth = Authorization();
+  final Auth auth = Auth();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -39,15 +38,14 @@ class Login extends StatelessWidget {
               ElevatedButton(
                 child: const Text("Log In"),
                 onPressed: () async {
-                  bool status = await auth.logIn(emailController.text, passwordController.text);
-                  if (status) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Root(),
-                      ),
-                    );
-                  }
+                  await auth.logIn(
+                      emailController.text, passwordController.text);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Root(),
+                    ),
+                  );
                 },
               ),
               ElevatedButton(
