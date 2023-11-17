@@ -44,7 +44,7 @@ class Auth {
 
   Future<void> logOut() async {
     try {
-      print('Auth logOut: try');
+      print('Auth logOut: TRY');
       await FirebaseAuth.instance.signOut();
     } catch (e) {
       print('Auth logOut: CATCH $e');

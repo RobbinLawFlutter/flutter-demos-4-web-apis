@@ -41,12 +41,17 @@ class MyCardWithSlidable extends StatelessWidget {
           // A SlidableAction can have an icon and/or a label.
           SlidableAction(
             onPressed: (context) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('delete'),
-                ),
-              );
-              Database().deleteAppData(userId, document.id);
+              try {
+                Database().deleteAppData(userId, document.id);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    duration: Duration(seconds: 1),
+                    content: Text('todo deleted'),
+                  ),
+                );
+              } catch (e) {
+                print('MyCardWithSlidable: CATCH $e');
+              }
             },
             backgroundColor: const Color(0xFFFE4A49),
             foregroundColor: Colors.white,
@@ -57,7 +62,8 @@ class MyCardWithSlidable extends StatelessWidget {
             onPressed: (context) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('share'),
+                  duration: Duration(seconds: 1),
+                  content: Text('todo shared'),
                 ),
               );
             },
@@ -86,7 +92,17 @@ class MyCardWithSlidable extends StatelessWidget {
               Checkbox(
                 value: document.data()['done'],
                 onChanged: (newValue) {
-                  Database().updateAppData(newValue, userId, document.id);
+                  try {
+                    Database().updateAppData(newValue, userId, document.id);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        duration: Duration(seconds: 1),
+                        content: Text('todo updated'),
+                      ),
+                    );
+                  } catch (e) {
+                    print('MyCardWithSlidable: CATCH $e');
+                  }
                 },
               ),
             ],
@@ -114,8 +130,17 @@ class MyCardWithDismissible extends StatelessWidget {
       background: Container(color: Colors.red),
       direction: DismissDirection.endToStart,
       onDismissed: (direction) {
-        print('MyCard build: Dismissible onDismissed:');
-        Database().deleteAppData(userId, document.id);
+        try {
+          Database().deleteAppData(userId, document.id);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              duration: Duration(seconds: 1),
+              content: Text('todo deleted'),
+            ),
+          );
+        } catch (e) {
+          print('MyCardWithDismissible: CATCH $e');
+        }
       },
       child: Card(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -135,8 +160,17 @@ class MyCardWithDismissible extends StatelessWidget {
               Checkbox(
                 value: document.data()['done'],
                 onChanged: (newValue) {
-                  print('MyCard build: Checkbox onChanged:');
-                  Database().updateAppData(newValue, userId, document.id);
+                  try {
+                    Database().updateAppData(newValue, userId, document.id);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        duration: Duration(seconds: 1),
+                        content: Text('todo updated'),
+                      ),
+                    );
+                  } catch (e) {
+                    print('MyCardWithDismissible: CATCH $e');
+                  }
                 },
               ),
             ],

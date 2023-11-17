@@ -48,6 +48,12 @@ class SignUp extends StatelessWidget {
                   try{
                     await auth.createUser(nameController.text,
                       emailController.text, passwordController.text);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            duration: Duration(seconds: 1),
+                            content: Text('signed up'),
+                          ),
+                        );
                   }catch(e){
                     print('SignUp: CATCH $e');
                   }

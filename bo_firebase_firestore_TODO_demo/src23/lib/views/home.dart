@@ -28,7 +28,17 @@ class _HomeState extends State<Home> {
           IconButton(
             icon: const Icon(Icons.exit_to_app),
             onPressed: () async {
-              await auth.logOut();
+              try {
+                await auth.logOut();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    duration: Duration(seconds: 1),
+                    content: Text('logged out'),
+                  ),
+                );
+              } catch (e) {
+                print('Home: CATCH $e');
+              }
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -65,11 +75,20 @@ class _HomeState extends State<Home> {
                   IconButton(
                     icon: const Icon(Icons.add),
                     onPressed: () {
-                      print('Home +Icon onPressed:');
-                      if (textEditingController.text != "") {
-                        Database().addAppData(
-                            textEditingController.text, auth.currentUser!.uid);
-                        textEditingController.clear();
+                      try {
+                        if (textEditingController.text != "") {
+                          Database().addAppData(textEditingController.text,
+                              auth.currentUser!.uid);
+                          textEditingController.clear();
+                        }
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            duration: Duration(seconds: 1),
+                            content: Text('todo added'),
+                          ),
+                        );
+                      } catch (e) {
+                        print('Home: CATCH $e');
                       }
                     },
                   )

@@ -49,7 +49,7 @@ class Database {
 
   Future<void> updateAppData(
       bool? newDoneValue, String userId, String appDataId) async {
-    print('Database updateAppData: try');
+    print('Database updateAppData: TRY');
     try {
       await db
           .collection("users")
@@ -58,13 +58,13 @@ class Database {
           .doc(appDataId)
           .update({"done": newDoneValue});
     } catch (e) {
-      print('Database updateAppData: catch $e');
+      print('Database updateAppData: CATCH $e');
       rethrow;
     }
   }
 
   Future<void> deleteAppData(String userId, String appDataId) async {
-    print('Database deleteAppData: try');
+    print('Database deleteAppData: TRY');
     try {
       await db
           .collection("users")
@@ -73,7 +73,7 @@ class Database {
           .doc(appDataId)
           .delete();
     } catch (e) {
-      print('Database deleteAppData: catch $e');
+      print('Database deleteAppData: CATCH $e');
       rethrow;
     }
   }
