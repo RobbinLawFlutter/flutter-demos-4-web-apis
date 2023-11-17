@@ -32,7 +32,7 @@ class Auth {
       await Database().createNewUser(userModel);
       return true;
     } catch (e) {
-      print('Auth createUser: CATCH $e.message');
+      print('Auth createUser: CATCH $e');
       return false;
     }
   }
@@ -44,7 +44,7 @@ class Auth {
           .signInWithEmailAndPassword(email: email.trim(), password: password);
       return true;
     } catch (e) {
-      print('Auth logIn: CATCH $e.message');
+      print('Auth logIn: CATCH $e');
       return false;
     }
   }
@@ -55,7 +55,7 @@ class Auth {
       await FirebaseAuth.instance.signOut();
       return true;
     } catch (e) {
-      print('Auth logOut: CATCH $e.message');
+      print('Auth logOut: CATCH $e');
       return false;
     }
   }
