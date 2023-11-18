@@ -1,13 +1,9 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
 
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:robbinlaw/services/database.dart';
-import 'package:robbinlaw/widgets/mysnackbar.dart';
 
 class Authorization {
-  late BuildContext context;
-  Authorization({required this.context});
   User? currentUser = FirebaseAuth.instance.currentUser;
 
   void listen() {
@@ -28,7 +24,7 @@ class Authorization {
               email: email.trim(), password: password);
       await credential.user?.updateDisplayName(name);
       User? user = FirebaseAuth.instance.currentUser;
-      await Database(context: context).createNewUser(user?.uid, user?.displayName, user?.email);
+      await Database().createNewUser(user?.uid, user?.displayName, user?.email);
     } catch (e) {
       print('Auth createUser: CATCH $e');
       rethrow;

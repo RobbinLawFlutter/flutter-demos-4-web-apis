@@ -44,9 +44,10 @@ class MyCardWithSlidable extends StatelessWidget {
               try {
                 Database().deleteAppData(userId, document.id);
                 ScaffoldMessenger.of(context)
-                    .showSnackBar(MySnackBar(text: 'todo deleted').get());
+                    .showSnackBar(MySnackBar(text: 'delete: SUCCESS').get());
               } catch (e) {
-                print('MyCardWithSlidable: CATCH $e');
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'delete: FAILED').get());
               }
             },
             backgroundColor: const Color(0xFFFE4A49),
@@ -57,7 +58,7 @@ class MyCardWithSlidable extends StatelessWidget {
           SlidableAction(
             onPressed: (context) {
               ScaffoldMessenger.of(context)
-                    .showSnackBar(MySnackBar(text: 'todo shared').get());
+                    .showSnackBar(MySnackBar(text: 'shared: SUCCESS').get());
             },
             backgroundColor: const Color(0xFF21B7CA),
             foregroundColor: Colors.white,
@@ -87,9 +88,10 @@ class MyCardWithSlidable extends StatelessWidget {
                   try {
                     Database().updateAppData(newValue, userId, document.id);
                     ScaffoldMessenger.of(context)
-                    .showSnackBar(MySnackBar(text: 'todo updated').get());
+                    .showSnackBar(MySnackBar(text: 'update: SUCCESS').get());
                   } catch (e) {
-                    print('MyCardWithSlidable: CATCH $e');
+                    ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'update: FAILED').get());
                   }
                 },
               ),
@@ -120,9 +122,10 @@ class MyCardWithDismissible extends StatelessWidget {
         try {
           Database().deleteAppData(userId, document.id);
           ScaffoldMessenger.of(context)
-                    .showSnackBar(MySnackBar(text: 'todo deleted').get());
+                    .showSnackBar(MySnackBar(text: 'delete: SUCCESS').get());
         } catch (e) {
-          print('MyCardWithDismissible: CATCH $e');
+          ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'delete: FAILED').get());
         }
       },
       child: Card(
@@ -146,9 +149,10 @@ class MyCardWithDismissible extends StatelessWidget {
                   try {
                     Database().updateAppData(newValue, userId, document.id);
                     ScaffoldMessenger.of(context)
-                    .showSnackBar(MySnackBar(text: 'todo updated').get());
+                    .showSnackBar(MySnackBar(text: 'update: SUCCESS').get());
                   } catch (e) {
-                    print('MyCardWithDismissible: CATCH $e');
+                    ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'update: SUCCESS').get());
                   }
                 },
               ),

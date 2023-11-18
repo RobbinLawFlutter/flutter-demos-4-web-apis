@@ -1,12 +1,8 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
 
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:robbinlaw/widgets/mysnackbar.dart';
 
 class Database {
-  late BuildContext context;
-  Database({required this.context});
 
   Future<void> createNewUser(String? userId, String? userName, String? userEmail) async {
     print('Database createNewUser: TRY');
@@ -15,12 +11,9 @@ class Database {
         "name": userName,
         "email": userEmail,
       });
-      ScaffoldMessenger.of(context)
-                    .showSnackBar(MySnackBar(text: 'create new user: SUCCESS').get());
     } catch (e) {
       print('Database createNewUser: CATCH $e.toString');
-      ScaffoldMessenger.of(context)
-                    .showSnackBar(MySnackBar(text: 'create new user: FAIL').get());
+      rethrow;
     }
   }
 
@@ -47,12 +40,9 @@ class Database {
         'content': content,
         'done': false,
       });
-      ScaffoldMessenger.of(context)
-                    .showSnackBar(MySnackBar(text: 'add app data: SUCCESS').get());
     } catch (e) {
       print('Database addAppData: CATCH $e.toString');
-      ScaffoldMessenger.of(context)
-                    .showSnackBar(MySnackBar(text: 'add app data: FAIL').get());
+      rethrow;
     }
   }
 
@@ -66,12 +56,9 @@ class Database {
           .collection("todos")
           .doc(appDataId)
           .update({"done": newDoneValue});
-      ScaffoldMessenger.of(context)
-                    .showSnackBar(MySnackBar(text: 'update app data: SUCCESS').get());
     } catch (e) {
       print('Database updateAppData: CATCH $e.toString');
-      ScaffoldMessenger.of(context)
-                    .showSnackBar(MySnackBar(text: 'update app data: FAIL').get());
+      rethrow;
     }
   }
 
@@ -84,12 +71,9 @@ class Database {
           .collection("todos")
           .doc(appDataId)
           .delete();
-      ScaffoldMessenger.of(context)
-                    .showSnackBar(MySnackBar(text: 'delete app data: SUCCESS').get());
     } catch (e) {
       print('Database deleteAppData: CATCH $e.toString');
-      ScaffoldMessenger.of(context)
-                    .showSnackBar(MySnackBar(text: 'delete app data: FAIL').get());
+      rethrow;
     }
   }
 }

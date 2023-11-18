@@ -42,9 +42,10 @@ class Login extends StatelessWidget {
                     await Authorization().logIn(
                       emailController.text, passwordController.text);
                     ScaffoldMessenger.of(context)
-                    .showSnackBar(MySnackBar(text: 'logged in').get());
+                    .showSnackBar(MySnackBar(text: 'logIn: SUCCESS').get());
                   } catch(e){
-                    print('Login: CATCH $e');
+                    ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'logIn: FAILED').get());
                   }
                   Navigator.pushReplacement(
                     context,

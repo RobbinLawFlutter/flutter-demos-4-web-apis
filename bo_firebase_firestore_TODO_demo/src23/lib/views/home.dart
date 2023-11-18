@@ -20,8 +20,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     print('Home build:');
-    Authorization auth = Authorization(context: context);
-    Database db = Database(context: context);
+    Authorization auth = Authorization();
+    Database db = Database();
     return Scaffold(
       appBar: AppBar(
         title: Text('user: ${auth.currentUser?.displayName}'),
@@ -32,8 +32,11 @@ class _HomeState extends State<Home> {
             onPressed: () async {
               try {
                 await auth.logOut();
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'logOut: SUCCESS').get());
               } catch (e) {
-                print('Home: CATCH $e');
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'logOut: FAILED').get());
               }
               Navigator.pushReplacement(
                 context,
@@ -76,9 +79,12 @@ class _HomeState extends State<Home> {
                           db.addAppData(textEditingController.text,
                               auth.currentUser!.uid);
                           textEditingController.clear();
+                          ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'add: SUCCESS').get());
                         }
                       } catch (e) {
-                        print('Home: CATCH $e');
+                        ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'add: FAILED').get());
                       }
                     },
                   )

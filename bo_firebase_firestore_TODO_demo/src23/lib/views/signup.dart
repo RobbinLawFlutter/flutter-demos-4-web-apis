@@ -49,9 +49,10 @@ class SignUp extends StatelessWidget {
                     await Authorization().createUser(nameController.text,
                       emailController.text, passwordController.text);
                     ScaffoldMessenger.of(context)
-                    .showSnackBar(MySnackBar(text: 'signed up').get());
+                    .showSnackBar(MySnackBar(text: 'signUp: SUCCESS').get());
                   }catch(e){
-                    print('SignUp: CATCH $e');
+                    ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'signUp: FAILED').get());
                   }
                   Navigator.pushReplacement(
                     context,
