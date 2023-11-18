@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:robbinlaw/services/authorization.dart';
 import 'package:robbinlaw/services/database.dart';
 import 'package:robbinlaw/widgets/mycard.dart';
+import 'package:robbinlaw/widgets/mysnackbar.dart';
 import 'package:robbinlaw/views/root.dart';
 
 class Home extends StatefulWidget {
@@ -19,22 +20,18 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     print('Home build:');
+    Authorization auth = Authorization(context: context);
+    Database db = Database(context: context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('user: ${Authorization().currentUser?.displayName}'),
+        title: Text('user: ${auth.currentUser?.displayName}'),
         centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.exit_to_app),
             onPressed: () async {
               try {
-                await Authorization().logOut();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    duration: Duration(seconds: 1),
-                    content: Text('logged out'),
-                  ),
-                );
+                await auth.logOut();
               } catch (e) {
                 print('Home: CATCH $e');
               }
@@ -76,16 +73,10 @@ class _HomeState extends State<Home> {
                     onPressed: () {
                       try {
                         if (textEditingController.text != "") {
-                          Database().addAppData(textEditingController.text,
-                              Authorization().currentUser!.uid);
+                          db.addAppData(textEditingController.text,
+                              auth.currentUser!.uid);
                           textEditingController.clear();
                         }
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            duration: Duration(seconds: 1),
-                            content: Text('todo added'),
-                          ),
-                        );
                       } catch (e) {
                         print('Home: CATCH $e');
                       }
@@ -103,7 +94,8 @@ class _HomeState extends State<Home> {
             ),
           ),
           StreamBuilder(
-              stream: Database().streamOfAppData(Authorization().currentUser!.uid),
+              stream:
+                  db.streamOfAppData(auth.currentUser!.uid),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                 if (snapshot.data == null) {
@@ -118,12 +110,12 @@ class _HomeState extends State<Home> {
                         var doc = listOfDocs[index];
                         if (useDissmissible) {
                           return MyCardWithDismissible(
-                            userId: Authorization().currentUser!.uid,
+                            userId: auth.currentUser!.uid,
                             document: doc,
                           );
                         } else {
                           return MyCardWithSlidable(
-                            userId: Authorization().currentUser!.uid,
+                            userId: auth.currentUser!.uid,
                             document: doc,
                           );
                         }

@@ -31,5 +31,11 @@
 		"Wailea",
 		"Waimanalo"
 	],
-	"cSpell.ignoreWords": ["dummydata", "sqflight", "sqflite", "textformfield"]
+	"cSpell.ignoreWords": [
+		"dummydata",
+		"mysnackbar",
+		"sqflight",
+		"sqflite",
+		"textformfield"
+	]
 }

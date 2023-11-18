@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:robbinlaw/services/database.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:robbinlaw/widgets/mysnackbar.dart';
 
 //Dismissible Widget of the Week 1min.
 //https://www.youtube.com/watch?v=iEMgjrfuc58&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=29
@@ -42,12 +43,8 @@ class MyCardWithSlidable extends StatelessWidget {
             onPressed: (context) {
               try {
                 Database().deleteAppData(userId, document.id);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    duration: Duration(seconds: 1),
-                    content: Text('todo deleted'),
-                  ),
-                );
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'todo deleted').get());
               } catch (e) {
                 print('MyCardWithSlidable: CATCH $e');
               }
@@ -59,12 +56,8 @@ class MyCardWithSlidable extends StatelessWidget {
           ),
           SlidableAction(
             onPressed: (context) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  duration: Duration(seconds: 1),
-                  content: Text('todo shared'),
-                ),
-              );
+              ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'todo shared').get());
             },
             backgroundColor: const Color(0xFF21B7CA),
             foregroundColor: Colors.white,
@@ -93,12 +86,8 @@ class MyCardWithSlidable extends StatelessWidget {
                 onChanged: (newValue) {
                   try {
                     Database().updateAppData(newValue, userId, document.id);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        duration: Duration(seconds: 1),
-                        content: Text('todo updated'),
-                      ),
-                    );
+                    ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'todo updated').get());
                   } catch (e) {
                     print('MyCardWithSlidable: CATCH $e');
                   }
@@ -130,12 +119,8 @@ class MyCardWithDismissible extends StatelessWidget {
       onDismissed: (direction) {
         try {
           Database().deleteAppData(userId, document.id);
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              duration: Duration(seconds: 1),
-              content: Text('todo deleted'),
-            ),
-          );
+          ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'todo deleted').get());
         } catch (e) {
           print('MyCardWithDismissible: CATCH $e');
         }
@@ -160,12 +145,8 @@ class MyCardWithDismissible extends StatelessWidget {
                 onChanged: (newValue) {
                   try {
                     Database().updateAppData(newValue, userId, document.id);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        duration: Duration(seconds: 1),
-                        content: Text('todo updated'),
-                      ),
-                    );
+                    ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'todo updated').get());
                   } catch (e) {
                     print('MyCardWithDismissible: CATCH $e');
                   }

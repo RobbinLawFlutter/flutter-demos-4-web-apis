@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:robbinlaw/services/authorization.dart';
 import 'package:robbinlaw/views/root.dart';
 import 'package:robbinlaw/views/signup.dart';
+import 'package:robbinlaw/widgets/mysnackbar.dart';
 
 class Login extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -40,12 +41,8 @@ class Login extends StatelessWidget {
                   try{
                     await Authorization().logIn(
                       emailController.text, passwordController.text);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            duration: Duration(seconds: 1),
-                            content: Text('logged in'),
-                          ),
-                        );
+                    ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'logged in').get());
                   } catch(e){
                     print('Login: CATCH $e');
                   }
