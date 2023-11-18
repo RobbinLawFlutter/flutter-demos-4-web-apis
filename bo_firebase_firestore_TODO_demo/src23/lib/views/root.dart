@@ -6,12 +6,11 @@ import 'package:robbinlaw/views/home.dart';
 import 'package:robbinlaw/views/login.dart';
 
 class Root extends StatelessWidget {
-  final Auth auth = Auth();
   @override
   Widget build(BuildContext context) {
-    print('Root build: Current User = ${auth.currentUser?.displayName}');
-    auth.listen();
-    if (auth.currentUser == null) {
+    print('Root build: Current User = ${Authorization().currentUser?.displayName}');
+    Authorization().listen();
+    if (Authorization().currentUser == null) {
       return Login();
     } else {
       return Home();

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,8 +19,7 @@ class MyCardWithSlidable extends StatelessWidget {
   final QueryDocumentSnapshot<Map<String, dynamic>> document;
 
   const MyCardWithSlidable(
-      {required Key key, required this.userId, required this.document})
-      : super(key: key);
+      {required this.userId, required this.document});
 
   @override
   Widget build(BuildContext context) {
@@ -118,8 +117,7 @@ class MyCardWithDismissible extends StatelessWidget {
   final QueryDocumentSnapshot<Map<String, dynamic>> document;
 
   const MyCardWithDismissible(
-      {required Key key, required this.userId, required this.document})
-      : super(key: key);
+      {required this.userId, required this.document});
 
   @override
   Widget build(BuildContext context) {

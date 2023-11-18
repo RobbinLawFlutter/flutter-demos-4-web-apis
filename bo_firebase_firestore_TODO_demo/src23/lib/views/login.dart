@@ -6,7 +6,6 @@ import 'package:robbinlaw/views/root.dart';
 import 'package:robbinlaw/views/signup.dart';
 
 class Login extends StatelessWidget {
-  final Auth auth = Auth();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -39,7 +38,7 @@ class Login extends StatelessWidget {
                 child: const Text("Log In"),
                 onPressed: () async {
                   try{
-                    await auth.logIn(
+                    await Authorization().logIn(
                       emailController.text, passwordController.text);
                     ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(

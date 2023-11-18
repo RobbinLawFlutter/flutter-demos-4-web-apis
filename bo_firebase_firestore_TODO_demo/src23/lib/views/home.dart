@@ -14,7 +14,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final bool useDissmissible = false;
-  final Auth auth = Auth();
   final TextEditingController textEditingController = TextEditingController();
 
   @override
@@ -22,14 +21,14 @@ class _HomeState extends State<Home> {
     print('Home build:');
     return Scaffold(
       appBar: AppBar(
-        title: Text('user: ${auth.currentUser?.displayName}'),
+        title: Text('user: ${Authorization().currentUser?.displayName}'),
         centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.exit_to_app),
             onPressed: () async {
               try {
-                await auth.logOut();
+                await Authorization().logOut();
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     duration: Duration(seconds: 1),
@@ -78,7 +77,7 @@ class _HomeState extends State<Home> {
                       try {
                         if (textEditingController.text != "") {
                           Database().addAppData(textEditingController.text,
-                              auth.currentUser!.uid);
+                              Authorization().currentUser!.uid);
                           textEditingController.clear();
                         }
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -104,7 +103,7 @@ class _HomeState extends State<Home> {
             ),
           ),
           StreamBuilder(
-              stream: Database().streamOfAppData(auth.currentUser!.uid),
+              stream: Database().streamOfAppData(Authorization().currentUser!.uid),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                 if (snapshot.data == null) {
@@ -119,14 +118,12 @@ class _HomeState extends State<Home> {
                         var doc = listOfDocs[index];
                         if (useDissmissible) {
                           return MyCardWithDismissible(
-                            key: const ValueKey(0),
-                            userId: auth.currentUser!.uid,
+                            userId: Authorization().currentUser!.uid,
                             document: doc,
                           );
                         } else {
                           return MyCardWithSlidable(
-                            key: const ValueKey(0),
-                            userId: auth.currentUser!.uid,
+                            userId: Authorization().currentUser!.uid,
                             document: doc,
                           );
                         }

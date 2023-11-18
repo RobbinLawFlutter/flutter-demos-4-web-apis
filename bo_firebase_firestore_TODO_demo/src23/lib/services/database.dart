@@ -3,12 +3,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Database {
-  final FirebaseFirestore db = FirebaseFirestore.instance;
 
   Future<void> createNewUser(String? userId, String? userName, String? userEmail) async {
     print('Database createNewUser: TRY');
     try {
-      await db.collection("users").doc(userId).set({
+      await FirebaseFirestore.instance.collection("users").doc(userId).set({
         "name": userName,
         "email": userEmail,
       });
@@ -21,7 +20,7 @@ class Database {
   Stream<QuerySnapshot<Map<String, dynamic>>> streamOfAppData(String userId) {
     print('Database streamOfAppData: TRY');
     try {
-      return db
+      return FirebaseFirestore.instance
           .collection("users")
           .doc(userId)
           .collection("todos")
@@ -36,7 +35,7 @@ class Database {
   Future<void> addAppData(String content, String userId) async {
     print('Database addAppData: TRY');
     try {
-      await db.collection("users").doc(userId).collection("todos").add({
+      await FirebaseFirestore.instance.collection("users").doc(userId).collection("todos").add({
         'dateCreated': Timestamp.now(),
         'content': content,
         'done': false,
@@ -51,7 +50,7 @@ class Database {
       bool? newDoneValue, String userId, String appDataId) async {
     print('Database updateAppData: TRY');
     try {
-      await db
+      await FirebaseFirestore.instance
           .collection("users")
           .doc(userId)
           .collection("todos")
@@ -66,7 +65,7 @@ class Database {
   Future<void> deleteAppData(String userId, String appDataId) async {
     print('Database deleteAppData: TRY');
     try {
-      await db
+      await FirebaseFirestore.instance
           .collection("users")
           .doc(userId)
           .collection("todos")

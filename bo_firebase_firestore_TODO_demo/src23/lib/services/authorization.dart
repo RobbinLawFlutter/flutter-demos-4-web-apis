@@ -3,7 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:robbinlaw/services/database.dart';
 
-class Auth {
+class Authorization {
   User? currentUser = FirebaseAuth.instance.currentUser;
 
   void listen() {
