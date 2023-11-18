@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
     Database db = Database();
     return Scaffold(
       appBar: AppBar(
-        title: Text('user: ${auth.currentUser?.displayName}'),
+        title: Text('current user name: ${auth.currentUser?.displayName}'),
         centerTitle: true,
         actions: [
           IconButton(
