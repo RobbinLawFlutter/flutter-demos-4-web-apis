@@ -1,7 +1,8 @@
-// ignore_for_file: use_key_in_widget_constructors, avoid_print, library_prefixes
+// ignore_for_file: use_key_in_widget_constructors, avoid_print, library_prefixes, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:robbinlaw/widgets/mysnackbar.dart';
 
 //Intro to FireStore from Google Futter in Focus series
 //https://www.youtube.com/watch?v=DqJ_KjFzL9I&t=7s
@@ -28,19 +29,19 @@ class MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               ElevatedButton(
-                onPressed: _create,
+                onPressed: create,
                 child: const Text("Create"),
               ),
               ElevatedButton(
-                onPressed: _read,
+                onPressed: read,
                 child: const Text("Read"),
               ),
               ElevatedButton(
-                onPressed: _update,
+                onPressed: update,
                 child: const Text("Update"),
               ),
               ElevatedButton(
-                onPressed: _delete,
+                onPressed: delete,
                 child: const Text("Delete"),
               ),
             ]),
@@ -48,55 +49,59 @@ class MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _create() async {
+  void create() async {
     try {
       await FirebaseFirestore.instance.collection('users').doc('testUser').set({
         'firstName': 'test',
         'lastName': 'user',
       });
-      print('successful create');
+      ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'create: SUCCESS').get());
       
     } catch (e) {
-      print('ERROR');
-      print(e.toString());
+      ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'create: FAILED').get());
     }
   }
 
-  void _read() async {
+  void read() async {
     DocumentSnapshot documentSnapshot;
     try {
       documentSnapshot =
           await FirebaseFirestore.instance.collection('users').doc('testUser').get();
       print(documentSnapshot.data());
+      ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'read: SUCCESS').get());
       
     } catch (e) {
-      print('ERROR');
-      print(e.toString());
+      ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'read: FAILED').get());
     }
   }
 
-  void _update() async {
+  void update() async {
     try {
       await FirebaseFirestore.instance.collection('users').doc('testUser').update({
         'firstName': 'testUpdated',
         'lastName': 'userUpdated',
       });
-      print('successful update');
+      ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'update: SUCCESS').get());
       
     } catch (e) {
-      print('ERROR');
-      print(e.toString());
+      ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'update: FAILED').get());
     }
   }
 
-  void _delete() async {
+  void delete() async {
     try {
       await FirebaseFirestore.instance.collection('users').doc('testUser').delete();
-      print('successful delete');
-      
+      ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'delete: SUCCESS').get());
     } catch (e) {
-      print('ERROR');
-      print(e.toString());
+      ScaffoldMessenger.of(context)
+                    .showSnackBar(MySnackBar(text: 'delete: FAILED').get());
     }
   }
 }

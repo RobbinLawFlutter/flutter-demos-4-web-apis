@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:robbinlaw/widgets/mysnackbar.dart';
 
 //https://firebase.google.com/docs/auth/flutter/start
 
@@ -11,10 +12,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-  final FirebaseAuth authInst = FirebaseAuth.instance;
-  late UserCredential credential;
+
   String email = "", password = "";
-  bool isUserLoggedIn = false;
 
   final formKey = GlobalKey<FormState>();
   TextEditingController textEditingController1 = TextEditingController();
@@ -23,21 +22,16 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     print('build started');
-    authInst.authStateChanges().listen((User? user) {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
-        isUserLoggedIn = false;
-        print('User is currently signed out!');
+        print('Auth listen; No User');
       } else {
-        isUserLoggedIn = true;
-        print('user id: ${authInst.currentUser!.uid}');
-        print('user email: ${authInst.currentUser!.email}');
-        print('email has been verified: ${authInst.currentUser!.emailVerified}');
-        print('login is anonymous: ${authInst.currentUser!.isAnonymous}');
+        print('Auth listen: email= ${user.email} name= ${user.displayName}');
       }
     });
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Firebase Auth Demo1"),
+        title: Text('current user name: ${FirebaseAuth.instance.currentUser?.displayName}'),
       ),
       body: Form(
         key: formKey,
@@ -133,32 +127,30 @@ class MyHomePageState extends State<MyHomePage> {
                         setState(() {});
                       }
                       signUp(email, password);
-                      //_email = '';
-                      //_password = '';
+                      //email = '';
+                      //password = '';
                     },
                   ),
                   ElevatedButton(
                     child: const Text("Log In"),
                     onPressed: () {
-                      
-                        if (formKey.currentState!.validate()) {
+                      if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
                         //textEditingController1.clear();
                         //textEditingController2.clear();
                         setState(() {});
-                        }
-                        logIn(email, password);
-                        
-                        //_email = '';
-                        //_password = '';
+                      }
+                      logIn(email, password);
+                      //email = '';
+                      //password = '';
                     },
                   ),
                   ElevatedButton(
                     child: const Text("Log Out"),
                     onPressed: () {
                       logOut();
-                      //_email = '';
-                      //_password = '';
+                      //email = '';
+                      //password = '';
                     },
                   ),
                 ],
@@ -172,61 +164,47 @@ class MyHomePageState extends State<MyHomePage> {
 
   void signUp(String email, String password) async {
     try {
-      credential = await authInst.createUserWithEmailAndPassword(
-          email: email, password: password);
-      dynamic snackBar = mySnackBar('signup success');
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      UserCredential credential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      await credential.user?.updateDisplayName(email);
+      User? user = FirebaseAuth.instance.currentUser;
+      print('signed up with ${user?.displayName}');
+      ScaffoldMessenger.of(context)
+          .showSnackBar(MySnackBar(text: '${user?.displayName} signUp: SUCCESS').get());
+      setState(() {});
     } catch (e) {
       print(e.toString());
-      dynamic snackBar = mySnackBar('signup failed');
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(MySnackBar(text: 'signUp: FAILED').get());
     }
   }
 
-   void logIn(email, String password) async {
+  void logIn(email, String password) async {
     try {
-      credential = await authInst.signInWithEmailAndPassword(
-          email: email, password: password);
-      dynamic snackBar = mySnackBar('login success');
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      print('logged in');
+      ScaffoldMessenger.of(context)
+          .showSnackBar(MySnackBar(text: 'logIn: SUCCESS').get());
+      setState(() {});
     } catch (e) {
       print(e.toString());
-      dynamic snackBar = mySnackBar('login failed');
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(MySnackBar(text: 'logIn: FAILED').get());
     }
   }
 
   void logOut() async {
     try {
-      await authInst.signOut();
-      dynamic snackBar = mySnackBar('logout success');
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      //_authResult = null;
+      await FirebaseAuth.instance.signOut();
+      print('logged out');
+      ScaffoldMessenger.of(context)
+          .showSnackBar(MySnackBar(text: 'logOut: SUCCESS').get());
+      setState(() {});
     } catch (e) {
       print(e.toString());
-      dynamic snackBar = mySnackBar('logout failed');
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(MySnackBar(text: 'logOut: FAILED').get());
     }
-  }
-
-  SnackBar mySnackBar(String text) {
-    return SnackBar(
-      behavior: SnackBarBehavior.floating,
-      content: Row(
-        children: [
-          const Icon(Icons.accessibility_new_rounded),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(text),
-        ],
-      ),
-      action: SnackBarAction(
-        label: 'Click Me',
-        onPressed: () {
-          print('hey you clicked on the snackbar Action');
-        },
-      ),
-    );
   }
 }

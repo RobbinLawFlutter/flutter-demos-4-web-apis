@@ -25,9 +25,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: buildTheme(),
-      home: firestoredemo1.MyHomePage(),
+      //home: firestoredemo1.MyHomePage(),
       //home: firestoredemo2.MyHomePage(),
-      //home: firebaseauthdemo1.MyHomePage(),
+      home: firebaseauthdemo1.MyHomePage(),
     );
   }
 }

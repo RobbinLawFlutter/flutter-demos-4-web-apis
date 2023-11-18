@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, avoid_print, library_prefixes, unused_import
+// ignore_for_file: use_key_in_widget_constructors, avoid_print, library_prefixes
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -28,18 +28,18 @@ class MyHomePageState extends State<MyHomePage> {
                 .collection('baby')
                 .snapshots(),
             builder: (context, snapshot) {
-              print('demo2 build StreamBuilder builder');
+              print('demo2 StreamBuilder builder');
               if (snapshot.data == null) {
                 print('no data yet');
                 return const LinearProgressIndicator();
               }
               print('yes data');
-              var listOfSnapshotDocs = snapshot.data!.docs;
+              var listOfDocs = snapshot.data!.docs;
               return Expanded(
                 child: ListView.builder(
-                    itemCount: listOfSnapshotDocs.length,
+                    itemCount: listOfDocs.length,
                     itemBuilder: (BuildContext context, index) {
-                      var snapshotDoc = listOfSnapshotDocs[index];
+                      var doc = listOfDocs[index];
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16.0, vertical: 8.0),
@@ -49,11 +49,11 @@ class MyHomePageState extends State<MyHomePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           child: ListTile(
-                              title: Text(snapshotDoc.data()['name']),
+                              title: Text(doc.data()['name']),
                               trailing:
-                                  Text(snapshotDoc.data()['votes'].toString()),
+                                  Text(doc.data()['votes'].toString()),
                               onTap: () {
-                                snapshotDoc.reference.update({
+                                doc.reference.update({
                                   'votes': FieldValue.increment(1)
                                 });
                               }),
