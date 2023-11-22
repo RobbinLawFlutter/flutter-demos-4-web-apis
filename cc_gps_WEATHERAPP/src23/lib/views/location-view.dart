@@ -56,50 +56,62 @@ class LocationViewState extends State<LocationView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      appBar: AppBar(
+        title: const Text('gps demo'),
+        centerTitle: true,),
+      body: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: () async {
+                  //Mountain View, California Data
+                  //lat = 37.42
+                  //lon = -122.084
+                  var weatherData =
+                      await weatherService.getLocationWeatherData();
+                  updateUI(weatherData);
+                },
+                child: const Text('phones location')
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  //Edmonton, Alberta Data
+                  //lat = 53.55
+                  //lon = -113.469
+                  var weatherData =
+                      await weatherService.getLocationWeatherData(lat: 53.55, lon: -113.469);
+                  updateUI(weatherData);
+                },
+                child: const Text('Edmonton')
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 15.0),
+            child: Row(
               children: <Widget>[
-                TextButton(
-                  onPressed: () async {
-                    var weatherData =
-                        await weatherService.getLocationWeatherData();
-                    updateUI(weatherData);
-                  },
-                  child: const Icon(
-                    Icons.near_me,
-                    size: 50.0,
-                  ),
+                Text(
+                  '$temperature°C',
+                  style: kTempTextStyle,
+                ),
+                Text(
+                  weatherIcon,
+                  style: kConditionTextStyle,
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0),
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    '$temperature°C',
-                    style: kTempTextStyle,
-                  ),
-                  Text(
-                    weatherIcon,
-                    style: kConditionTextStyle,
-                  ),
-                ],
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 15.0),
+            child: Text(
+              '$weatherMessage in $cityName',
+              textAlign: TextAlign.right,
+              style: kMessageTextStyle,
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 15.0),
-              child: Text(
-                '$weatherMessage in $cityName',
-                textAlign: TextAlign.right,
-                style: kMessageTextStyle,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

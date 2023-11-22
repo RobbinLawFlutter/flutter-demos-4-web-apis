@@ -23,7 +23,7 @@ class LoadingView2State extends State<LoadingView2> {
     print('just before call to weatherService.getLocationWeatherData()');
     var weatherData = await weatherService.getLocationWeatherData();
     print('just after call to weatherService.getLocationWeatherData()');
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
       return LocationView(locationWeather: weatherData);
     }));
   }

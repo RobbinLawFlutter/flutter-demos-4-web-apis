@@ -3,37 +3,27 @@
 import 'package:robbinlaw/services/location.dart';
 import 'package:robbinlaw/services/network.dart';
 
-//Edmonton, Alberta Data
-//lon = -113.469
-//lat = 53.55
-
 const apiKey = 'eada4f9ea302c58abd6d02fb791a812a';
 const openWeatherMapURL = 'https://api.openweathermap.org/data/2.5/weather';
 
 class WeatherService {
-  Future<dynamic> getLocationWeatherData() async {
-    LocationService locationService = LocationService();
-    await locationService.getCurrentLocation();
+
+  Future<dynamic> getLocationWeatherData({double lat = 0, double lon = 0}) async {
+    if(lat == 0 && lon == 0){
+      LocationService locationService = LocationService();
+      await locationService.getCurrentLocation();
+      lat = locationService.lat;
+      lon = locationService.lon;
+    }
+    
     Uri url = Uri(
       scheme: 'https',
       host: 'api.openweathermap.org',
       path: '/data/2.5/weather',
-      query: 'lat=${locationService.lat}&lon=${locationService.lon}&units=metric&appid=$apiKey'
+      query: 'lat=$lat&lon=$lon&units=metric&appid=$apiKey'
     );
     print('url is: $url');
     
-    NetworkService networkService = NetworkService(url);
-    var weatherData = await networkService.getData();
-    return weatherData;
-  }
-
-  Future<dynamic> getCityWeatherData(String cityName) async {
-    Uri url = Uri(
-      scheme: 'https',
-      host: 'api.openweathermap.org',
-      path: '/data/2.5/weather',
-      query: 'q=$cityName&appid=$apiKey&units=metric'
-    );
     NetworkService networkService = NetworkService(url);
     var weatherData = await networkService.getData();
     return weatherData;
