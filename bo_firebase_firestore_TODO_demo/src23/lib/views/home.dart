@@ -104,6 +104,7 @@ class _HomeState extends State<Home> {
                   db.streamOfAppData(auth.currentUser!.uid),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                print('home.StreamBuilder.builder');
                 if (snapshot.data == null) {
                   print('no data yet');
                   return const LinearProgressIndicator();
