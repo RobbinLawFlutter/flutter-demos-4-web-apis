@@ -59,6 +59,7 @@ class MyHomePageState extends State<MyHomePage> {
                     .showSnackBar(MySnackBar(text: 'create: SUCCESS').get());
       
     } catch (e) {
+      print(e.toString());
       ScaffoldMessenger.of(context)
                     .showSnackBar(MySnackBar(text: 'create: FAILED').get());
     }
