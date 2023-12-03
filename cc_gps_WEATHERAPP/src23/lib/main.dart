@@ -11,6 +11,10 @@ import 'package:robbinlaw/views/loading-view2.dart';
 //In there, are some Android and iOS specifics
 //that are required for the geolocator to work correctly.
 
+// real device connection info
+// I will be using a Google Pixel 7 Android version 13
+// https://developer.android.com/studio/run/device
+
 void main() {
   runApp(MyApp());
 }
