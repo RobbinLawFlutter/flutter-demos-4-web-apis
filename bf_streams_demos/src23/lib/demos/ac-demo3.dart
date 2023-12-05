@@ -8,7 +8,7 @@ class Demo3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Demo 3'),
+        title: Text('Demo 3 - StreamBuilder'),
       ),
       body: MyDemo(),
     );
@@ -83,6 +83,7 @@ class MyDemoState extends State<MyDemo> {
         stream: controller.stream,
         builder: (BuildContext context, snapshot) {
           List<Widget> children;
+          print('StreamBuilder.builder ${snapshot.connectionState}; counter: $counter');
           if (snapshot.hasError) {
             children = <Widget>[
               const Icon(

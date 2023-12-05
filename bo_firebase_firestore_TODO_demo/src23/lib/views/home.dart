@@ -79,12 +79,12 @@ class _HomeState extends State<Home> {
                           db.addAppData(textEditingController.text,
                               auth.currentUser!.uid);
                           textEditingController.clear();
-                          ScaffoldMessenger.of(context)
-                    .showSnackBar(MySnackBar(text: 'add: SUCCESS').get());
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              MySnackBar(text: 'add: SUCCESS').get());
                         }
                       } catch (e) {
-                        ScaffoldMessenger.of(context)
-                    .showSnackBar(MySnackBar(text: 'add: FAILED').get());
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            MySnackBar(text: 'add: FAILED').get());
                       }
                     },
                   )
@@ -100,15 +100,18 @@ class _HomeState extends State<Home> {
             ),
           ),
           StreamBuilder(
-              stream:
-                  db.streamOfAppData(auth.currentUser!.uid),
+              stream: db.streamOfAppData(auth.currentUser!.uid),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                print('home.StreamBuilder.builder');
-                if (snapshot.data == null) {
-                  print('no data yet');
+                print('home.StreamBuilder.builder ${snapshot.connectionState}');
+                if (snapshot.hasError) {
+                  print('Error: ${snapshot.error}');
+                }
+                if (!snapshot.hasData) {
+                  print('Data: NO');
                   return const LinearProgressIndicator();
                 }
+                print('Data: YES');
                 var listOfDocs = snapshot.data!.docs;
                 return Expanded(
                   child: ListView.builder(
