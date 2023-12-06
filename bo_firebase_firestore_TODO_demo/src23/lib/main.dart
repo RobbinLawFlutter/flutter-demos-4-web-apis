@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:robbinlaw/themes/theme.dart';
-import 'package:robbinlaw/d1/demo1.dart';
-import 'package:robbinlaw/d2/demo2.dart';
-import 'package:robbinlaw/d3-TODO/demo3.dart';
+import 'package:robbinlaw/d1/demo-main.dart' as d1;
+import 'package:robbinlaw/d2/demo-main.dart' as d2;
+import 'package:robbinlaw/d9-TODO/demo-main.dart' as d9;
 //import 'package:robbinlaw/views/root.dart';
 
 Future<void> main() async {
@@ -70,7 +70,7 @@ class RootState extends State<Root> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Demo1(),
+                  builder: (context) => d1.Demo(),
                 ),
               );
             }
@@ -78,7 +78,7 @@ class RootState extends State<Root> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Demo2(),
+                  builder: (context) => d2.Demo(),
                 ),
               );
             }
@@ -86,7 +86,7 @@ class RootState extends State<Root> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Demo3(),
+                  builder: (context) => d9.Demo(),
                 ),
               );
             }

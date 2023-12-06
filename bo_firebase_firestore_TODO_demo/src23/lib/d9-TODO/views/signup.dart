@@ -1,9 +1,9 @@
 // ignore_for_file: use_build_context_synchronously, use_key_in_widget_constructors, avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:robbinlaw/d3-TODO/services/authorization.dart';
-import 'package:robbinlaw/d3-TODO/views/first.dart';
-import 'package:robbinlaw/d3-TODO/widgets/mysnackbar.dart';
+import 'package:robbinlaw/d9-TODO/services/authorization.dart';
+import 'package:robbinlaw/d9-TODO/views/first.dart';
+import 'package:robbinlaw/d9-TODO/widgets/mysnackbar.dart';
 
 class SignUp extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();

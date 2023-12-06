@@ -2,13 +2,13 @@
 
 import 'package:flutter/material.dart';
 
-class Demo2 extends StatelessWidget {
+class Demo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Demo 2',
+          'Demo 1',
         ),
       ),
       body: const Center(),
