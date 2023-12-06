@@ -1,14 +1,14 @@
 // ignore_for_file: use_key_in_widget_constructors, avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:robbinlaw/services/authorization.dart';
-import 'package:robbinlaw/views/home.dart';
-import 'package:robbinlaw/views/login.dart';
+import 'package:robbinlaw/d3-TODO/services/authorization.dart';
+import 'package:robbinlaw/d3-TODO/views/home.dart';
+import 'package:robbinlaw/d3-TODO/views/login.dart';
 
-class Root extends StatelessWidget {
+class First extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print('Root build: Current User = ${Authorization().currentUser?.displayName}');
+    print('First build: Current User = ${Authorization().currentUser?.displayName}');
     Authorization().listen();
     if (Authorization().currentUser == null) {
       return Login();

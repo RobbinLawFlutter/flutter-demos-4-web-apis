@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:robbinlaw/services/database.dart';
+import 'package:robbinlaw/d3-TODO/services/database.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:robbinlaw/widgets/mysnackbar.dart';
+import 'package:robbinlaw/d3-TODO/widgets/mysnackbar.dart';
 
 //Dismissible Widget of the Week 1min.
 //https://www.youtube.com/watch?v=iEMgjrfuc58&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=29

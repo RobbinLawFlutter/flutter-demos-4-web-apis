@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:robbinlaw/services/authorization.dart';
-import 'package:robbinlaw/services/database.dart';
-import 'package:robbinlaw/widgets/mycard.dart';
-import 'package:robbinlaw/widgets/mysnackbar.dart';
-import 'package:robbinlaw/views/root.dart';
+import 'package:robbinlaw/d3-TODO/services/authorization.dart';
+import 'package:robbinlaw/d3-TODO/services/database.dart';
+import 'package:robbinlaw/d3-TODO/widgets/mycard.dart';
+import 'package:robbinlaw/d3-TODO/widgets/mysnackbar.dart';
+import 'package:robbinlaw/d3-TODO/views/first.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Root(),
+                  builder: (context) => First(),
                 ),
               );
             },

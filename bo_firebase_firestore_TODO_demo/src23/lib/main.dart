@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:robbinlaw/themes/theme.dart';
-import 'package:robbinlaw/demo1/demo1.dart';
-import 'package:robbinlaw/demo2/demo2.dart';
-import 'package:robbinlaw/demo3/demo3.dart';
+import 'package:robbinlaw/d1/demo1.dart';
+import 'package:robbinlaw/d2/demo2.dart';
+import 'package:robbinlaw/d3-TODO/demo3.dart';
 //import 'package:robbinlaw/views/root.dart';
 
 Future<void> main() async {
