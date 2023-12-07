@@ -8,7 +8,7 @@ class Demo extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'D2 - ',
+          'D7 - ',
         ),
       ),
       body: const Center(),
